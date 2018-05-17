@@ -10,7 +10,7 @@
   </div>
 </div>
 
-----
+---
 
 # Introduction to Peercoin
 
@@ -20,17 +20,11 @@ Hello, and welcome to the Peercoin Documentation website. We hope to help you un
 
 Since the creation of Bitcoin (Nakamoto 2008), proof-of-work has been the predominant design of peer-to-peer crypto currency. The concept of proof-of-work has been the backbone of minting and security model of Nakamoto’s design.
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a tellus pellentesque, varius risus at, mattis erat. Duis tincidunt nulla quis odio dapibus tempor. Nunc egestas dictum orci vitae fringilla. Ut dictum ac sapien vel iaculis. Duis varius libero vitae fringilla vulputate. Donec posuere vel risus nec cursus. Integer in lectus ut tellus vehicula ultricies vel vel elit. Morbi mattis eleifend tellus eget tempus. Duis tristique et justo ut gravida. Vivamus maximus commodo consequat. Donec faucibus erat a scelerisque eleifend. Vestibulum pretium nunc vel consequat sollicitudin. Cras tortor nulla, semper a sapien ut, aliquam congue nisi. Nullam id suscipit urna, a maximus velit.
-
-Etiam egestas a mi a maximus. Phasellus sed dictum tortor, in sodales nulla. Vestibulum ut nisi volutpat, dictum orci vitae, rutrum augue. Praesent convallis urna dui. Vestibulum auctor leo eget dui semper hendrerit. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. In sed sapien varius ante volutpat mattis.
-
-Sed nisi neque, porta varius tristique eget, viverra sed magna. Donec venenatis nulla augue, quis dignissim neque hendrerit vel. Aliquam vitae mi nisl. Donec ut varius lectus. Curabitur euismod, metus ut vulputate sollicitudin, velit leo elementum est, eget accumsan ligula metus quis justo. Nullam et gravida sapien. Ut nec arcu id lorem sagittis eleifend. Phasellus est sapien, finibus nec viverra id, elementum quis augue. Vivamus sapien magna, iaculis id sem eu, porttitor sodales nulla.
-
-Fusce nec facilisis quam, sit amet venenatis erat. Donec dapibus nulla quis mi ultrices, nec gravida ipsum hendrerit. Curabitur vel tincidunt augue. Nullam nec sagittis tellus, et commodo erat. Aliquam quis vulputate ante, eget viverra mi. Cras nec tortor scelerisque, facilisis eros eget, mollis libero. Sed at risus a orci aliquam gravida. Pellentesque scelerisque scelerisque cursus. Nam egestas lacus pulvinar ex ultricies mattis non in lacus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Quisque leo dolor, scelerisque id faucibus pellentesque, tempor vel dolor. Quisque laoreet hendrerit turpis, ut interdum quam varius non. Phasellus consectetur turpis at suscipit semper. Maecenas ante dui, sollicitudin et auctor et, rutrum quis eros. Maecenas mattis, risus non imperdiet euismod, odio sem cursus magna, nec feugiat metus erat eget nisi.
+---
 
 # Comparison with other blockchain networks
 
-Peercoin is best compared with it's sibling - Bitcoin; however in the following table we'll show how it bodes against something vastly different like Ethereum. Peercoin was invented as response to increasing doubts on Bitcoin's PoW consensus model with regards to it's increasing centralization and conflict of interests between miners. Peercoin can be understood as Proof-of-Stake clone of the Bitcoin but that is an oversimplification as Peercoin differs vastly - especially when it comes to economics and incentives of the system.
+Peercoin is best compared with its sibling - Bitcoin; however in the following table we'll show how it bodes against something vastly different like Ethereum. Peercoin was invented as response to increasing doubts on Bitcoin's PoW consensus model with regards to its increasing centralization and conflict of interests between miners. Peercoin can be understood as a Proof-of-Stake clone of Bitcoin, though that is an oversimplification as Peercoin differs vastly - especially when it comes to economics and incentives of the system.
 Major differences between the two are the fee market, ie. the absence of it in Peercoin and Peercoin's dedication to continual token distribution via PoW block rewards while the Bitcoin's distribution rate (also PoW block rewards) is reduced geometrically every four years until it becomes zero.
 
 
@@ -41,16 +35,16 @@ Major differences between the two are the fee market, ie. the absence of it in P
 
 ### Fee market
 
-Fee market provides a mechanism to decide which transaction has priority over the others. Transaction fee is claimed by the block miner in both Bitcoin and Ethereum economic systems so the miners have incentive to include the transaction in the block they mine. If Alice wants her transaction to be included in the next block, she should set transaction fee higher and pay more then other network users, ie. outbid them. It is presumed that miners, as rational subjects, will first include transactions which carry the most Bitcoin value. If Alice pays transaction with fee which is under the average fee at the time she might wait for several blocks (or hundreds of blocks) to see her transaction included and confirmed. So, it is obvious that fee market serves as the incentive for miners to process and include the transactions in the mined block as well.
-With Bitcoin block size limit is set to 1MB to keep the upward pressure on the price of the transaction fees and incentivize miners to validate the transactions. This is especially important as Bitcoin economy is expected to run on transaction fees alone when the block subsidies eventually stop.
+The fee market provides a mechanism to decide which transactions have priority over the others. Transaction fees are claimed by the block miner in both Bitcoin and Ethereum economic systems. This provides the miners with an incentive to include transactions in the blocks they mine. If Alice wants her transaction to be included in the next block, she should set transaction fee higher and pay more then other network users, ie. outbid them. It is presumed that miners, as rational subjects, will first include transactions which carry the most Bitcoin value. If Alice pays a transaction fee which is under the average fee at the time she might wait for several blocks (or hundreds of blocks) to see her transaction included and confirmed. So, it is obvious that the fee market serves as the incentive for miners to process and include the transactions in the blocks they mine.
+With Bitcoin's block size limit set to 1MB there exists an artificial upward pressure on the price of transaction fees - incentivizing miners to validate the transactions. This is especially important as Bitcoin's economy is expected to run on transaction fees alone when the block subsidies eventually stop.
 
-Peercoin fees are fixed at 0.01 PPC per kb and are burned, which is equivalent to paying the transaction fee to each Peercoin holder in proportion to their Peercoin holdings as fee is deducted from the total supply of Peercoins. This property eliminates the need for fee market on Peercoin network and allows every transaction to get included in the very next block. Peercoin retains the 1MB block size limit as it is based on the Bitcoin code, but it has no intricate need to keep it. Block size limit will definitely be increased as Peercoin network grows in usage. Peercoin developers have already hinted that Peercoin will feature dynamic block size in near future.
-Due to this economic properties of Peercoin a question arises: why do Peercoin miners even bother processing the transactions?
+Peercoin's fees are fixed at 0.01 PPC per kb and are burned. This is equivalent to paying the transaction fee to each Peercoin holder in proportion to their Peercoin holdings since the fee decreases the total supply of Peercoins. This property eliminates the need for a fee market on Peercoin's network and allows every transaction to get included in the very next block. Peercoin retains the 1MB block size limit as it is based on the Bitcoin code, but it has no intricate need to keep it. The block size limit will definitely be increased as Peercoin's network grows in usage. Peercoin developers have already hinted that Peercoin will feature a dynamic block size in the near future.
+Due to these economic properties of Peercoin a question arises: Why do Peercoin miners bother processing the transactions?
 
-For spectator looking at this from Bitcoin perspective answer is that Peercoin block miners want to process transactions so they allow Peercoins to be burned - thus making their own stake in the network more valuable.
-However when intricacies of PoS are learned it is understood that with Peercoin minters (PoS miners) include transactions because it doesn't cost much to include them, while producing empty blocks reduces the value of the blockchain, and therefore of their stake. The burned fees are not really an argument as the effect on their holdings is negligible.
-Bitcoin miners always start off mining an empty block, otherwise they lose the time it takes to validate the transactions and signatures, as time is money on the Bitcoin network. Only after they validated the txns to include and computed the merkle root, they start mining blocks with txns.
-while for PoS, the time advantage is negligible. as you can still use the stake hash of a few seconds ago. (hrobeers, 30.08.2017)
+From a spectator looking at this from a Bitcoin oriented perspective the answer is that Peercoin block miners want to process transactions so they allow Peercoins to be burned - thus making their own stake in the network more valuable.
+However when the intricacies of PoS are learned it is understood that with Peercoin minters (PoS miners) include transactions because it doesn't cost much to include them, while producing empty blocks reduces the value of the blockchain, and therefore of their stake. The burned fees are not really an argument as the effect on their holdings is negligible.
+Bitcoin miners always start off mining an empty block, otherwise they lose the time it takes to validate the transactions and signatures, as time is money on the Bitcoin network. Only after they have validated the txns to include and have computed the merkle root, they start mining blocks with txns.
+While for PoS, the time advantage is negligible as you can still use the stake hash of a few seconds ago. (hrobeers, 30.08.2017)
 
 
 ### Block size limit and block time spacing
@@ -141,12 +135,13 @@ Bitcoin and Peercoin generate a block every 10 minutes while Ethereum generates 
 Table 1. Comparison of Crypto currency attributes
 (prices of transactions at the time of writing)
 
+---
 
 # Compiling packages for Debian and Ubuntu
 
 As Peercoin is made to run on range of platforms, from Amazon's server to low powered Raspberry Pi Debian is perfect OS platform for deploying Peercoin nodes as it is renowned for multitude of supported hardware architectures as well as security and stability.
 
-For compilation of Debian packages we will be using `pbuilder` which is a automatic Debian Package Building system for personal development workstation environments. pbuilder aims to be an easy-to-setup system for auto-building Debian packages inside a clean-room environment, so that it is possible to verify that a package can be built on most Debian installations. The clean-room environment is achieved through the use of a base chroot image, so that only minimal packages will be installed inside the chroot.
+For compilation of Debian packages we will be using `pbuilder` which is a automatic Debian Package Building system for personal development workstation environments.<sup>[3.1](#footnote-3.1)</sup> pbuilder aims to be an easy-to-setup system for auto-building Debian packages inside a clean-room environment, so that it is possible to verify that a package can be built on most Debian installations. The clean-room environment is achieved through the use of a base chroot image, so that only minimal packages will be installed inside the chroot.
 
 The following tutorial is written for the Ubuntu or Debian host, precisely Ubuntu 17.10 which is last stable version of Ubuntu at the time of writing.
 
@@ -279,9 +274,11 @@ The concept of pbuild and cross-platform compilations is that you pass it this e
 
 For example OS=debian and DIST=wheezy will use Debian Wheezy chroot, you can also pick architecture by using ARCH= environment variable.
 
-__________________________________________________
+## Footnotes
 
-source: https://jodal.no/2015/03/08/building-arm-debs-with-pbuilder/
+<a id="footnote-3.1">3.1</a>: https://jodal.no/2015/03/08/building-arm-debs-with-pbuilder/
+
+---
 
 # Using Peercoin Debian repository
 
@@ -304,3 +301,29 @@ In the future repository may host other Peercoin-related packages.
 ## Installing the packages
 
 `sudo apt install peercoin-qt`
+
+---
+
+# The Peercoin Foundation
+
+The Peercoin Foundation was publicly announced on May 13, 2018.<sup>[5.1](#footnote-5.1)</sup>
+
+## Mission
+
+The Foundation was established with the simple mission of promoting and supporting the continued education, development, and overall progression of the Peercoin project. It seeks to empower future Peercoin team members by providing the tools necessary to perpetuate Peercoin's long standing reputation for bringing world-first innovations to the Blockchain.<sup>[5.2](#footnote-5.2)</sup>
+
+## Funding
+
+To accomplish its mission The Foundation raises funds from donations to the multi-signature address: `p92W3t7YkKfQEPDb7cG9jQ6iMh7cpKLvwK`<sup>[5.2](#footnote-5.2)</sup>
+
+## Board of Directors
+
+The Foundation is controlled by a Board of Directors. The membership is not known at this time.
+
+## Footnotes
+
+<a id="footnote-5.1">5.1</a>: https://talk.peercoin.net/t/update-15-the-peercoin-foundation-is-now-open-for-business/
+
+<a id="footnote-5.2">5.2</a>: https://peercoin.net/foundation
+
+---
