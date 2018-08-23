@@ -653,4 +653,3 @@ The win in proof-of-stake minting, the calculated hash is compared to the curren
 ## Peercoin v0.5 Proof-of-Stake protocol
 
 ![Peercoin PoS diagram](../img/pos-diagram.svg)
-<img src="../img/pos-diagram.svg">
