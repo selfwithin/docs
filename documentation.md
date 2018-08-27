@@ -22,6 +22,47 @@ Since the creation of Bitcoin (Nakamoto 2008), proof-of-work has been the predom
 
 ---
 
+## Official client implementation
+
+Once you install official Peercoin client from peercoin.net, you’ll have access to three executables: peercoind, peercoin-qt, and peercoin-cli.
+
+### Peercoin-qt
+
+`peercoin-qt` provides a combination full Peercoin network client and wallet. Peercoin-qt is highly portable application written in QT5 framework.
+From the Help menu, you can access a console where you can enter the RPC commands so power-user features are still available.
+
+### peercoind
+
+`peercoind` provides a full peer which you can interact with through JSON-RPC interface on port 9904 (902 for testnet).
+
+For more information on how to use the JSON-RPC interface see the [json-rcp-api-reference article](./006-json-rpc-api-reference.md)
+
+### peercoin-cli
+
+`peercoin-cli` allows you to send JSON-RPC commands to running instance of `peercoind` from the command line.
+For example:
+> peercoin-cli help
+
+> peercoin-cli getinfo
+
+All three programs get settings from peercoin.conf in the Peercoin application directory:
+
+> Windows: %APPDATA%\Peercoin\
+
+> OSX: $HOME/Library/Application Support/PPCoin/
+
+>Linux: $HOME/.peercoin/
+
+To use `peercoind` and `peercoin-cli`, you will need to add a RPC password to your peercoin.conf file. Both programs will read from the same file if both run on the same system as the same user, so any long random password will work:
+
+> rpcpassword=change_this_to_a_long_random_password
+
+You should also make the peercoin.conf file only readable to its owner.
+On Linux, Mac OSX, and other Unix-like systems, this can be accomplished by running the following command in the Peercoin application directory:
+
+> chmod 0600 peercoin.conf
+
+
 # Comparison with other blockchain networks
 
 Peercoin is best compared with its sibling - Bitcoin; however in the following table we'll show how it bodes against something vastly different like Ethereum. Peercoin was invented as response to increasing doubts on Bitcoin's PoW consensus model with regards to its increasing centralization and conflict of interests between miners. Peercoin can be understood as a Proof-of-Stake clone of Bitcoin, though that is an oversimplification as Peercoin differs vastly - especially when it comes to economics and incentives of the system.
