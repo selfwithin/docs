@@ -741,7 +741,7 @@ On your screen you see two tables, each containing "Public key", "Address" and "
 
 That is it, now you have your 2/3 multisig address.
 
-# stakebox
+# Stakebox
 
 ![stakebox](https://talk.peercoin.net/uploads/default/original/2X/8/8581bbbb551a82aea92598a5aa93c4144e387317.png)
 
