@@ -982,7 +982,7 @@ Download the image from files.peercoin.net, use the [Etcher](http://etcher.io/) 
 Now follow the guide: https://www.stakebox.org/blogs/learn/getting-started-with-peercoin-stakebox.
 
 
-**How To Sign a Message Using the Peercoin Client**
+# How To Sign a Message Using the Peercoin Client
 
 First, check that the address you want to use is loaded up into the wallet of your Peercoin client.  You can use the standard client found [here](https://peercoin.net/download).  The list of your addresses can be found using the receive tab.
 
