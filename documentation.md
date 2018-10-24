@@ -14,11 +14,13 @@
 
 # Introduction to Peercoin
 
-Hello, and welcome to the Peercoin Documentation website. We hope to help you understand more about this coin, its philosopy and technologies that runs behind it. Before getting too technical, we invite you to dive a little bit into the history of Peercoin, learning why it was created, and the purposes behind it.
+Hello, and welcome to the Peercoin Documentation website. We hope to help you understand more about this coin, its philosophy and technologies that runs behind it. Before getting too technical, we invite you to dive a little bit into the history of Peercoin, learning why it was created, and the purposes behind it.
 
 ## Peercoin Genesis: 2012
 
-Since the creation of Bitcoin (Nakamoto 2008), proof-of-work has been the predominant design of peer-to-peer crypto currency. The concept of proof-of-work has been the backbone of minting and security model of Nakamoto’s design.
+Since the creation of Bitcoin (Nakamoto 2008), Proof-of-Work has been the predominant design of peer-to-peer cryptocurrency. The concept of Proof-of-Work has been the backbone of mining and security model of Nakamoto’s design. In 2012, Sunny King and Scott Nadal proposed an alternative form of consensus that was both more secure, but also energy efficient.  Proof-of-Work, however is subject to centralized mining, large amounts of power consumption, and majority attacks.  Centralized mining comes about due to the increased profits and production from large scale mining operations.  Proof-of-Stake sought to provide sustainability and improved security through energy efficient staking and time-based confirmations (coin age).  Instead of electricity and computing power, time could be used as a verification method that would prevent many of the issues plaguing Proof-of-Work consensus.  Proof-of-Stake guards the blockchain, keeping users safe, while dynamic Proof-of-Work mining provides economic competition and maintains a balance in distribution.  Dynamic mining and staking allow for around 1% inflation a year, making it extremely practical for long term use.
+
+Since its first block in 2012, Peercoin has remained one of the most energy effective, secure, and size effective blockchains in existence. Many projects have been created using Proof-of-Stake or derivatives, and all can be traced back to Peercoin's original model. Off-chain transactions are extremely compatible with Proof-of-Stake, meaning future developments and scaling will be easy to develop and deploy with Peercoin.
 
 ---
 
@@ -101,7 +103,9 @@ Major differences between the two are the fee market, ie. the absence of it in P
 
 ## Consensus algorithm
 
-Peercoin is secured by Proof-of-stake type of consensus.
+Peercoin is secured by Proof-of-Stake type of consensus. Proof-of-Work uses energy as a scary resource to verify transactions, while Proof-of-Stake uses time as a scare resource measured in "coin age".  Once a transaction has reached an age of thirty (30) days, these coins become eligible for minting.  With a high enough coin, a new block will be minted, with minting being determined by fixed probability functions.  After minting, a portion of will be given back to the minter, and their coins will again begin the thirty (30) day maturation process, giving other minters the opportunity to mint blocks.  As a note, after ninety (90) days, a transaction reaches its maximum maturity and minting probability is at its highest.  This minting can be done by simple low energy computers, such as a raspberry pi, making the process energy efficient when compared to Proof-of-Work power consumption, further increasing the possibility of decentralization.
+
+Another benefit of Peercoin's Proof-of-Stake mechanism is its monetary cost of attack.  With pure Proof-of-Work, and individual can attempt to generate and verify faulty blocks without holding the Proof-of-Work coin or even a majority of the coin supply. Peercoin requires the  malicious individual to hold Peercoin with a coin age of thirty (30) days minimum, as well as being required to hold a majority sum of the Peercoin supply, increasing their risk massively.  This makes such an attack economically unviable. The requirement of those verifying the blockchain to hold a portion of the supply means investors are protected from malicious outside sources who hold no coins.  Those who hold Peercoin and use the network, share interest in the security of the chain.  
 
 ## Distribution
 
@@ -217,6 +221,7 @@ Table 1. Comparison of Crypto currency attributes
 (prices of transactions at the time of writing)
 
 ---
+
 
 # Compiling packages for Debian and Ubuntu
 
@@ -606,12 +611,16 @@ There is a number of interesting RFC which are currently discussed, such as:
 > The primary purpose of this protocol is to record cryptographic hashes of successive revisions of single-file documents in a public blockchain, in a manner which enables thin clients to easily query and verify document histories. Such histories inherit useful properties from the underlying blockchain, namely immutability and massive replication, and can therefore serve as proofs of existence.
 
 ## Articles
+[Whitepaper](http://peerassets.github.io/WhitePaper/)
 
 [PeerAssets deck issue modes](https://medium.com/peercoin/peerassets-deck-issue-modes-c419f38f7800)
 
 [The benefits of PeerAssets](https://medium.com/peercoin/the-benefits-of-peerassets-77bad7693925)
 
-[Whitepaper](http://peerassets.github.io/WhitePaper/)
+[[Tutorial] PeerAssets Peer to Peer (p2p) Transactions](https://talk.peercoin.net/t/tutorial-peerassets-peer-to-peer-p2p-transactions/8640)
+
+[[Tutorial] Basic Deck Creation with PeerAssets](https://talk.peercoin.net/t/tutorial-basic-deck-creation-with-peerassets/8639)
+
 
 # Bootstrapping
 
@@ -732,7 +741,7 @@ The win in proof-of-stake minting, the calculated hash is compared to the curren
 The use of Proof-of-stake mining in Peercoin is efficient because network security is not dependent on the use of massive amounts of electrical energy (proof-of-energy-burn). Instead minters invest their coins and time to emulate the PoW process. This is done by simply opening up their wallet app, sending coins to their address and letting them sit there while they are occasionally selected by the protocol to mint the next block. This process is both energy and cost efficient.
 
 ### Aligning interests
-Because coin owners also  produce new blocks in Proof-of-Stake, this means security providers and users of the network are ultimately the same group of people. No longer is there a separate group of security providers who only care about making profit and are not financially tied to the network itself. All security providers must own a stake in the network through ownership of Peercoin. As everyone has similar financial interests in the long-term future of the network this leads to much less conflict between factions with different ideas about how the blockchain should develop and evolve.
+Because coin owners also produce new blocks in Proof-of-Stake, this means security providers and users of the network are ultimately the same group of people. No longer is there a separate group of security providers who only care about making profit and are not financially tied to the network itself. All security providers must own a stake in the network through ownership of Peercoin. As everyone has similar financial interests in the long-term future of the network this leads to much less conflict between factions with different ideas about how the blockchain should develop and evolve.
 
 ### User governance
 Because users in Peercoin have the ability to produce blocks they also have the power to influence and determine the future direction of the network. User governance goes hand in hand with the PoS consensus mechanism. Peercoin is the very first blockchain capable of allowing its protocol rules to be governed directly by its users.
