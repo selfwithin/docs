@@ -1018,3 +1018,18 @@ Just to be sure everything worked correctly, you can validate your signature.  G
 ![6](https://talk.peercoin.net/uploads/default/original/2X/1/1f6ed2c60c32921af99e1c59cc27eb4124caaffa.jpeg)
 
 Congratulations, you have now cryptographically signed and verified a message!
+
+
+# Mining
+
+Peercoing uses the same SHA-256 protacol as Bitcoin, so any miner that can be used to mine Bitcoin can also be used to mine Peercoin.  
+
+## Peercoin Mining Profitability
+
+If you want to calculate the profitability of mining Peercoin, you can use this website: https://www.coinwarz.com/calculators/peercoin-mining-calculator
+
+## Mining Confirmations
+
+ Once a block has been mined, 520 blocks must be passed for the mining to be confirmed.  This is roughly 3.61 days of time.  
+
+---
