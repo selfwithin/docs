@@ -86,6 +86,10 @@ https://www.cryptonator.com/
 
 https://holytransaction.com/
 
+### Ledger
+
+https://www.ledger.com/
+
 ### Magnum
 
 Airdrop focused wallet
@@ -1034,7 +1038,16 @@ Congratulations, you have now cryptographically signed and verified a message!
 
 # Mining
 
-Peercoing uses the same SHA-256 protacol as Bitcoin, so any miner that can be used to mine Bitcoin can also be used to mine Peercoin.  
+Since Peercoin is a fork of Bitcoin, is uses the same SHA-256 encryption and protocol for mining.  This means anything that any hardware that can mine BTC can mine Peercoin as well.  For the majority of people, joining a mining pool will bring the highest profit versus solo mining.  
+
+To mine Peercoin, you need a mining software.  Below is a list that is not official endorsed but have been found to have a decent reputation.
+
+-BFGMiner
+-CGMiner
+-EasyMiner
+-GUIMiner
+
+There are others, but this list can be used as a starting place.  Each will request pool or solo information and should come with the related support.
 
 ## Peercoin Mining Profitability
 
@@ -1044,4 +1057,94 @@ If you want to calculate the profitability of mining Peercoin, you can use this 
 
  Once a block has been mined, 520 blocks must be passed for the mining to be confirmed.  This is roughly 3.61 days of time.  
 
+## Brief Mining Tutorial
+
+For this tutorial, GUIMiner will be used to show a quick setup.  Once the files are downloaded, extract them, and run the “guiminer.exe”.  It should pop up and ask for your pool url and related information.
+
+![GUIMiner](../img/mining.jpg)
+
+The ecoining pool was chosen simply since the information was available.  Wish the correct information and hardware, mining should begin.  For technical support related to the program you choose, reach out through their related resources.
+
 ---
+
+
+There are many ways to buy Peercoin, although it may depend on your previous exchange access or location.  You should have a Peercoin wallet set up previously to making a purchase so that you have a place to store your Peercoin.  
+
+## Fiat gateways
+
+In order to purchase Peercoin directly with a bank wire or debit card, there are several options for direct purchase, although these primarily support European wire transfers and purchases.  If you want to directly purchase with a card or bank transfer, you can use the following sites:
+
+### The Rock Trading
+https://www.therocktrading.com/
+TheRockTrading offers SEPA direct deposits and offers Peercoin directly on the platform, while offering no trading fees on PPC.  
+
+### AnycoinDirect
+https://anycoindirect.eu/en/buy-peercoin
+Supports EUR
+
+### LiteBit
+https://www.litebit.eu/en/buy/peercoin
+Supports EUR
+
+### Livecoin.net
+https://www.livecoin.net/
+Supports both USD/RUR/EUR deposits
+
+If you are in the US, the above websites may not be available.  You must use an exchange that accepts you must buy a cryptocurrency like Bitcoin and transfer it to an exchange that lists Peercoin, which will be discussed at a later time.  
+
+### Coinbase
+
+https://coinbase.com
+CoinBase is one of the most popular broker sites and is arguably the most commonly used for US based citizens.
+
+### Gemini
+
+https://gemini.com
+Gemini also offers fiat purchasing options for bitcoin with bank wire options.  
+
+### OkCoin
+
+https://www.okcoin.com/lang/en-US/
+Offers fiat deposits by wire to buy bitcoin and other common coins.
+
+It is strongly recommended to purchase bitcoin as it has the most traded pairs for the exchanges that list Peercoin which will be discussed in the section below.  Once you have made a purchase, send those coins over to your chosen exchange and make your purchase of Peercoin.
+
+There are other websites that can be used to buy bitcoin with a debit or credit card, and there are a plethora of guides available on these sites.  We suggest you find a reputable site with low fees and a large number of positive user reviews over time.
+
+## Exchanges
+
+If you already own cryptocurrency, the section about fiat gateways can be skipped since you most likely already have one.  Below is a list of exchanges which support Peercoin and where it can be traded actively.  Send your coins there and you will be able to purchase Peercoin.
+
+### PPC/BTC Pairs
+
+#### Bittrex
+
+https://bittrex.com/Market/Index?MarketName=BTC-PPC
+
+#### Cryptopia
+
+https://www.cryptopia.co.nz/Exchange?market=PPC_BTC
+
+#### HitBTC
+
+https://hitbtc.com/PPC-to-BTC
+
+#### Livecoin
+
+https://www.livecoin.net/
+
+#### Poloniex
+
+https://poloniex.com/exchange#btc_ppc
+
+#### The Rock Trading
+
+https://www.therocktrading.com/en/offers/PPCBTC
+
+#### Tux Exchange
+
+https://bx.in.th/BTC/PPC/
+
+Each exchange comes with a variety of fees both in trading and withdrawals and user experience may vary.  As always, use strong passwords, 2FA, and cold storage as needed.
+
+Once you have made your purchase, you can withdraw your coins to the wallet you have chose.
