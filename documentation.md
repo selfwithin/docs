@@ -1068,6 +1068,8 @@ The ecoining pool was chosen simply since the information was available.  Wish t
 ---
 
 
+# How to buy Peercoin
+
 There are many ways to buy Peercoin, although it may depend on your previous exchange access or location.  You should have a Peercoin wallet set up previously to making a purchase so that you have a place to store your Peercoin.  
 
 ## Fiat gateways
