@@ -238,6 +238,10 @@ Table 1. Comparison of Crypto currency attributes
 
 To install on Windows, you can find the download files here: https://peercoin.net/download.  Once download is complete, extract the contents of the folder.  Depending on if your system is x32 or x64 bits, choosing the relevant folder.  Run the peercoin-win_setup.exe and you will be guided through the installation process.  Once finishes, the client can be launched by running "peercoin-qt.exe" from the appropriate folder.
 
+### Mac Installation
+
+To install for MacOS, you can find the download files here: https://peercoin.net/download.  Once the download is complete, extract the contents of the folder.  Inside the extracted folder, double click the "Peercoin-Qt.dmg" file to open the client.
+
 ### Debian Installation
 
 As of April 2018, Peercoin has official Debian repository hosted at `repo.peercoin.net`.
@@ -245,10 +249,6 @@ Repository is serving .deb packages for latest Debian stable, for amd64 and armh
 
 Repository offers two packages, `peercoin-qt` which is official graphical client for the Peercoin network and `peercoind` which is a daemon client for the network.
 In the future repository may host other Peercoin-related packages.
-
-### Mac Installation
-
-To install for MacOS, you can find the download files here: https://peercoin.net/download.  Once the download is complete, extract the contents of the folder.  Inside the extracted folder, double click the "Peercoin-Qt.dmg" file to open the client.
 
 #### Adding the GPG key
 
@@ -1425,7 +1425,7 @@ Once you have made your purchase, you can withdraw your coins to the wallet you 
 ---
 
 
-# Peercoin Paper Wallet guide
+# Peercoin Paper Wallet Guide
 
 You can find the source code for this wallet here: https://github.com/peercoin/peercoin-address-generator/
 
@@ -1447,18 +1447,20 @@ To export the wallet, click the green share icon on the left side of the QR code
 
 ![Saving Options](../img/paperwallet_savingoptions.JPG)
 
--Save .txt locally
+*Save .txt locally
    *This option will download the wallet as a text file.*
--Copy address/priv. key to clipboard
+*Copy address/priv. key to clipboard
    *This option will copy the address/priv. key to a clipboard where it can be pasted.  Make sure your system is clean and secure before exposing this information to potential threats like keystroke loggers.*
--Send via email
+*Send via email
    *This option will allow you to send the wallet information via email.*
--Save JSON data will
+*Save JSON data will
    *This option will download the wallet information in JSON format.*
--Paper Wallet (print)
+*Paper Wallet (print)
    *This option will open a print dialogue from which the wallet can be printed or saved as a PDF.  Paper wallets provide physical security and backups for Peercoins that are to be left in cold storage.*
 
 This concludes the tutorial on the paper wallet generator.  This platform provides extra security for those who wish to keep their Peercoin in a safe and physical location.    
+
+_________________________________________
 
 
 # Ledger Peercoin Tutorial
@@ -1467,7 +1469,7 @@ This concludes the tutorial on the paper wallet generator.  This platform provid
 
 If you wish to store Peercoin on the Ledger Nano or Ledger Blue, this tutorial will guide you through using the Ledger Live program
 
-Open the Ledger Live program and enter your password to unlock the wallet.  In order to store Peercoin, we first need to add the Peercoin wallet app to the Ledger device.  Select Manager from the sidebar and make sure your device is connected, unlocked, and allows access when prompted by the Ledger Manager.
+Open the Ledger Live program and enter your password to unlock the wallet.  In order to store Peercoin, we first need to add the Peercoin wallet application to the Ledger device.  If this is the first time you are using a Ledger device, you will have to install the Bitcoin app first.  Follow the same steps to add the Bitcoin app, then do the same process for the Peercoin application.  Select Manager from the sidebar and make sure your device is connected, unlocked, and allows access when prompted by the Ledger Manager.
 
 ![Ledger Live main screen](../img/ledgerman_main.JPG)
 
@@ -1490,3 +1492,10 @@ This will open the menu where you can search for the asset account you would lik
 Click continue until everything is finalized and completed.  You now have the Peercoin app, and the account added to your Ledger product and wallet.  
 
 ---
+
+
+# Press Kit
+
+If you are interested in using Peercoin graphics, you can find the related files here: https://github.com/peercoin/media
+
+____________
