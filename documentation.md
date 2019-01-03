@@ -22,83 +22,11 @@ Since the creation of Bitcoin (Nakamoto 2008), Proof-of-Work has been the predom
 
 Since its first block in 2012, Peercoin has remained one of the most energy effective, secure, and size effective blockchains in existence. Many projects have been created using Proof-of-Stake or derivatives, and all can be traced back to Peercoin's original model. Off-chain transactions are extremely compatible with Proof-of-Stake, meaning future developments and scaling will be easy to develop and deploy with Peercoin.
 
+## Peercoin University
+
+(University Summary here)
+
 ---
-
-## Official client implementation
-
-Once you install official Peercoin client from peercoin.net, you’ll have access to three executables: peercoind, peercoin-qt, and peercoin-cli.
-
-### [Peercoin-qt](003-peercoin-core-wallet.md)
-
-`peercoin-qt` provides a combination full Peercoin network client and wallet. Peercoin-qt is highly portable application written in QT5 framework.
-From the Help menu, you can access a console where you can enter the RPC commands so power-user features are still available.
-
-### peercoind
-
-`peercoind` provides a full peer which you can interact with through JSON-RPC interface on port 9904 (902 for testnet).
-
-For more information on how to use the JSON-RPC interface see the [json-rcp-api-reference article](./006-json-rpc-api-reference.md)
-
-### peercoin-cli
-
-`peercoin-cli` allows you to send JSON-RPC commands to running instance of `peercoind` from the command line.
-For example:
-> peercoin-cli help
-
-> peercoin-cli getinfo
-
-All three programs get settings from peercoin.conf in the Peercoin application directory:
-
-> Windows: %APPDATA%\Peercoin\
-
-> OSX: $HOME/Library/Application Support/PPCoin/
-
->Linux: $HOME/.peercoin/
-
-To use `peercoind` and `peercoin-cli`, you will need to add a RPC password to your peercoin.conf file. Both programs will read from the same file if both run on the same system as the same user, so any long random password will work:
-
-> rpcpassword=change_this_to_a_long_random_password
-
-You should also make the peercoin.conf file only readable to its owner.
-On Linux, Mac OSX, and other Unix-like systems, this can be accomplished by running the following command in the Peercoin application directory:
-
-> chmod 0600 peercoin.conf
-
-##  Unofficial client implementations
-
-### Coinomi
-
-https://www.coinomi.com/
-
-### Coinspot
-
-https://www.coinspot.com.au
-
-### CoinVault
-
-https://www.coinvault.io/
-
-### Cryptonator
-
-https://www.cryptonator.com/
-
-### HolyTransaction
-
-https://holytransaction.com/
-
-### Ledger
-
-https://www.ledger.com/
-
-### Magnum
-
-Airdrop focused wallet
-
-https://magnumwallet.co
-
-### UberPay
-
-http://uberpay.io/
 
 
 # Comparison with other blockchain networks
@@ -110,7 +38,7 @@ Major differences between the two are the fee market, ie. the absence of it in P
 
 Peercoin is secured by Proof-of-Stake type of consensus. Proof-of-Work uses energy as a scary resource to verify transactions, while Proof-of-Stake uses time as a scare resource measured in "coin age".  Once a transaction has reached an age of thirty (30) days, these coins become eligible for minting.  With a high enough coin, a new block will be minted, with minting being determined by fixed probability functions.  After minting, a portion of will be given back to the minter, and their coins will again begin the thirty (30) day maturation process, giving other minters the opportunity to mint blocks.  As a note, after ninety (90) days, a transaction reaches its maximum maturity and minting probability is at its highest.  This minting can be done by simple low energy computers, such as a raspberry pi, making the process energy efficient when compared to Proof-of-Work power consumption, further increasing the possibility of decentralization.
 
-Another benefit of Peercoin's Proof-of-Stake mechanism is its monetary cost of attack.  With pure Proof-of-Work, and individual can attempt to generate and verify faulty blocks without holding the Proof-of-Work coin or even a majority of the coin supply. Peercoin requires the  malicious individual to hold Peercoin with a coin age of thirty (30) days minimum, as well as being required to hold a majority sum of the Peercoin supply, increasing their risk massively.  This makes such an attack economically unviable. The requirement of those verifying the blockchain to hold a portion of the supply means investors are protected from malicious outside sources who hold no coins.  Those who hold Peercoin and use the network, share interest in the security of the chain.  
+Another benefit of Peercoin's Proof-of-Stake mechanism is its monetary cost of attack.  With pure Proof-of-Work, and individual can attempt to generate and verify faulty blocks without holding the Proof-of-Work coin or even a majority of the coin supply. Peercoin requires the  malicious individual to hold Peercoin with a coin age of thirty (30) days minimum, as well as being required to hold a majority sum of the Peercoin supply, increasing their risk massively.  This makes such an attack economically unviable. The requirement of those verifying the blockchain to hold a portion of the supply means investors are protected from malicious outside sources who hold no coins.  Those who hold Peercoin and use the network, share interest in the security of the chain.
 
 ## Distribution
 
@@ -228,6 +156,312 @@ Table 1. Comparison of Crypto currency attributes
 ---
 
 
+# Proof-of-Stake
+
+>Peercoin uses both the Proof-of-Work and Proof-of-Stake algorithms. The PoW algorithm is used to spread the distribution of new coins. Up to 99% of all peercoins is created with POW. Proof-of-Stake is used to secure the network: The chain with longest POS coin age wins in case of a blockchain split-up.
+
+`Minting`, as it is called in Peercoin to make a proof-of-stake block, is based on metrics of an unspent transaction.
+If we take a look at the number one spot of the rich list, transaction c7293fc60c80bdcc374775d1f0734e0766465b905bae1a312fe487793be3b8f7 has among others the following characteristics:
+
+* The transaction appeared in block 376161 at timestamp 1531750952 (Unix time).
+* The transaction in the block has an offset of 383 bytes. It is the third transaction in the block. The size of the first two transactions in the block are respectively 78 and 224 bytes.
+* The transaction timestamp is 1531750624.
+* The second recipient (index 1) received 1786301.06651300 Peercoins which, at the moment, is still unspent.
+
+These metrics, along with two more data points serves as a basis to calculate a hash for POS minting:
+
+* a future timestamp X (in Unix time notation) in which the stake could win;
+* a block modifier that was set by the network 1830080 seconds (~21 days) earlier than X.
+
+Every 6 hours the network calculates a new block modifier to be used for POS minting.
+
+The win in proof-of-stake minting, the calculated hash is compared to the current difficulty minus the coinage. The chances of finding a stake therefor improves when either the coin age increases or when the difficulty of the network decreases.
+
+## Peercoin minting behaviour
+
+* The Minting process can only start after 30 days of coinage.
+* Minting coin age is maxed out after 90 days. Which means that after 90 days the only variable left in PoS is the current difficulty.
+* Minting is predictable and not random. For a given transaction, you can calculate the maximum network PoS difficulty over time for your transaction to be able to mint a PoS block.
+* Whenever this PoS difficulty is higher than the current network PoS difficulty your Peercoin client can mint a PoS block.
+* PoS blocks can be rejected (orphans) if several people mint a PoS block within a given window (2 hours also called timedrift). Only one (the chain with longest coin age) will be accepted.
+* Minting splits the transaction in two if coin age < 90 days.
+* PoS block reward is 1% annually. This 1% is a factor of your coin age, and is not maxed out.
+* A transaction that just staked has its coins locked for 520 confirmations (3-4 days).
+* Merging transactions, spending coins, etc. burns coinage (resets it to 0).
+* The PoS reward is directly added to your transaction which staked (if this transaction is split in two because coinage < 90 days, the reward is equally distributed to both resulting transactions).
+
+## Peercoin v0.5 Proof-of-Stake protocol
+
+![Peercoin PoS diagram](../img/pos-diagram.svg)
+
+## Qualities of Proof-of-Stake Consensus
+
+### Efficient
+The use of Proof-of-stake mining in Peercoin is efficient because network security is not dependent on the use of massive amounts of electrical energy (proof-of-energy-burn). Instead minters invest their coins and time to emulate the PoW process. This is done by simply opening up their wallet app, sending coins to their address and letting them sit there while they are occasionally selected by the protocol to mint the next block. This process is both energy and cost efficient.
+
+### Aligning interests
+Because coin owners also produce new blocks in Proof-of-Stake, this means security providers and users of the network are ultimately the same group of people. No longer is there a separate group of security providers who only care about making profit and are not financially tied to the network itself. All security providers must own a stake in the network through ownership of Peercoin. As everyone has similar financial interests in the long-term future of the network this leads to much less conflict between factions with different ideas about how the blockchain should develop and evolve.
+
+### User governance
+Because users in Peercoin have the ability to produce blocks they also have the power to influence and determine the future direction of the network. User governance goes hand in hand with the PoS consensus mechanism. Peercoin is the very first blockchain capable of allowing its protocol rules to be governed directly by its users.
+
+### Global network
+As a direct consequence of the resource efficient consensus mechanism the number of people capable of participating in the race to create new blocks is significantly expanded. In addition to this security providers are also no longer drawn to geographical locations with cheap electricity. Due to the cost efficiency of operating a proof-of-stake node minting nodes can be set up anywhere in the world. This allows Peercoin to maximize its level of decentralization and achieve global security from minting users all around the world.
+
+### Network security is price independent
+Unlike proof-of-work where miners are completely dependent on the market price of a blockchain's native token to ensure profitability, Peercoin contains no such price dependency. Proof-of-stake minters are compensated as motivation to provide consistent security, however since this process is so inexpensive to perform minters actually have the ability to voluntarily operate a minting node without compensation if they want. Even without compensation from the network, the process of minting helps to secure the blockchain and along with it a stakeholder's overall investment. The ability to decide which version of the protocol to run also gives a minter the opportunity to make their voice heard concerning future upgrades to the network. These are two important reasons a stakeholder may have to want to run a node for free, however, compensation is automatically provided which makes it even better to participate. Running a proof-of-work mining node without compensation is just not possible due to the requirement of being profitable enough in order to afford the associated costs of participating. However, since 2012 it has been proven that Peercoin is capable of sustaining its network security even during the lowest periods of demand where market price was close to zero. If the network is capable of surviving extremely stressful conditions like these then it is likely to survive any challenges the market may present it with in the future.
+
+### Higher Resistance to Censorship
+As explained above, the efficiency of proof-of-stake results in a blockchain network that can easily be secured by people all over the world who hold some amount of Peercoin. This globally decentralized security makes the Peercoin network incredibly difficult to censor and shut down. This is similar to downloading files through a bittorrent network. In bittorrent network, many people around the world operate nodes where they hold a full copy of the file that others are trying to download. Pieces of the file are downloaded from different nodes until the full file has finished downloading. If a government were to deem this file sharing illegal and attempt to shut down the torrent network, they would be forced to target every single node on the network no matter where they happen to exist in the world. Even then, there is nothing stopping more torrent nodes from being created that share the same file. As long as one node exists that shares the file, it can be downloaded and spread to others.
+
+Peercoin works in a similar way where minting nodes that process transactions can be operated from anywhere in the world as long as the minter has access to a computer, minimal electricity, some amount of Peercoin and an internet connection. Geographical decentralization of minting nodes makes it incredibly difficult to shut down the Peercoin network, but when the number of nodes around the world expands to thousands or even tens of thousands then it essentially becomes impossible to censor. In systems like these, individual nodes are usually called peers. Together they act as a peer-to-peer network. This is where Peercoin obtained its name. It was originally introduced by Sunny King as ppcoin, which stood for peer-to-peer coin. Shortly after it was renamed to Peercoin.
+
+
+# Important Links
+
+## Official Sites
+
+  - Peercoin.net (example content, not menu item)
+  - GitHub (example)
+  - Foundation (example)
+## Forums
+
+  - Peercointalk (example)
+  - Reddit (example)
+  - Bitcointalk Thread (example)
+## Chats
+
+  - Discord (example)
+  - Telegram (example)
+  - peercoin.chat (example)
+## Social Media
+
+  - All Social Accounts (example)
+## News
+
+  - Team Updates (example)
+## Blog
+
+  - Medium
+  - Article List
+
+## Tools
+  - Block Explorers
+
+
+# The Peercoin Foundation
+
+The Peercoin Foundation was publicly announced on May 13, 2018.<sup>[5.1](#footnote-5.1)</sup>
+
+## Mission
+
+The Foundation was established with the simple mission of promoting and supporting the continued education, development, and overall progression of the Peercoin project. It seeks to empower future Peercoin team members by providing the tools necessary to perpetuate Peercoin's long standing reputation for bringing world-first innovations to the Blockchain.<sup>[5.2](#footnote-5.2)</sup>
+
+## Funding
+
+To accomplish its mission The Foundation raises funds from donations to the multi-signature address: `p92W3t7YkKfQEPDb7cG9jQ6iMh7cpKLvwK`<sup>[5.2](#footnote-5.2)</sup>
+
+## Board of Directors
+
+The Foundation is controlled by a Board of Directors. The membership is not known at this time.
+
+## Footnotes
+
+<a id="footnote-5.1">5.1</a>: https://talk.peercoin.net/t/update-15-the-peercoin-foundation-is-now-open-for-business/
+
+<a id="footnote-5.2">5.2</a>: https://peercoin.net/foundation
+
+---
+
+
+# JSON-RPC API reference
+
+Peercoin daemon offers JSON-RPC interface which can be used to control the daemon or integrate it with software stack.
+You can send commands to the daemon by using `peercoin-cli` tool.
+
+There are two official wrappers for this interface, a PHP one and a Python2.7+ one.
+
+> Peercoin_rpc is a simple and minimal library made for communication with peercoind via JSON-RPC protocol. It has a single dependency - a Python requests library and it supports both mainnet and testnet peercoin network with authentication or SSL encryption. There is a single class to be imported from the library - Client.
+
+https://github.com/peercoin/peercoin_rpc
+
+> peercoin-php-rpc is a simple and minimal library made for communication with peercoind via JSON-RPC protocol for PHP 7.1+. Easiest way to use is to use composer. Otherwise include RpcClient class in your project an you are good to go.
+
+https://github.com/peercoin/peercoin-php-rpc
+
+## List of JSON-RPC calls
+
+| Command            | Parameters  | Description    | Requires unlocked wallet? (yes/no)  |
+|--------------------|-------------|---------------------------------|--------------------|
+| `getinfo`          |             |Returns an object containing various state info.|no|
+| `getblock`         |  `hash`     |Returns information about the block with the given hash.|no|
+| `getblockcount`    |             |Returns the number of blocks in the longest block chain.|no|
+| `getblockhash`     |`block_num`  |Returns hash of block in best-block-chain at `block_num`; 0 is the genesis block|no|
+| `gettransaction`   | `txid`        |Returns an object about the given transaction containing:<br>  "amount" : total amount of the transaction<br>"confirmations" : number of confirmations of the transaction<br>"txid" : the transaction ID<br>"time" : time associated with the transaction|no|
+| `walletpassphrase` | `passphrase`   `timeout` |Stores the wallet decryption key in memory for `timeout` seconds.|no|
+| `getbalance`       |[account] [minconf=1]|If [account] is not specified, returns the server's total available balance.<br>If [account] is specified, returns the balance in the account.|no|
+| `getreceivedbyaddress`| `address` [minconf=1] |Returns the amount received by `address` in transactions with at least [minconf] confirmations. It correctly handles the case where someone has sent to the address in multiple transactions. Keep in mind that addresses are only ever used for receiving transactions.<br>Works only for addresses in the local wallet, external addresses will always show 0.|no|
+| `getdifficulty`    |  |Returns proof-of-stake and proof-of-work difficulty|no|
+| `getpeerinfo`      |  |Returns data about each connected node.|no|
+| `getaddressesbyaccount`| `account` |Returns the list of addresses for the given account.|no|
+| `getnewaddress`    | [account] |Returns a new address for receiving payments.<br>If [account] is specified payments received with the address will be credited to [account].|no|
+| `getaccount`       | `address` |Returns the account associated with the given `address`.|no|
+| `getaccountaddress`| `account` |Returns the current address for receiving payments to this account.<br>If `account` does not exist, it will be created along with an associated new address that will be returned.|no|
+| `sendtoaddress`    | `address` `amount` [comment] [comment-to] |  `amount` is a real and is rounded to 6 decimal places. Returns the transaction ID `txid` if successful.|yes|
+| `sendfrom`         | `fromaccount` `topeercoinaddress` `amount` [minconf=1] [comment] [comment-to] |`amount` is a real and is rounded to 6 decimal places. Will send the given amount to the given address, ensuring the account has a valid balance using [minconf] confirmations. Returns the transaction ID if successful (not in JSON object).|yes|
+| `sendmany`         | `fromaccount` {address:amount,...} [minconf=1] [comment] |  amounts are double-precision floating point numbers |yes|
+| `getconnectioncount`|    |Returns the number of connections to other nodes.|no|
+| `getrawtransaction`|  `txid` [verbose=0] |Returns raw transaction representation for given transaction id.|no| 
+| `getrawmempool`    |  |Returns all transaction ids in memory pool.|no|
+| `listtransactions` | [account] [count=10] [from=0] | Returns up to [count] most recent transactions skipping the first [from] transactions for account [account]. If [account] not provided it'll return recent transactions from all accounts.|no|
+| `listreceivedbyaddress`| [minconf=1] [includeempty=false] |Returns an array of objects containing:<br>"address" : receiving address<br>"account" : the account of the receiving address<br>"amount" : total amount received by the address<br>"confirmations" : number of confirmations of the most recent transaction included<br>To get a list of accounts on the system, execute `peercoin-cli listreceivedbyaddress 0 true`|no|
+| `listreceivedbyaccount`| [minconf=1] [includeempty=false] |Returns an array of objects containing:<br>"account" : the account of the receiving addresses<br>"amount" : total amount received by addresses with this account<br>"confirmations" : number of confirmations of the most recent transaction included|no|
+| `listaccounts` | [minconf=1] |Returns Object that has account names as keys, account balances as values.|no|
+| `listunspent`  | [minconf=1] [maxconf=999999] |Returns array of unspent transaction inputs in the wallet.|no|
+| `dumpprivkey`  | `address`   |Reveals the private key corresponding to `address`.|yes|
+| `importprivkey`|  `privkey` [label] [rescan=true]|Adds a private key (as returned by dumpprivkey) to your wallet. This may take a while, as a rescan is done, looking for existing transactions.|yes|
+| `createrawtransaction`| [{"txid":txid,"vout":n},...] {address:amount,...} |Creates a raw transaction spending given inputs.|no|
+| `decoderawtransaction`| `hex_string` |Produces a human-readable JSON object for a raw transaction.|no|
+| `signrawtransaction`  | `hex_string` [{"txid":txid,"vout":n,"scriptPubKey":hex},...] [`privatekey1`,...]|Adds signatures to a raw transaction and returns the resulting raw transaction.|yes|
+| `signmessage`         | `address` `message` |Sign a message with the private key of an address.|yes|
+| `verifymessage`       | `address` `signature` `message` |Verify a signed message.|no|
+| `sendrawtransaction`  | `hex_string` |Submits raw transaction (serialized, hex-encoded) to local node and network.|no|
+| `validateaddress`     | `address` |Return information about `address`.|no|
+| `encryptwallet`       | `passphrase` |Encrypts the wallet with `passphrase`|no|
+| `enforcecheckpoint`   | `bool` |`enforce` is true or false to enable or disable enforcement of broadcasted checkpoints by developer.|no|
+| `keypoolrefill`       | `size` |Fills the key pool with new keys [default 100 new keys]|yes|
+| `listlockunspent`     |        |Returns list of temporarily unspendable outputs.|no|
+| `createmultisig`      | `nrequired` `["key,"key"]`|Creates a multi-signature address and returns a json object.|yes|
+
+# How to buy Peercoin
+
+There are many ways to buy Peercoin, although it may depend on your previous exchange access or location.
+You should have a Peercoin wallet set up previously to making a purchase so that you have a place to store your Peercoin.
+
+## Fiat gateways
+
+In order to purchase Peercoin directly with a bank wire or debit card, there are several options for direct purchase, although these primarily support European wire transfers and purchases.  If you want to directly purchase with a card or bank transfer, you can use the following sites:
+
+### The Rock Trading
+https://www.therocktrading.com/
+TheRockTrading offers SEPA direct deposits and offers Peercoin directly on the platform, while offering no trading fees on PPC.
+
+### AnycoinDirect
+https://anycoindirect.eu/en/buy-peercoin
+Supports EUR
+
+### LiteBit
+https://www.litebit.eu/en/buy/peercoin
+Supports EUR
+
+### Livecoin.net
+https://www.livecoin.net/
+Supports both USD/RUR/EUR deposits
+
+If you are in the US, the above websites may not be available.  You must use an exchange that accepts you must buy a cryptocurrency like Bitcoin and transfer it to an exchange that lists Peercoin, which will be discussed at a later time.
+
+### Coinbase
+
+https://coinbase.com
+CoinBase is one of the most popular broker sites and is arguably the most commonly used for US based citizens.
+
+### Gemini
+
+https://gemini.com
+Gemini also offers fiat purchasing options for Bitcoin with bank wire options.
+
+### OkCoin
+
+https://www.okcoin.com/lang/en-US/
+Offers fiat deposits by wire to buy Bitcoin and other common coins.
+
+It is strongly recommended to purchase Bitcoin as it has the most traded pairs for the exchanges that list Peercoin which will be discussed in the section below.  Once you have made a purchase, send those coins over to your chosen exchange and make your purchase of Peercoin.
+
+There are other websites that can be used to buy Bitcoin with a debit or credit card, and there are a plethora of guides available on these sites.  We suggest you find a reputable site with low fees and a large number of positive user reviews over time.
+
+# Exchanges
+
+If you already own cryptocurrency, the section about fiat gateways can be skipped since you most likely already have one.  Below is a list of exchanges which support Peercoin and where it can be traded actively.  Send your coins there and you will be able to purchase Peercoin.
+
+## PPC/BTC Pairs
+
+### Bittrex
+
+https://bittrex.com/Market/Index?MarketName=BTC-PPC
+
+### Cryptopia
+
+https://www.cryptopia.co.nz/Exchange?market=PPC_BTC
+
+### HitBTC
+
+https://hitbtc.com/PPC-to-BTC
+
+### Livecoin
+
+https://www.livecoin.net/
+
+### Poloniex
+
+https://poloniex.com/exchange#btc_ppc
+
+### The Rock Trading
+
+https://www.therocktrading.com/en/offers/PPCBTC
+
+### Tux Exchange
+
+https://bx.in.th/BTC/PPC/
+
+____________
+
+Each exchange comes with a variety of fees both in trading and withdrawals and user experience may vary.  As always, use strong passwords, 2FA, and cold storage as needed.
+
+Once you have made your purchase, you can withdraw your coins to the wallet you have chosen.
+
+---
+
+
+# Official client implementation
+
+Once you install official Peercoin client from peercoin.net, you’ll have access to three executables: peercoind, peercoin-qt, and peercoin-cli.
+
+## Peercoin Wallet
+
+`peercoin-qt` provides a combination full Peercoin network client and wallet. Peercoin-qt is highly portable application written in QT5 framework.
+From the Help menu, you can access a console where you can enter the RPC commands so power-user features are still available.
+
+## peercoind
+
+`peercoind` provides a full peer which you can interact with through JSON-RPC interface on port 9904 (902 for testnet).
+
+For more information on how to use the JSON-RPC interface see the [json-rcp-api-reference article](./006-json-rpc-api-reference.md)
+
+## peercoin-cli
+
+`peercoin-cli` allows you to send JSON-RPC commands to running instance of `peercoind` from the command line.
+For example:
+> peercoin-cli help
+
+> peercoin-cli getinfo
+
+All three programs get settings from peercoin.conf in the Peercoin application directory:
+
+> Windows: %APPDATA%\Peercoin\
+
+> OSX: $HOME/Library/Application Support/PPCoin/
+
+>Linux: $HOME/.peercoin/
+
+To use `peercoind` and `peercoin-cli`, you will need to add a RPC password to your peercoin.conf file. Both programs will read from the same file if both run on the same system as the same user, so any long random password will work:
+
+> rpcpassword=change_this_to_a_long_random_password
+
+You should also make the peercoin.conf file only readable to its owner.
+On Linux, Mac OSX, and other Unix-like systems, this can be accomplished by running the following command in the Peercoin application directory:
+
+> chmod 0600 peercoin.conf
+
 # Peercoin Core Wallet
 
 ## Overview
@@ -282,7 +516,7 @@ ____________
 
 ## Wallet Overview
 
-From this tab you can see the "Available", "Pending", and "Total" balance of your Peercoin wallet.  On the right side, you can see your "Recent transactions" as well which will show the most recent transactions that have come into the wallet recently.  
+From this tab you can see the "Available", "Pending", and "Total" balance of your Peercoin wallet.  On the right side, you can see your "Recent transactions" as well which will show the most recent transactions that have come into the wallet recently.
 
 ### Send
 
@@ -310,9 +544,7 @@ The Minting tab is the fifth option and from here, you can see the coin age of y
 
 If you are interested in calculating the rough time until minting takes place, you can use this calculator: http://poscalculator.peercointalk.org/
 
-Once minting occurs, the initial batch of coins will have their coin age reset, and the coins earned from minting will remain locked for 520 blocks, or roughly 3 days.  After this period, the coins will be available in the wallet.  As a note, you do not need to leave your wallet running 24/7, as the time spent staking does not increase the probability of minting taking place, as the highest coin age will always take precedence.  Holding longer also does not increase the minting reward.  
-
-[You can read more about proof-of-stake here](010-proof-of-stake.md)
+Once minting occurs, the initial batch of coins will have their coin age reset, and the coins earned from minting will remain locked for 520 blocks, or roughly 3 days.  After this period, the coins will be available in the wallet.  As a note, you do not need to leave your wallet running 24/7, as the time spent staking does not increase the probability of minting taking place, as the highest coin age will always take precedence.  Holding longer also does not increase the minting reward.
 
 ### Addresses
 
@@ -342,13 +574,13 @@ If you want to send Peercoin, navigate to the "Send" tab.  We are going to send 
 
 _________________________________________
 
-## Using the multisig
+# Using the multisig
 
 You can access multisig graphic interface in latest builds of Peercoin-qt. Open Peercoin-qt, click on File - Multisig. Now you see Multisig interface.
 
 ![Peercoin-qt multisig](../img/multisig.png)
 
-### How to create a multisig address using QT wallet
+## How to create a multisig address using QT wallet
 
 In this example, we'll go over creating 2/3 multisig address.
 On your screen you see two tables, each containing "Public key", "Address" and "Label".
@@ -365,7 +597,7 @@ On your screen you see two tables, each containing "Public key", "Address" and "
 
 That is it, now you have your 2/3 multisig address.
 
-#### Creating a multisig address using the command line interface (debug console)
+## Creating a multisig address using the command line interface (debug console)
 
 The multisig address is generated with the complete public keys of the participants.
 
@@ -421,7 +653,7 @@ createmultisig 2 '["02c16ff447129fae7374d97212cf9fcd88a744da87ff2985869065cd6d17
 
 _________________________________________
 
-### How to spend from the multisig address
+## How to spend from the multisig address
 
 Reference Peercoin client is not capable of indexing the multisig addresses and showing their balance because multisig addresses can be owned by keys which are not part of the wallet (friends, family, backup). Thus the procedure to spend the funds from the multisig is a bit more complicated, more "low level" then usual.
 
@@ -433,7 +665,7 @@ Finally paste the hash of fully signed raw transaction into "Sign Transaction" b
 ![Peercoin-qt multisig spending](../img/multisig-spend.png)
 
 
-#### Spending from the multisig via command line interface
+### Spending from the multisig via command line interface
 
 Bob creates a transaction to spend the coins that Alice sent to the multisig address.
 The transaction will have 360 PPC (Alice's coins) as input and 359.99 PPC as output (because of the mandatory 0.01 PPC transaction fee; the transaction won't be accepted by the network without it).
@@ -498,7 +730,7 @@ createrawtransaction '[{"txid" : "0ef16552d0dadaa150da34cfbc5380e82d59b5f328f967
     0100000062815a5301749fb9a1434c1072fb67f928f3b5592de88053bccf34da50a1dadad05265f10e0100000000ffffffff01f0027515000000001976a9149a59a69866c7668acdd2b36491cfc18229d2348988ac00000000
 
 
-##### First signature of the transaction
+#### First signature of the transaction
 
 Bob signs the new transaction with the private key associated to the public key he used to create the multisig address and sends the result to Alice.
 
@@ -517,7 +749,7 @@ signrawtransaction "0100000062815a5301749fb9a1434c1072fb67f928f3b5592de88053bccf
     }
 
 
-##### Second signature of the transaction
+#### Second signature of the transaction
 
 Let's imagine that Alice refuses to sign the transaction.
 Bob sends the transaction with one signature to Trent and asks him to validate it. Let's imagine that Trent decides that the transaction is legitimate.
@@ -538,7 +770,7 @@ signrawtransaction "0100000062815a5301749fb9a1434c1072fb67f928f3b5592de88053bccf
     }
 
 
-##### Send the signed transaction to the network
+#### Send the signed transaction to the network
 
 The transaction has the two required signatures, anyone can send it to the network.
 
@@ -546,273 +778,164 @@ sendrawtransaction "0100000062815a5301749fb9a1434c1072fb67f928f3b5592de88053bccf
 
     fea9875ccac102897ff128c868027a05e3d2f9057569529c8e5e94f8d641bc47
 
-_________________________________________
+# How To Sign a Message Using the Peercoin Client
+
+First, check that the address you want to use is loaded up into the wallet of your Peercoin client.  You can use the standard client found [here](https://peercoin.net/download).  The list of your addresses can be found using the receive tab.
+
+![1](https://talk.peercoin.net/uploads/default/original/2X/3/3a72b5afa078a4d7b24cfaa7e2a5a303014ec6c6.jpeg)
+
+Once you are satisfied that the address is in the wallet (you can even copy it to your clipboard if you like), open up the 'Sign message...' option of the 'File' menu.
+
+![2](https://talk.peercoin.net/uploads/default/original/2X/3/3709984353eb778d29e1a91704b170b702383e59.jpeg)
+
+At this point, you should be on the 'Sign Message' tab where you can paste in the address you want to use, either via your clipboard or by clicking on the address book button.
+
+![3](https://talk.peercoin.net/uploads/default/original/2X/3/3b6c44045c17aab2a7694b571812d960da105975.jpeg)
+
+Now you can type your message into the big blank box.  It might be best to copy and paste this text from a plaintext source in order to avoid any formatting issues.  When you are done, hit the 'Sign Message' button.
+
+![4](https://talk.peercoin.net/uploads/default/original/2X/a/abc4f6835c2841fbd763f9985dcd15034005db50.jpeg)
+
+If it completed its function correctly, it will display in green 'Messaged signed.'  Copy the signature using the convenient button.
+
+![5](https://talk.peercoin.net/uploads/default/original/2X/8/8728853e3d051ebf766435752b6102ffcd8f960c.jpeg)
+
+Just to be sure everything worked correctly, you can validate your signature.  Go to the 'Verify Message' tab and fill in all the fields.  If everything looks good, and it comes back with a green 'Message verified.' then you can share with anyone your signature, message, and address and they should be able to verify it just the same.
+
+![6](https://talk.peercoin.net/uploads/default/original/2X/1/1f6ed2c60c32921af99e1c59cc27eb4124caaffa.jpeg)
+
+Congratulations, you have now cryptographically signed and verified a message!
 
 
-# Compiling packages for Debian and Ubuntu
+# Hardware Wallets
 
-As Peercoin is made to run on range of platforms, from Amazon's server to low powered Raspberry Pi Debian is perfect OS platform for deploying Peercoin nodes as it is renowned for multitude of supported hardware architectures as well as security and stability.
+## Stakebox
 
-For compilation of Debian packages we will be using `pbuilder` which is a automatic Debian Package Building system for personal development workstation environments.<sup>[3.1](#footnote-3.1)</sup> pbuilder aims to be an easy-to-setup system for auto-building Debian packages inside a clean-room environment, so that it is possible to verify that a package can be built on most Debian installations. The clean-room environment is achieved through the use of a base chroot image, so that only minimal packages will be installed inside the chroot.
-
-The following tutorial is written for the Ubuntu or Debian host, precisely Ubuntu 17.10 which is last stable version of Ubuntu at the time of writing.
-
-## Prepare the tooling
-
-`sudo apt install pbuilder qemu-user-static ubuntu-keyring debian-archive-keyring`
-
-We'll also need keyring for the Raspbian, which a Debian fork made for the Raspberry Pi platform, so we can compile packages for this ARM based mini-pc platform.
-
-> wget http://archive.raspbian.org/raspbian/pool/main/r/raspbian-archive-keyring/raspbian-archive-keyring_20120528.2_all.deb
-
-> sudo dpkg -i raspbian-archive-keyring_20120528.2_all.deb
-
-Now, set up the conf file for the pbuilder.
-
-`touch .pbuilderrc`
-
-> gedit .pbuilderrc
-
-Paste the following:
-
-```
-#!/bin/sh
-
-set -e
-
-PBUILDERSATISFYDEPENDSCMD="/usr/lib/pbuilder/pbuilder-satisfydepends-apt"
-
-if [ "$OS" == "debian" ]; then
-    MIRRORSITE="http://ftp.no.debian.org/debian/"
-    COMPONENTS="main contrib non-free"
-    DEBOOTSTRAPOPTS=("${DEBOOTSTRAPOPTS[@]}"
-        "--keyring=/usr/share/keyrings/debian-archive-keyring.gpg")
-    : ${DIST:="wheezy"}
-    : ${ARCH:="amd64"}
-    if [ "$DIST" == "wheezy" ]; then
-        #EXTRAPACKAGES="$EXTRAPACKAGES debian-backports-keyring"
-        OTHERMIRROR="$OTHERMIRROR | deb $MIRRORSITE wheezy-backports $COMPONENTS"
-    fi
-elif [ "$OS" == "raspbian" ]; then
-    MIRRORSITE="http://ftp.acc.umu.se/mirror/raspbian/raspbian/"
-    COMPONENTS="main contrib non-free"
-    DEBOOTSTRAPOPTS=("${DEBOOTSTRAPOPTS[@]}"
-        "--keyring=/usr/share/keyrings/raspbian-archive-keyring.gpg")
-    : ${DIST:="wheezy"}
-    : ${ARCH:="armhf"}
-elif [ "$OS" == "ubuntu" ]; then
-    MIRRORSITE="http://no.archive.ubuntu.com/ubuntu/"
-    COMPONENTS="main restricted universe multiverse"
-    DEBOOTSTRAPOPTS=("${DEBOOTSTRAPOPTS[@]}"
-        "--keyring=/usr/share/keyrings/ubuntu-archive-keyring.gpg")
-else
-    echo "Unknown OS: $OS"
-    exit 1
-fi
-
-if [ "$DIST" == "" ]; then
-    echo "DIST is not set"
-    exit 1
-fi
-
-if [ "$ARCH" == "" ]; then
-    echo "ARCH is not set"
-    exit 1
-fi
-
-NAME="$OS-$DIST-$ARCH"
-
-if [ "$ARCH" == "armel" ] && [ "$(dpkg --print-architecture)" != "armel" ]; then
-    DEBOOTSTRAP="qemu-debootstrap"
-fi
-if [ "$ARCH" == "armhf" ] && [ "$(dpkg --print-architecture)" != "armhf" ]; then
-    DEBOOTSTRAP="qemu-debootstrap"
-fi
-
-DEBOOTSTRAPOPTS=("${DEBOOTSTRAPOPTS[@]}" "--arch=$ARCH")
-BASETGZ="/var/cache/pbuilder/$NAME-base.tgz"
-DISTRIBUTION="$DIST"
-BUILDRESULT="$HOME/pbuild-results/"
-APTCACHE="/var/cache/pbuilder/$NAME/aptcache/"
-BUILDPLACE="/var/cache/pbuilder/build"
-HOOKDIR="/var/cache/pbuilder/hook.d/"
-```
-
-Make the directory where pbuilder will place the packages:
-
-`mkdir -p $HOME/pbuild-results`
-
-### Bootstrap the chroots
-
-Raspbian:
-
-> sudo OS=raspbian DIST=stretch ARCH=armhf pbuilder --create
-
-Debian stable:
-
-> sudo OS=debian DIST=stretch ARCH=amd64 pbuilder --create
-
-## Preparing for build
-
-(compiling for Raspbian stretch in this example)
-
-Download the latest .tar.gz from github.com/peercoin.
-
-> wget https://github.com/peercoin/peercoin/archive/v0.6.3ppc.rc1.tar.gz
-
-Debian build system is very strict about names, so we need to rename this to:
-
-`peercoin_0.6.3.orig.tar.gz`
-
-Extract the contests of the file using `tar xf` and `cd` to it.
-
-Copy the debian directory from the contrib to this directory:
-
-`cp -r contrib/debian .`
-
-### Some modifications
-
-(this is just an extra step required for the Raspbian, to fix problem with autotools)
-
-`sed '/./configure --with-gui=qt5 --with-incompatible-bdb/s/$/ --with-boost-libdir=/usr/lib/arm-linux-gnueabihf/' debian/rules`
-
-## Building the package
-
-`OS=raspbian DIST=stretch ARCH=armhf pdebuild`
-
-And wait, it will take a while so go get a coffee or something. It's compiling by emulating ARM cpu in QEMU.
-
-The concept of pbuild and cross-platform compilations is that you pass it this environment variables like "OS" and "DIST".
-
-For example OS=debian and DIST=wheezy will use Debian Wheezy chroot, you can also pick architecture by using ARCH= environment variable.
-
-## Footnotes
-
-<a id="footnote-3.1">3.1</a>: https://jodal.no/2015/03/08/building-arm-debs-with-pbuilder/
-
----
+![stakebox](https://talk.peercoin.net/uploads/default/original/2X/8/8581bbbb551a82aea92598a5aa93c4144e387317.png)
 
 
-# The Peercoin Foundation
+Stakebox is a project by Peercoin Foundation and PiSupply to deliver cost and power efficient, user friendly set-top box able to run a blockchain node.
+Stakebox is a plug and play Pi with the Peercoin wallet pre-installed.What is need is a keyboard and monitor to plug in to and you are ready to go.
 
-The Peercoin Foundation was publicly announced on May 13, 2018.<sup>[5.1](#footnote-5.1)</sup>
+*StakeBox is a brand by Pi Supply, which is a world leading distributor of Raspberry Pi mini computers.*
 
-## Mission
 
-The Foundation was established with the simple mission of promoting and supporting the continued education, development, and overall progression of the Peercoin project. It seeks to empower future Peercoin team members by providing the tools necessary to perpetuate Peercoin's long standing reputation for bringing world-first innovations to the Blockchain.<sup>[5.2](#footnote-5.2)</sup>
+### Installation
 
-## Funding
+Beside ordering a pre-installed Stakebox from [PiSupply website](https://www.stakebox.org/products/peercoin-stakebox) you can also make one yourself.
 
-To accomplish its mission The Foundation raises funds from donations to the multi-signature address: `p92W3t7YkKfQEPDb7cG9jQ6iMh7cpKLvwK`<sup>[5.2](#footnote-5.2)</sup>
+What do you need:
 
-## Board of Directors
+* Raspberry Pi (2 or newer)
+* image downloaded from files.peercoin.net
+* an SD card (4GB +)
+* some spare time
 
-The Foundation is controlled by a Board of Directors. The membership is not known at this time.
+Download the image from files.peercoin.net, use the [Etcher](http://etcher.io/) to load it to the SD card.
 
-## Footnotes
+Now follow the guide: https://www.stakebox.org/blogs/learn/getting-started-with-peercoin-stakebox.
 
-<a id="footnote-5.1">5.1</a>: https://talk.peercoin.net/t/update-15-the-peercoin-foundation-is-now-open-for-business/
+## Ledger Peercoin Tutorial
 
-<a id="footnote-5.2">5.2</a>: https://peercoin.net/foundation
+### Ledger Live
+
+If you wish to store Peercoin on the Ledger Nano or Ledger Blue, this tutorial will guide you through using the Ledger Live program
+
+Open the Ledger Live program and enter your password to unlock the wallet.  In order to store Peercoin, we first need to add the Peercoin wallet application to the Ledger device.  If this is the first time you are using a Ledger device, you will have to install the Bitcoin app first.  Follow the same steps to add the Bitcoin app, then do the same process for the Peercoin application.  Select Manager from the sidebar and make sure your device is connected, unlocked, and allows access when prompted by the Ledger Manager.
+
+![Ledger Live main screen](../img/ledgerman_main.JPG)
+
+Once this is done, you will be presented with a variety of apps that can be added.  Type in "Peercoin" to find the Peercoin app.  Click the "Install" button and you will be asked to confirm this on your Ledger device.  After a moment, the app will be done installing.  Click "Okay" to proceed.
+
+![Manager](../img/ledgerman_manager.JPG)
+
+![Installing](../img/ledgerman_installing.JPG)
+
+Once this is finished, the Peercoin app is now installed on your Ledger device.  Now we need to add an actual wallet account which we can do by clicking "Portfolio" to return to our starting screen.  Once you are on the main screen, click the "+" by the Accounts tab to add a new asset.
+
+![Ledger Live main screen](../img/ledgerlive_main.JPG)
+
+This will open the menu where you can search for the asset account you would like to add.  Input "Peercoin" and click continue.  You will have to unlock your Ledger again and navigate to the Peercoin app.  To open it, press both buttons on the Ledger Nano device simultaneously.  Once this is done, Ledger Live will sync and you will have the option to name the newly created account.
+
+![Which Asset do you want to add?](../img/ledgerlive_select.JPG)
+
+![Adding Peercoin](../img/ledgerlive_select2.JPG)
+
+Click continue until everything is finalized and completed.  You now have the Peercoin app, and the account added to your Ledger product and wallet.
+
+## Peercoin Paper Wallet Guide
+
+You can find the source code for this wallet here: https://github.com/peercoin/peercoin-address-generator/
+
+If you are interested in generating a paper wallet for holding your Peercoin, this guide will walk you through the process.  First, navigate to this address: https://paperwallet.peercoin.net/
+
+![Paper Wallet Home Screen](../img/paperwallet_mainscreen.JPG)
+
+To being, click the large green Start button.  This will begin the wallet generation process.  In order to ensure randomness, you will be asked to move your mouse cursor around for a period until a wallet address is generated.  This movement of the mouse adds entropy to the generation of an truly random address
+
+![Swipe finger for randomness](../img/paperwallet_random.JPG)
+
+![Keep Swiping](../img/paperwallet_keepswiping.JPG)
+
+Once you have moved the mouse enough, the wallet will be generated and you will be presented with the public and private key for the new wallet.
+
+![Finished!](../img/paperwallet_finished.JPG)
+
+To export the wallet, click the green share icon on the left side of the QR code.  You will then be presented with the options displayed below.
+
+![Saving Options](../img/paperwallet_savingoptions.JPG)
+
+*Save .txt locally
+   *This option will download the wallet as a text file.*
+*Copy address/priv. key to clipboard
+   *This option will copy the address/priv. key to a clipboard where it can be pasted.  Make sure your system is clean and secure before exposing this information to potential threats like keystroke loggers.*
+*Send via email
+   *This option will allow you to send the wallet information via email.*
+*Save JSON data will
+   *This option will download the wallet information in JSON format.*
+*Paper Wallet (print)
+   *This option will open a print dialogue from which the wallet can be printed or saved as a PDF.  Paper wallets provide physical security and backups for Peercoins that are to be left in cold storage.*
+
+This concludes the tutorial on the paper wallet generator.  This platform provides extra security for those who wish to keep their Peercoin in a safe and physical location.
+
+#  Unofficial client implementations
+
+## Coinomi
+
+https://www.coinomi.com/
+
+## Coinspot
+
+https://www.coinspot.com.au
+
+## CoinVault
+
+https://www.coinvault.io/
+
+## Cryptonator
+
+https://www.cryptonator.com/
+
+## HolyTransaction
+
+https://holytransaction.com/
+
+## Ledger
+
+https://www.ledger.com/
+
+## Magnum
+
+Airdrop focused wallet
+
+https://magnumwallet.co
+
+## UberPay
+
+http://uberpay.io/
 
 ---
 
-# JSON-RPC API reference
-
-Peercoin daemon offers JSON-RPC interface which can be used to control the daemon or integrate it with software stack.
-You can send commands to the daemon by using `peercoin-cli` tool.
-
-There are two official wrappers for this interface, a PHP one and a Python2.7+ one.
-
-> Peercoin_rpc is a simple and minimal library made for communication with peercoind via JSON-RPC protocol. It has a single dependency - a Python requests library and it supports both mainnet and testnet peercoin network with authentication or SSL encryption. There is a single class to be imported from the library - Client.
-
-https://github.com/peercoin/peercoin_rpc
-
-> peercoin-php-rpc is a simple and minimal library made for communication with peercoind via JSON-RPC protocol for PHP 7.1+. Easiest way to use is to use composer. Otherwise include RpcClient class in your project an you are good to go.
-
-https://github.com/peercoin/peercoin-php-rpc
-
-## List of JSON-RPC calls
-
-| Command            | Parameters  | Description    | Requires unlocked wallet? (yes/no)  |
-|--------------------|-------------|---------------------------------|--------------------|
-| `getinfo`          |             |Returns an object containing various state info.|no|
-| `getblock`         |  `hash`     |Returns information about the block with the given hash.|no|
-| `getblockcount`    |             |Returns the number of blocks in the longest block chain.|no|
-| `getblockhash`     |`block_num`  |Returns hash of block in best-block-chain at `block_num`; 0 is the genesis block|no|
-| `gettransaction`   | `txid`        |Returns an object about the given transaction containing:<br>  "amount" : total amount of the transaction<br>"confirmations" : number of confirmations of the transaction<br>"txid" : the transaction ID<br>"time" : time associated with the transaction|no|
-| `walletpassphrase` | `passphrase`   `timeout` |Stores the wallet decryption key in memory for `timeout` seconds.|no|
-| `getbalance`       |[account] [minconf=1]|If [account] is not specified, returns the server's total available balance.<br>If [account] is specified, returns the balance in the account.|no|
-| `getreceivedbyaddress`| `address` [minconf=1] |Returns the amount received by `address` in transactions with at least [minconf] confirmations. It correctly handles the case where someone has sent to the address in multiple transactions. Keep in mind that addresses are only ever used for receiving transactions.<br>Works only for addresses in the local wallet, external addresses will always show 0.|no|
-| `getdifficulty`    |  |Returns proof-of-stake and proof-of-work difficulty|no|
-| `getpeerinfo`      |  |Returns data about each connected node.|no|
-| `getaddressesbyaccount`| `account` |Returns the list of addresses for the given account.|no|
-| `getnewaddress`    | [account] |Returns a new address for receiving payments.<br>If [account] is specified payments received with the address will be credited to [account].|no|
-| `getaccount`       | `address` |Returns the account associated with the given `address`.|no|
-| `getaccountaddress`| `account` |Returns the current address for receiving payments to this account.<br>If `account` does not exist, it will be created along with an associated new address that will be returned.|no|
-| `sendtoaddress`    | `address` `amount` [comment] [comment-to] |  `amount` is a real and is rounded to 6 decimal places. Returns the transaction ID `txid` if successful.|yes|
-| `sendfrom`         | `fromaccount` `topeercoinaddress` `amount` [minconf=1] [comment] [comment-to] |`amount` is a real and is rounded to 6 decimal places. Will send the given amount to the given address, ensuring the account has a valid balance using [minconf] confirmations. Returns the transaction ID if successful (not in JSON object).|yes|
-| `sendmany`         | `fromaccount` {address:amount,...} [minconf=1] [comment] |  amounts are double-precision floating point numbers |yes|
-| `getconnectioncount`|    |Returns the number of connections to other nodes.|no|
-| `getrawtransaction`|  `txid` [verbose=0] |Returns raw transaction representation for given transaction id.|no| 
-| `getrawmempool`    |  |Returns all transaction ids in memory pool.|no|
-| `listtransactions` | [account] [count=10] [from=0] | Returns up to [count] most recent transactions skipping the first [from] transactions for account [account]. If [account] not provided it'll return recent transactions from all accounts.|no|
-| `listreceivedbyaddress`| [minconf=1] [includeempty=false] |Returns an array of objects containing:<br>"address" : receiving address<br>"account" : the account of the receiving address<br>"amount" : total amount received by the address<br>"confirmations" : number of confirmations of the most recent transaction included<br>To get a list of accounts on the system, execute `peercoin-cli listreceivedbyaddress 0 true`|no|
-| `listreceivedbyaccount`| [minconf=1] [includeempty=false] |Returns an array of objects containing:<br>"account" : the account of the receiving addresses<br>"amount" : total amount received by addresses with this account<br>"confirmations" : number of confirmations of the most recent transaction included|no|
-| `listaccounts` | [minconf=1] |Returns Object that has account names as keys, account balances as values.|no|
-| `listunspent`  | [minconf=1] [maxconf=999999] |Returns array of unspent transaction inputs in the wallet.|no|
-| `dumpprivkey`  | `address`   |Reveals the private key corresponding to `address`.|yes|
-| `importprivkey`|  `privkey` [label] [rescan=true]|Adds a private key (as returned by dumpprivkey) to your wallet. This may take a while, as a rescan is done, looking for existing transactions.|yes|
-| `createrawtransaction`| [{"txid":txid,"vout":n},...] {address:amount,...} |Creates a raw transaction spending given inputs.|no|
-| `decoderawtransaction`| `hex_string` |Produces a human-readable JSON object for a raw transaction.|no|
-| `signrawtransaction`  | `hex_string` [{"txid":txid,"vout":n,"scriptPubKey":hex},...] [`privatekey1`,...]|Adds signatures to a raw transaction and returns the resulting raw transaction.|yes|
-| `signmessage`         | `address` `message` |Sign a message with the private key of an address.|yes|
-| `verifymessage`       | `address` `signature` `message` |Verify a signed message.|no|
-| `sendrawtransaction`  | `hex_string` |Submits raw transaction (serialized, hex-encoded) to local node and network.|no|
-| `validateaddress`     | `address` |Return information about `address`.|no|
-| `encryptwallet`       | `passphrase` |Encrypts the wallet with `passphrase`|no|
-| `enforcecheckpoint`   | `bool` |`enforce` is true or false to enable or disable enforcement of broadcasted checkpoints by developer.|no|
-| `keypoolrefill`       | `size` |Fills the key pool with new keys [default 100 new keys]|yes|
-| `listlockunspent`     |        |Returns list of temporarily unspendable outputs.|no|
-| `createmultisig`      | `nrequired` `["key,"key"]`|Creates a multi-signature address and returns a json object.|yes|
-
-# Peercoin developer notes
-
-Constants that may be useful when looking to integrate / develop with Peercoin.
-
-Peercoin source code repository: github.com/peercoin/peercoin
-
-## mainnet
-
-| Attribute | Value |
-|-----------|-------|
-| p2pkh Base58 prefix | P |
-| p2sh Base58 prefix | p |
-| p2pkh Base58 prefix (hex) | 0x37 |
-| p2sh Base58 prefix (hex) | 0x75 |
-| Magic bytes |  \xe6\xe8\xe9\xe5 |
-| WIF prefix | 0xb7 |
-| Genesis hash hex (big-endian) |  0000000032fe677166d54963b62a4677d8957e87c508eaa4fd7eb1c880cd27e3 |
-| Genesis hash bytes (little-endian) |  \xe3\x27\xcd\x80\xc8\xb1\x7e\xfd\xa4\xea\x08\xc5\x87\x7e\x95\xd8\x77\x46\x2a\xb6\x63\x49\xd5\x66\x71\x67\xfe\x32\x00\x00\x00\x00 |
-| Genesis tx hash hex | 3c2d8f85fab4d17aac558cc648a1a58acff0de6deb890c29985690052c5993c2 |
-| Genesis tx hash bytes |  \xc2\x93\x59\x2c\x05\x90\x56\x98\x29\x0c\x89\xeb\x6d\xde\xf0\xcf\x8a\xa5\xa1\x48\xc6\x8c\x55\xac\x7a\xd1\xb4\xfa\x85\x8f\x2d\x3c |
-| Default port | 9901 |
-
-## testnet
-
-| Attribute | Value |
-|-----------|-------|
-| p2pkh Base58 prefix | m or n |
-| p2sh Base58 prefix | n |
-| p2pkh Base58 prefix (hex) | 0x6f |
-| p2sh Base58 prefix (hex) | 0xc4 |
-| Magic bytes | \xcb\xf2\xc0\xef |
-| WIF prefix | 0xef |
-| Genesis hash hex (big-endian) | 00000001f757bb737f6596503e17cd17b0658ce630cc727c0cca81aec47c9f06 |
-| Genesis hash bytes (little-endian) |  \x06\x9f\x7c\xc4\xae\x81\xca\x0c\x7c\x72\xcc\x30\xe6\x8c\x65\xb0\x17\xcd\x17\x3e\x50\x96\x65\x7f\x73\xbb\x57\xf7\x01\x00\x00\x00  |
-| Genesis tx hash hex | 3c2d8f85fab4d17aac558cc648a1a58acff0de6deb890c29985690052c5993c2 |
-| Genesis tx hash bytes |  \xc2\x93\x59\x2c\x05\x90\x56\x98\x29\x0c\x89\xeb\x6d\xde\xf0\xcf\x8a\xa5\xa1\x48\xc6\x8c\x55\xac\x7a\xd1\xb4\xfa\x85\x8f\x2d\x3c |
-| Default port | 9903 |
 
 # PeerAssets
 
@@ -1000,303 +1123,20 @@ We've put some recent copies on our [file server](https://files.peercoin.net) :)
 <a id="footnote-9.1">9.1</a>: https://en.wikipedia.org/wiki/Bootstrapping
 
 
-# Proof-of-Stake
+# Minting
 
->Peercoin uses both the Proof-of-Work and Proof-of-Stake algorithms. The PoW algorithm is used to spread the distribution of new coins. Up to 99% of all peercoins is created with POW. Proof-of-Stake is used to secure the network: The chain with longest POS coin age wins in case of a blockchain split-up.
+![Peercoin staking](../img/staking.png)
 
-`Minting`, as it is called in Peercoin to make a proof-of-stake block, is based on metrics of an unspent transaction.
-If we take a look at the number one spot of the rich list, transaction c7293fc60c80bdcc374775d1f0734e0766465b905bae1a312fe487793be3b8f7 has among others the following characteristics:
+The Minting tab is the fifth option and from here, you can see the coin age of your transaction.  The Address, Age, Balance, CoinDay, and MintProbability, are also displayed.  Until the transaction reaches 30 days of age, it will be displayed in red, with a CoinDay of 0.  In the picture above, you can see a transaction that is red and is not eligible for staking due to it only having a an Age of 49.  In the next 30 days, it has a probability of minting of roughly 54.94%.  In 4 days, that transaction will become eligible for minting and change to green color.  You can use the "Display minting probability within:" drop-down menu to estimate the probability of minting during the next period.  Once the 30 day period has passed, and the transaction has become eligible for minting, go to Settings > Decrypt Wallet for Minting Only, and enter your wallet password.  If you have not already encrypted your wallet, you will be asked to do so.  Once the wallet has been unlocked for minting, leaving it running will allow for minting to occur.  Making a transaction from that wallet will disrupt the coin age and the maturation process will have to be repeated.  Sending more coins will not disrupt the coin age.
 
-* The transaction appeared in block 376161 at timestamp 1531750952 (Unix time).
-* The transaction in the block has an offset of 383 bytes. It is the third transaction in the block. The size of the first two transactions in the block are respectively 78 and 224 bytes.
-* The transaction timestamp is 1531750624.
-* The second recipient (index 1) received 1786301.06651300 Peercoins which, at the moment, is still unspent.
+If you are interested in calculating the rough time until minting takes place, you can use this calculator: http://poscalculator.peercointalk.org/
 
-These metrics, along with two more data points serves as a basis to calculate a hash for POS minting:
-
-* a future timestamp X (in Unix time notation) in which the stake could win;
-* a block modifier that was set by the network 1830080 seconds (~21 days) earlier than X.
-
-Every 6 hours the network calculates a new block modifier to be used for POS minting.
-
-The win in proof-of-stake minting, the calculated hash is compared to the current difficulty minus the coinage. The chances of finding a stake therefor improves when either the coin age increases or when the difficulty of the network decreases.
-
-## Peercoin minting behaviour
-
-* The Minting process can only start after 30 days of coinage.
-* Minting coin age is maxed out after 90 days. Which means that after 90 days the only variable left in PoS is the current difficulty.
-* Minting is predictable and not random. For a given transaction, you can calculate the maximum network PoS difficulty over time for your transaction to be able to mint a PoS block.
-* Whenever this PoS difficulty is higher than the current network PoS difficulty your Peercoin client can mint a PoS block.
-* PoS blocks can be rejected (orphans) if several people mint a PoS block within a given window (2 hours also called timedrift). Only one (the chain with longest coin age) will be accepted.
-* Minting splits the transaction in two if coin age < 90 days.
-* PoS block reward is 1% annually. This 1% is a factor of your coin age, and is not maxed out.
-* A transaction that just staked has its coins locked for 520 confirmations (3-4 days).
-* Merging transactions, spending coins, etc. burns coinage (resets it to 0).
-* The PoS reward is directly added to your transaction which staked (if this transaction is split in two because coinage < 90 days, the reward is equally distributed to both resulting transactions).
-
-## Peercoin v0.5 Proof-of-Stake protocol
-
-![Peercoin PoS diagram](../img/pos-diagram.svg)
-
-## Qualities of Proof-of-Stake Consensus
-
-### Efficient
-The use of Proof-of-stake mining in Peercoin is efficient because network security is not dependent on the use of massive amounts of electrical energy (proof-of-energy-burn). Instead minters invest their coins and time to emulate the PoW process. This is done by simply opening up their wallet app, sending coins to their address and letting them sit there while they are occasionally selected by the protocol to mint the next block. This process is both energy and cost efficient.
-
-### Aligning interests
-Because coin owners also produce new blocks in Proof-of-Stake, this means security providers and users of the network are ultimately the same group of people. No longer is there a separate group of security providers who only care about making profit and are not financially tied to the network itself. All security providers must own a stake in the network through ownership of Peercoin. As everyone has similar financial interests in the long-term future of the network this leads to much less conflict between factions with different ideas about how the blockchain should develop and evolve.
-
-### User governance
-Because users in Peercoin have the ability to produce blocks they also have the power to influence and determine the future direction of the network. User governance goes hand in hand with the PoS consensus mechanism. Peercoin is the very first blockchain capable of allowing its protocol rules to be governed directly by its users.
-
-### Global network
-As a direct consequence of the resource efficient consensus mechanism the number of people capable of participating in the race to create new blocks is significantly expanded. In addition to this security providers are also no longer drawn to geographical locations with cheap electricity. Due to the cost efficiency of operating a proof-of-stake node minting nodes can be set up anywhere in the world. This allows Peercoin to maximize its level of decentralization and achieve global security from minting users all around the world.
-
-### Network security is price independent
-Unlike proof-of-work where miners are completely dependent on the market price of a blockchain's native token to ensure profitability, Peercoin contains no such price dependency. Proof-of-stake minters are compensated as motivation to provide consistent security, however since this process is so inexpensive to perform minters actually have the ability to voluntarily operate a minting node without compensation if they want. Even without compensation from the network, the process of minting helps to secure the blockchain and along with it a stakeholder's overall investment. The ability to decide which version of the protocol to run also gives a minter the opportunity to make their voice heard concerning future upgrades to the network. These are two important reasons a stakeholder may have to want to run a node for free, however, compensation is automatically provided which makes it even better to participate. Running a proof-of-work mining node without compensation is just not possible due to the requirement of being profitable enough in order to afford the associated costs of participating. However, since 2012 it has been proven that Peercoin is capable of sustaining its network security even during the lowest periods of demand where market price was close to zero. If the network is capable of surviving extremely stressful conditions like these then it is likely to survive any challenges the market may present it with in the future.
-
-### Higher Resistance to Censorship
-As explained above, the efficiency of proof-of-stake results in a blockchain network that can easily be secured by people all over the world who hold some amount of Peercoin. This globally decentralized security makes the Peercoin network incredibly difficult to censor and shut down. This is similar to downloading files through a bittorrent network. In bittorrent network, many people around the world operate nodes where they hold a full copy of the file that others are trying to download. Pieces of the file are downloaded from different nodes until the full file has finished downloading. If a government were to deem this file sharing illegal and attempt to shut down the torrent network, they would be forced to target every single node on the network no matter where they happen to exist in the world. Even then, there is nothing stopping more torrent nodes from being created that share the same file. As long as one node exists that shares the file, it can be downloaded and spread to others.
-
-Peercoin works in a similar way where minting nodes that process transactions can be operated from anywhere in the world as long as the minter has access to a computer, minimal electricity, some amount of Peercoin and an internet connection. Geographical decentralization of minting nodes makes it incredibly difficult to shut down the Peercoin network, but when the number of nodes around the world expands to thousands or even tens of thousands then it essentially becomes impossible to censor. In systems like these, individual nodes are usually called peers. Together they act as a peer-to-peer network. This is where Peercoin obtained its name. It was originally introduced by Sunny King as ppcoin, which stood for peer-to-peer coin. Shortly after it was renamed to Peercoin.
-
-
-# Stakebox
-
-![stakebox](https://talk.peercoin.net/uploads/default/original/2X/8/8581bbbb551a82aea92598a5aa93c4144e387317.png)
-
-
-Stakebox is a project by Peercoin Foundation and PiSupply to deliver cost and power efficient, user friendly set-top box able to run a blockchain node.
-Stakebox is a plug and play Pi with the Peercoin wallet pre-installed.What is need is a keyboard and monitor to plug in to and you are ready to go.
-
-*StakeBox is a brand by Pi Supply, which is a world leading distributor of Raspberry Pi mini computers.*
-
-
-## Installation
-
-Beside ordering a pre-installed Stakebox from [PiSupply website](https://www.stakebox.org/products/peercoin-stakebox) you can also make one yourself.
-
-What do you need:
-
-* Raspberry Pi (2 or newer)
-* image downloaded from files.peercoin.net
-* an SD card (4GB +)
-* some spare time
-
-Download the image from files.peercoin.net, use the [Etcher](http://etcher.io/) to load it to the SD card.
-
-Now follow the guide: https://www.stakebox.org/blogs/learn/getting-started-with-peercoin-stakebox.
-
-
-# Using the multisig
-
-You can access multisig graphic interface in latest builds of Peercoin-qt. Open Peercoin-qt, click on File - Multisig. Now you see Multisig interface.
-
-![Peercoin-qt multisig](../img/multisig.png)
-
-## How to create a multisig address using QT wallet
-
-In this example, we'll go over creating 2/3 multisig address.
-On your screen you see two tables, each containing "Public key", "Address" and "Label".
-
-1) First click "+ Add public key" button, this will make three input fields. Then enter number 2 in the "Required signatures" field.
-
-2) In the first table, we will first make input in "Address field". You can click book-like icon on the right side to load address from your address book. When you do so, other fields will be auto-populated.
-
-3) Your partners will need to do the same and copy their entries to you. When you exchange information properly make final check to reduce chance of error and finally click on "Create multisig address" button.
-
-4) Now multisig address is created, confirm that all of you got the same address.
-
-5) Finally click "Add address to wallet" in lower right to have it listed in your address book.
-
-That is it, now you have your 2/3 multisig address.
-
-### Creating a multisig address using the command line interface (debug console)
-
-The multisig address is generated with the complete public keys of the participants.
-
-**Alice:**
-
-validateaddress "mw2pj33HMhRfRkKtceHcyKpPiGYkPdD4SM"
-
-    {
-      "isvalid" : true,
-      "address" : "mw2pj33HMhRfRkKtceHcyKpPiGYkPdD4SM",
-      "ismine" : true,
-      "isscript" : false,
-      "pubkey" : "02c16ff447129fae7374d97212cf9fcd88a744da87ff2985869065cd6d17ee5c0b",
-      "iscompressed" : true,
-      "account" : "Alice"
-    }
-
-
-**Bob:**
-
-validateaddress "mkLNecFNeiJgKjw6492nqDiQfKQs1JnLmE"
-
-     {
-       "isvalid" : true,
-       "address" : "mkLNecFNeiJgKjw6492nqDiQfKQs1JnLmE",
-       "ismine" : true,
-       "pubkey" : "025cc4b319284aabcdaef6e9a18af0bb73ac5d4b9f2556a214f30686b0173b316e",
-       "iscompressed" : true,
-       "account" : "Bob"
-     }
-
-
-**Charlie:**
-
-validateaddress "mm8Fwn92RU8zvJmH7TCpaYL3v4PTyjN4xd"
-
-    {
-      "isvalid" : true,
-      "address" : "mm8Fwn92RU8zvJmH7TCpaYL3v4PTyjN4xd",
-      "ismine" : true,
-      "isscript" : false,
-      "pubkey" : "033ba42c942ff7e7fcf42ff604d6ef6c51826f9eea3a04308379c2ade98fb9e703",
-      "iscompressed" : true,
-      "account" : "Trent"
-    }
-
-createmultisig 2 '["02c16ff447129fae7374d97212cf9fcd88a744da87ff2985869065cd6d17ee5c0b", "025cc4b319284aabcdaef6e9a18af0bb73ac5d4b9f2556a214f30686b0173b316e", "033ba42c942ff7e7fcf42ff604d6ef6c51826f9eea3a04308379c2ade98fb9e703"]'
-
-    {
-      "address" : "2N582fRZZZm9hL4RH4sguG9SDDLZhu7eeng",
-      "redeemScript" : "522102c16ff447129fae7374d97212cf9fcd88a744da87ff2985869065cd6d17ee5c0b21025cc4b319284aabcdaef6e9a18af0bb73ac5d4b9f2556a214f30686b0173b316e21033ba42c942ff7e7fcf42ff604d6ef6c51826f9eea3a04308379c2ade98fb9e70353ae"
-    }
-
-
-_________________________________________
-
-## How to spend from the multisig address
-
-Reference Peercoin client is not capable of indexing the multisig addresses and showing their balance because multisig addresses can be owned by keys which are not part of the wallet (friends, family, backup). Thus the procedure to spend the funds from the multisig is a bit more complicated, more "low level" then usual.
-
-In the "Spend Funds" tab of the multisig dialog, on the left there is "Inputs" table. You need to provide with the [UTXO](https://en.wikipedia.org/wiki/Unspent_transaction_output) you want to spend. That is, the `txid` and output index. On the right side there is "Outputs" table, where the desired outputs will be placed. Please note that you have to include the change output and deduct the tx fee (0.01 PPC per kB).
-
-After that is set, click on the "Create Transaction" button bellow, and copy the resulting hash to your peers for further signing.
-Finally paste the hash of fully signed raw transaction into "Sign Transaction" box bellow and click send.
-
-![Peercoin-qt multisig spending](../img/multisig-spend.png)
-
-
-### Spending from the multisig via command line interface
-
-Bob creates a transaction to spend the coins that Alice sent to the multisig address.
-The transaction will have 360 PPC (Alice's coins) as input and 359.99 PPC as output (because of the mandatory 0.01 PPC transaction fee; the transaction won't be accepted by the network without it).
-
-
-**Bob:**
-
-getrawtransaction "0ef16552d0dadaa150da34cfbc5380e82d59b5f328f967fb72104c43a1b99f74" 1
-
-    {
-      "hex" : "01000000197f5a530105a302fe97c3ab33581486fdb39296e8728d2dac7b06324a62ab83515c30d9d8000000006b4830450221008054ee73403f401b2c10acdaed1e51e5345d35fb24574719d8a01203934c6e3202204d97e79ccdae05713b18d85e36896e3bd7a1a0636bd207a493779ca6a7c148c4012102c16ff447129fae7374d97212cf9fcd88a744da87ff2985869065cd6d17ee5c0bffffffff02f0591b2c000000001976a9149f99f0ec7288694065243d32bea766bf9a8d602188ac002a75150000000017a914824524d69e3c8f2ea66e39af89727bc0e8d3de4b8700000000",
-      "txid" : "0ef16552d0dadaa150da34cfbc5380e82d59b5f328f967fb72104c43a1b99f74",
-      "version" : 1,
-      "locktime" : 0,
-      "vin" : [
-        {
-          "txid" : "d8d9305c5183ab624a32067bac2d8d72e89692b3fd86145833abc397fe02a305",
-          "vout" : 0,
-          "scriptSig" : {
-            "asm" : "30450221008054ee73403f401b2c10acdaed1e51e5345d35fb24574719d8a01203934c6e3202204d97e79ccdae05713b18d85e36896e3bd7a1a0636bd207a493779ca6a7c148c401 02c16ff447129fae7374d97212cf9fcd88a744da87ff2985869065cd6d17ee5c0b",
-            "hex" : "4830450221008054ee73403f401b2c10acdaed1e51e5345d35fb24574719d8a01203934c6e3202204d97e79ccdae05713b18d85e36896e3bd7a1a0636bd207a493779ca6a7c148c4012102c16ff447129fae7374d97212cf9fcd88a744da87ff2985869065cd6d17ee5c0b"
-          },
-          "sequence" : 4294967295
-        }
-      ],
-      "vout" : [
-        {
-          "value" : 739.99000000,
-          "n" : 0,
-          "scriptPubKey" : {
-            "asm" : "OP_DUP OP_HASH160 9f99f0ec7288694065243d32bea766bf9a8d6021 OP_EQUALVERIFY OP_CHECKSIG",
-            "hex" : "76a9149f99f0ec7288694065243d32bea766bf9a8d602188ac",
-            "reqSigs" : 1,
-            "type" : "pubkeyhash",
-            "addresses" : [
-              "mv4r9a4FXuDgSA5GaFtLGC9W5Db3XJUrLD"
-            ]
-          }
-        },
-        {
-          "value" : 360.00000000,
-          "n" : 1,
-          "scriptPubKey" : {
-            "asm" : "OP_HASH160 824524d69e3c8f2ea66e39af89727bc0e8d3de4b OP_EQUAL",
-            "hex" : "a914824524d69e3c8f2ea66e39af89727bc0e8d3de4b87",
-            "reqSigs" : 1,
-            "type" : "scripthash",
-            "addresses" : [
-              "2N582fRZZZm9hL4RH4sguG9SDDLZhu7eeng"
-            ]
-          }
-        }
-      ],
-      "blockhash" : "05a7088c02f589ca91beb52ea9667955f7ee10a2433e56f2e11a058c2273bb70",
-      "confirmations" : 2,
-      "time" : 1398439709,
-      "blocktime" : 1398439709
-    }
-
-createrawtransaction '[{"txid" : "0ef16552d0dadaa150da34cfbc5380e82d59b5f328f967fb72104c43a1b99f74", "vout" : 1, "scriptPubKey" : "a914824524d69e3c8f2ea66e39af89727bc0e8d3de4b87", "redeemScript" : "522102c16ff447129fae7374d97212cf9fcd88a744da87ff2985869065cd6d17ee5c0b21025cc4b319284aabcdaef6e9a18af0bb73ac5d4b9f2556a214f30686b0173b316e21033ba42c942ff7e7fcf42ff604d6ef6c51826f9eea3a04308379c2ade98fb9e70353ae"}]' '{"mub5ke5cWP4nZW2VDgtAkFGA7UzSVhwese" : 359.99}'
-
-    0100000062815a5301749fb9a1434c1072fb67f928f3b5592de88053bccf34da50a1dadad05265f10e0100000000ffffffff01f0027515000000001976a9149a59a69866c7668acdd2b36491cfc18229d2348988ac00000000
-
-
-#### First signature of the transaction
-
-Bob signs the new transaction with the private key associated to the public key he used to create the multisig address and sends the result to Alice.
-
-
-**Bob:**
-
-dumpprivkey "mkLNecFNeiJgKjw6492nqDiQfKQs1JnLmE"
-
-    cTxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxo5
-
-signrawtransaction "0100000062815a5301749fb9a1434c1072fb67f928f3b5592de88053bccf34da50a1dadad05265f10e0100000000ffffffff01f0027515000000001976a9149a59a69866c7668acdd2b36491cfc18229d2348988ac00000000" '[{"txid" : "0ef16552d0dadaa150da34cfbc5380e82d59b5f328f967fb72104c43a1b99f74", "vout" : 1, "scriptPubKey" : "a914824524d69e3c8f2ea66e39af89727bc0e8d3de4b87", "redeemScript" : "522102c16ff447129fae7374d97212cf9fcd88a744da87ff2985869065cd6d17ee5c0b21025cc4b319284aabcdaef6e9a18af0bb73ac5d4b9f2556a214f30686b0173b316e21033ba42c942ff7e7fcf42ff604d6ef6c51826f9eea3a04308379c2ade98fb9e70353ae"}]' '["cTxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxo5"]'
-
-    {
-      "hex" : "0100000062815a5301749fb9a1434c1072fb67f928f3b5592de88053bccf34da50a1dadad05265f10e01000000b40047304402201dfd957507d6b48b777a6f5c31d85fb8d00513b79c55dbd902c7f6dee90bc4cc0220773f05b481a9dbbc3153cb832acd994caef0d569de49d3b4a125b5f1e637836c014c69522102c16ff447129fae7374d97212cf9fcd88a744da87ff2985869065cd6d17ee5c0b21025cc4b319284aabcdaef6e9a18af0bb73ac5d4b9f2556a214f30686b0173b316e21033ba42c942ff7e7fcf42ff604d6ef6c51826f9eea3a04308379c2ade98fb9e70353aeffffffff01f0027515000000001976a9149a59a69866c7668acdd2b36491cfc18229d2348988ac00000000",
-      "complete" : false
-    }
-
-
-#### Second signature of the transaction
-
-Let's imagine that Alice refuses to sign the transaction.
-Bob sends the transaction with one signature to Trent and asks him to validate it. Let's imagine that Trent decides that the transaction is legitimate.
-Trent signs the transaction with the private key associated to the public key he used to create the multisig address.
-
-
-**Charlie:**
-
-dumpprivkey "mm8Fwn92RU8zvJmH7TCpaYL3v4PTyjN4xd"
-
-    cPxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxis
-
-signrawtransaction "0100000062815a5301749fb9a1434c1072fb67f928f3b5592de88053bccf34da50a1dadad05265f10e01000000b40047304402201dfd957507d6b48b777a6f5c31d85fb8d00513b79c55dbd902c7f6dee90bc4cc0220773f05b481a9dbbc3153cb832acd994caef0d569de49d3b4a125b5f1e637836c014c69522102c16ff447129fae7374d97212cf9fcd88a744da87ff2985869065cd6d17ee5c0b21025cc4b319284aabcdaef6e9a18af0bb73ac5d4b9f2556a214f30686b0173b316e21033ba42c942ff7e7fcf42ff604d6ef6c51826f9eea3a04308379c2ade98fb9e70353aeffffffff01f0027515000000001976a9149a59a69866c7668acdd2b36491cfc18229d2348988ac00000000" '[{"txid" : "0ef16552d0dadaa150da34cfbc5380e82d59b5f328f967fb72104c43a1b99f74", "vout" : 1, "scriptPubKey" : "a914824524d69e3c8f2ea66e39af89727bc0e8d3de4b87", "redeemScript" : "522102c16ff447129fae7374d97212cf9fcd88a744da87ff2985869065cd6d17ee5c0b21025cc4b319284aabcdaef6e9a18af0bb73ac5d4b9f2556a214f30686b0173b316e21033ba42c942ff7e7fcf42ff604d6ef6c51826f9eea3a04308379c2ade98fb9e70353ae"}]' '["cPxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxis"]'
-
-    {
-      "hex" : "0100000062815a5301749fb9a1434c1072fb67f928f3b5592de88053bccf34da50a1dadad05265f10e01000000fdfd000047304402201dfd957507d6b48b777a6f5c31d85fb8d00513b79c55dbd902c7f6dee90bc4cc0220773f05b481a9dbbc3153cb832acd994caef0d569de49d3b4a125b5f1e637836c014830450220576a38baba9c821a5dbfce6be50825322995041a052f8a76016928ee2741b542022100e95dcefd049628e8c422ee584eb1c3feab3d00f7111a29a16f40353ff7de9648014c69522102c16ff447129fae7374d97212cf9fcd88a744da87ff2985869065cd6d17ee5c0b21025cc4b319284aabcdaef6e9a18af0bb73ac5d4b9f2556a214f30686b0173b316e21033ba42c942ff7e7fcf42ff604d6ef6c51826f9eea3a04308379c2ade98fb9e70353aeffffffff01f0027515000000001976a9149a59a69866c7668acdd2b36491cfc18229d2348988ac00000000",
-      "complete" : true
-    }
-
-
-#### Send the signed transaction to the network
-
-The transaction has the two required signatures, anyone can send it to the network.
-
-sendrawtransaction "0100000062815a5301749fb9a1434c1072fb67f928f3b5592de88053bccf34da50a1dadad05265f10e01000000fdfd000047304402201dfd957507d6b48b777a6f5c31d85fb8d00513b79c55dbd902c7f6dee90bc4cc0220773f05b481a9dbbc3153cb832acd994caef0d569de49d3b4a125b5f1e637836c014830450220576a38baba9c821a5dbfce6be50825322995041a052f8a76016928ee2741b542022100e95dcefd049628e8c422ee584eb1c3feab3d00f7111a29a16f40353ff7de9648014c69522102c16ff447129fae7374d97212cf9fcd88a744da87ff2985869065cd6d17ee5c0b21025cc4b319284aabcdaef6e9a18af0bb73ac5d4b9f2556a214f30686b0173b316e21033ba42c942ff7e7fcf42ff604d6ef6c51826f9eea3a04308379c2ade98fb9e70353aeffffffff01f0027515000000001976a9149a59a69866c7668acdd2b36491cfc18229d2348988ac00000000"
-
-    fea9875ccac102897ff128c868027a05e3d2f9057569529c8e5e94f8d641bc47
+Once minting occurs, the initial batch of coins will have their coin age reset, and the coins earned from minting will remain locked for 520 blocks, or roughly 3 days.  After this period, the coins will be available in the wallet.  As a note, you do not need to leave your wallet running 24/7, as the time spent staking does not increase the probability of minting taking place, as the highest coin age will always take precedence.  Holding longer also does not increase the minting reward.
 
 
 # Mining
 
-Since Peercoin is a fork of Bitcoin, is uses the same SHA-256 encryption and protocol for mining.  This means anything that any hardware that can mine BTC can mine Peercoin as well.  For the majority of people, joining a mining pool will bring the highest profit versus solo mining.  
+Since Peercoin is a fork of Bitcoin, is uses the same SHA-256 encryption and protocol for mining.  This means anything that any hardware that can mine BTC can mine Peercoin as well.  For the majority of people, joining a mining pool will bring the highest profit versus solo mining.
 
 To mine Peercoin, you need a mining software.  Below is a list that is not official endorsed but have been found to have a decent reputation.
 
@@ -1313,7 +1153,7 @@ If you want to calculate the profitability of mining Peercoin, you can use this 
 
 ## Mining Confirmations
 
- Once a block has been mined, 520 blocks must be passed for the mining to be confirmed.  This is roughly 3.61 days of time.  
+ Once a block has been mined, 520 blocks must be passed for the mining to be confirmed.  This is roughly 3.61 days of time.
 
 ## Brief Mining Tutorial
 
@@ -1326,198 +1166,347 @@ The ecoining pool was chosen simply since the information was available.  Wish t
 ---
 
 
-# How To Sign a Message Using the Peercoin Client
+# Compiling
 
-First, check that the address you want to use is loaded up into the wallet of your Peercoin client.  You can use the standard client found [here](https://peercoin.net/download).  The list of your addresses can be found using the receive tab.
+## Compiling packages for Debian and Ubuntu
 
-![1](https://talk.peercoin.net/uploads/default/original/2X/3/3a72b5afa078a4d7b24cfaa7e2a5a303014ec6c6.jpeg)
+As Peercoin is made to run on range of platforms, from Amazon's server to low powered Raspberry Pi Debian is perfect OS platform for deploying Peercoin nodes as it is renowned for multitude of supported hardware architectures as well as security and stability.
 
-Once you are satisfied that the address is in the wallet (you can even copy it to your clipboard if you like), open up the 'Sign message...' option of the 'File' menu.
+For compilation of Debian packages we will be using `pbuilder` which is a automatic Debian Package Building system for personal development workstation environments.<sup>[3.1](#footnote-3.1)</sup> pbuilder aims to be an easy-to-setup system for auto-building Debian packages inside a clean-room environment, so that it is possible to verify that a package can be built on most Debian installations. The clean-room environment is achieved through the use of a base chroot image, so that only minimal packages will be installed inside the chroot.
 
-![2](https://talk.peercoin.net/uploads/default/original/2X/3/3709984353eb778d29e1a91704b170b702383e59.jpeg)
+The following tutorial is written for the Ubuntu or Debian host, precisely Ubuntu 17.10 which is last stable version of Ubuntu at the time of writing.
 
-At this point, you should be on the 'Sign Message' tab where you can paste in the address you want to use, either via your clipboard or by clicking on the address book button.
+## Prepare the tooling
 
-![3](https://talk.peercoin.net/uploads/default/original/2X/3/3b6c44045c17aab2a7694b571812d960da105975.jpeg)
+`sudo apt install pbuilder qemu-user-static ubuntu-keyring debian-archive-keyring`
 
-Now you can type your message into the big blank box.  It might be best to copy and paste this text from a plaintext source in order to avoid any formatting issues.  When you are done, hit the 'Sign Message' button.
+We'll also need keyring for the Raspbian, which a Debian fork made for the Raspberry Pi platform, so we can compile packages for this ARM based mini-pc platform.
 
-![4](https://talk.peercoin.net/uploads/default/original/2X/a/abc4f6835c2841fbd763f9985dcd15034005db50.jpeg)
+> wget http://archive.raspbian.org/raspbian/pool/main/r/raspbian-archive-keyring/raspbian-archive-keyring_20120528.2_all.deb
 
-If it completed its function correctly, it will display in green 'Messaged signed.'  Copy the signature using the convenient button.
+> sudo dpkg -i raspbian-archive-keyring_20120528.2_all.deb
 
-![5](https://talk.peercoin.net/uploads/default/original/2X/8/8728853e3d051ebf766435752b6102ffcd8f960c.jpeg)
+Now, set up the conf file for the pbuilder.
 
-Just to be sure everything worked correctly, you can validate your signature.  Go to the 'Verify Message' tab and fill in all the fields.  If everything looks good, and it comes back with a green 'Message verified.' then you can share with anyone your signature, message, and address and they should be able to verify it just the same.
+`touch .pbuilderrc`
 
-![6](https://talk.peercoin.net/uploads/default/original/2X/1/1f6ed2c60c32921af99e1c59cc27eb4124caaffa.jpeg)
+> gedit .pbuilderrc
 
-Congratulations, you have now cryptographically signed and verified a message!
+Paste the following:
+
+```
+#!/bin/sh
+
+set -e
+
+PBUILDERSATISFYDEPENDSCMD="/usr/lib/pbuilder/pbuilder-satisfydepends-apt"
+
+if [ "$OS" == "debian" ]; then
+    MIRRORSITE="http://ftp.no.debian.org/debian/"
+    COMPONENTS="main contrib non-free"
+    DEBOOTSTRAPOPTS=("${DEBOOTSTRAPOPTS[@]}"
+        "--keyring=/usr/share/keyrings/debian-archive-keyring.gpg")
+    : ${DIST:="wheezy"}
+    : ${ARCH:="amd64"}
+    if [ "$DIST" == "wheezy" ]; then
+        #EXTRAPACKAGES="$EXTRAPACKAGES debian-backports-keyring"
+        OTHERMIRROR="$OTHERMIRROR | deb $MIRRORSITE wheezy-backports $COMPONENTS"
+    fi
+elif [ "$OS" == "raspbian" ]; then
+    MIRRORSITE="http://ftp.acc.umu.se/mirror/raspbian/raspbian/"
+    COMPONENTS="main contrib non-free"
+    DEBOOTSTRAPOPTS=("${DEBOOTSTRAPOPTS[@]}"
+        "--keyring=/usr/share/keyrings/raspbian-archive-keyring.gpg")
+    : ${DIST:="wheezy"}
+    : ${ARCH:="armhf"}
+elif [ "$OS" == "ubuntu" ]; then
+    MIRRORSITE="http://no.archive.ubuntu.com/ubuntu/"
+    COMPONENTS="main restricted universe multiverse"
+    DEBOOTSTRAPOPTS=("${DEBOOTSTRAPOPTS[@]}"
+        "--keyring=/usr/share/keyrings/ubuntu-archive-keyring.gpg")
+else
+    echo "Unknown OS: $OS"
+    exit 1
+fi
+
+if [ "$DIST" == "" ]; then
+    echo "DIST is not set"
+    exit 1
+fi
+
+if [ "$ARCH" == "" ]; then
+    echo "ARCH is not set"
+    exit 1
+fi
+
+NAME="$OS-$DIST-$ARCH"
+
+if [ "$ARCH" == "armel" ] && [ "$(dpkg --print-architecture)" != "armel" ]; then
+    DEBOOTSTRAP="qemu-debootstrap"
+fi
+if [ "$ARCH" == "armhf" ] && [ "$(dpkg --print-architecture)" != "armhf" ]; then
+    DEBOOTSTRAP="qemu-debootstrap"
+fi
+
+DEBOOTSTRAPOPTS=("${DEBOOTSTRAPOPTS[@]}" "--arch=$ARCH")
+BASETGZ="/var/cache/pbuilder/$NAME-base.tgz"
+DISTRIBUTION="$DIST"
+BUILDRESULT="$HOME/pbuild-results/"
+APTCACHE="/var/cache/pbuilder/$NAME/aptcache/"
+BUILDPLACE="/var/cache/pbuilder/build"
+HOOKDIR="/var/cache/pbuilder/hook.d/"
+```
+
+Make the directory where pbuilder will place the packages:
+
+`mkdir -p $HOME/pbuild-results`
+
+### Bootstrap the chroots
+
+Raspbian:
+
+> sudo OS=raspbian DIST=stretch ARCH=armhf pbuilder --create
+
+Debian stable:
+
+> sudo OS=debian DIST=stretch ARCH=amd64 pbuilder --create
+
+## Preparing for build
+
+(compiling for Raspbian stretch in this example)
+
+Download the latest .tar.gz from github.com/peercoin.
+
+> wget https://github.com/peercoin/peercoin/archive/v0.6.3ppc.rc1.tar.gz
+
+Debian build system is very strict about names, so we need to rename this to:
+
+`peercoin_0.6.3.orig.tar.gz`
+
+Extract the contests of the file using `tar xf` and `cd` to it.
+
+Copy the debian directory from the contrib to this directory:
+
+`cp -r contrib/debian .`
+
+### Some modifications
+
+(this is just an extra step required for the Raspbian, to fix problem with autotools)
+
+`sed '/./configure --with-gui=qt5 --with-incompatible-bdb/s/$/ --with-boost-libdir=/usr/lib/arm-linux-gnueabihf/' debian/rules`
+
+## Building the package
+
+`OS=raspbian DIST=stretch ARCH=armhf pdebuild`
+
+And wait, it will take a while so go get a coffee or something. It's compiling by emulating ARM cpu in QEMU.
+
+The concept of pbuild and cross-platform compilations is that you pass it this environment variables like "OS" and "DIST".
+
+For example OS=debian and DIST=wheezy will use Debian Wheezy chroot, you can also pick architecture by using ARCH= environment variable.
+
+## Footnotes
+
+<a id="footnote-3.1">3.1</a>: https://jodal.no/2015/03/08/building-arm-debs-with-pbuilder/
+
+# JSON-RPC API reference
+
+Peercoin daemon offers JSON-RPC interface which can be used to control the daemon or integrate it with software stack.
+You can send commands to the daemon by using `peercoin-cli` tool.
+
+There are two official wrappers for this interface, a PHP one and a Python2.7+ one.
+
+> Peercoin_rpc is a simple and minimal library made for communication with peercoind via JSON-RPC protocol. It has a single dependency - a Python requests library and it supports both mainnet and testnet peercoin network with authentication or SSL encryption. There is a single class to be imported from the library - Client.
+
+https://github.com/peercoin/peercoin_rpc
+
+> peercoin-php-rpc is a simple and minimal library made for communication with peercoind via JSON-RPC protocol for PHP 7.1+. Easiest way to use is to use composer. Otherwise include RpcClient class in your project an you are good to go.
+
+https://github.com/peercoin/peercoin-php-rpc
+
+## List of JSON-RPC calls
+
+| Command            | Parameters  | Description    | Requires unlocked wallet? (yes/no)  |
+|--------------------|-------------|---------------------------------|--------------------|
+| `getinfo`          |             |Returns an object containing various state info.|no|
+| `getblock`         |  `hash`     |Returns information about the block with the given hash.|no|
+| `getblockcount`    |             |Returns the number of blocks in the longest block chain.|no|
+| `getblockhash`     |`block_num`  |Returns hash of block in best-block-chain at `block_num`; 0 is the genesis block|no|
+| `gettransaction`   | `txid`        |Returns an object about the given transaction containing:<br>  "amount" : total amount of the transaction<br>"confirmations" : number of confirmations of the transaction<br>"txid" : the transaction ID<br>"time" : time associated with the transaction|no|
+| `walletpassphrase` | `passphrase`   `timeout` |Stores the wallet decryption key in memory for `timeout` seconds.|no|
+| `getbalance`       |[account] [minconf=1]|If [account] is not specified, returns the server's total available balance.<br>If [account] is specified, returns the balance in the account.|no|
+| `getreceivedbyaddress`| `address` [minconf=1] |Returns the amount received by `address` in transactions with at least [minconf] confirmations. It correctly handles the case where someone has sent to the address in multiple transactions. Keep in mind that addresses are only ever used for receiving transactions.<br>Works only for addresses in the local wallet, external addresses will always show 0.|no|
+| `getdifficulty`    |  |Returns proof-of-stake and proof-of-work difficulty|no|
+| `getpeerinfo`      |  |Returns data about each connected node.|no|
+| `getaddressesbyaccount`| `account` |Returns the list of addresses for the given account.|no|
+| `getnewaddress`    | [account] |Returns a new address for receiving payments.<br>If [account] is specified payments received with the address will be credited to [account].|no|
+| `getaccount`       | `address` |Returns the account associated with the given `address`.|no|
+| `getaccountaddress`| `account` |Returns the current address for receiving payments to this account.<br>If `account` does not exist, it will be created along with an associated new address that will be returned.|no|
+| `sendtoaddress`    | `address` `amount` [comment] [comment-to] |  `amount` is a real and is rounded to 6 decimal places. Returns the transaction ID `txid` if successful.|yes|
+| `sendfrom`         | `fromaccount` `topeercoinaddress` `amount` [minconf=1] [comment] [comment-to] |`amount` is a real and is rounded to 6 decimal places. Will send the given amount to the given address, ensuring the account has a valid balance using [minconf] confirmations. Returns the transaction ID if successful (not in JSON object).|yes|
+| `sendmany`         | `fromaccount` {address:amount,...} [minconf=1] [comment] |  amounts are double-precision floating point numbers |yes|
+| `getconnectioncount`|    |Returns the number of connections to other nodes.|no|
+| `getrawtransaction`|  `txid` [verbose=0] |Returns raw transaction representation for given transaction id.|no|
+| `getrawmempool`    |  |Returns all transaction ids in memory pool.|no|
+| `listtransactions` | [account] [count=10] [from=0] | Returns up to [count] most recent transactions skipping the first [from] transactions for account [account]. If [account] not provided it'll return recent transactions from all accounts.|no|
+| `listreceivedbyaddress`| [minconf=1] [includeempty=false] |Returns an array of objects containing:<br>"address" : receiving address<br>"account" : the account of the receiving address<br>"amount" : total amount received by the address<br>"confirmations" : number of confirmations of the most recent transaction included<br>To get a list of accounts on the system, execute `peercoin-cli listreceivedbyaddress 0 true`|no|
+| `listreceivedbyaccount`| [minconf=1] [includeempty=false] |Returns an array of objects containing:<br>"account" : the account of the receiving addresses<br>"amount" : total amount received by addresses with this account<br>"confirmations" : number of confirmations of the most recent transaction included|no|
+| `listaccounts` | [minconf=1] |Returns Object that has account names as keys, account balances as values.|no|
+| `listunspent`  | [minconf=1] [maxconf=999999] |Returns array of unspent transaction inputs in the wallet.|no|
+| `dumpprivkey`  | `address`   |Reveals the private key corresponding to `address`.|yes|
+| `importprivkey`|  `privkey` [label] [rescan=true]|Adds a private key (as returned by dumpprivkey) to your wallet. This may take a while, as a rescan is done, looking for existing transactions.|yes|
+| `createrawtransaction`| [{"txid":txid,"vout":n},...] {address:amount,...} |Creates a raw transaction spending given inputs.|no|
+| `decoderawtransaction`| `hex_string` |Produces a human-readable JSON object for a raw transaction.|no|
+| `signrawtransaction`  | `hex_string` [{"txid":txid,"vout":n,"scriptPubKey":hex},...] [`privatekey1`,...]|Adds signatures to a raw transaction and returns the resulting raw transaction.|yes|
+| `signmessage`         | `address` `message` |Sign a message with the private key of an address.|yes|
+| `verifymessage`       | `address` `signature` `message` |Verify a signed message.|no|
+| `sendrawtransaction`  | `hex_string` |Submits raw transaction (serialized, hex-encoded) to local node and network.|no|
+| `validateaddress`     | `address` |Return information about `address`.|no|
+| `encryptwallet`       | `passphrase` |Encrypts the wallet with `passphrase`|no|
+| `enforcecheckpoint`   | `bool` |`enforce` is true or false to enable or disable enforcement of broadcasted checkpoints by developer.|no|
+| `keypoolrefill`       | `size` |Fills the key pool with new keys [default 100 new keys]|yes|
+| `listlockunspent`     |        |Returns list of temporarily unspendable outputs.|no|
+| `createmultisig`      | `nrequired` `["key,"key"]`|Creates a multi-signature address and returns a json object.|yes|
+
+# Peercoin Developer Notes
+
+Constants that may be useful when looking to integrate / develop with Peercoin.
+
+Peercoin source code repository: github.com/peercoin/peercoin
+
+## Mainnet
+
+| Attribute | Value |
+|-----------|-------|
+| p2pkh Base58 prefix | P |
+| p2sh Base58 prefix | p |
+| p2pkh Base58 prefix (hex) | 0x37 |
+| p2sh Base58 prefix (hex) | 0x75 |
+| Magic bytes |  \xe6\xe8\xe9\xe5 |
+| WIF prefix | 0xb7 |
+| Genesis hash hex (big-endian) |  0000000032fe677166d54963b62a4677d8957e87c508eaa4fd7eb1c880cd27e3 |
+| Genesis hash bytes (little-endian) |  \xe3\x27\xcd\x80\xc8\xb1\x7e\xfd\xa4\xea\x08\xc5\x87\x7e\x95\xd8\x77\x46\x2a\xb6\x63\x49\xd5\x66\x71\x67\xfe\x32\x00\x00\x00\x00 |
+| Genesis tx hash hex | 3c2d8f85fab4d17aac558cc648a1a58acff0de6deb890c29985690052c5993c2 |
+| Genesis tx hash bytes |  \xc2\x93\x59\x2c\x05\x90\x56\x98\x29\x0c\x89\xeb\x6d\xde\xf0\xcf\x8a\xa5\xa1\x48\xc6\x8c\x55\xac\x7a\xd1\xb4\xfa\x85\x8f\x2d\x3c |
+| Default port | 9901 |
+
+## Testnet
+
+| Attribute | Value |
+|-----------|-------|
+| p2pkh Base58 prefix | m or n |
+| p2sh Base58 prefix | n |
+| p2pkh Base58 prefix (hex) | 0x6f |
+| p2sh Base58 prefix (hex) | 0xc4 |
+| Magic bytes | \xcb\xf2\xc0\xef |
+| WIF prefix | 0xef |
+| Genesis hash hex (big-endian) | 00000001f757bb737f6596503e17cd17b0658ce630cc727c0cca81aec47c9f06 |
+| Genesis hash bytes (little-endian) |  \x06\x9f\x7c\xc4\xae\x81\xca\x0c\x7c\x72\xcc\x30\xe6\x8c\x65\xb0\x17\xcd\x17\x3e\x50\x96\x65\x7f\x73\xbb\x57\xf7\x01\x00\x00\x00  |
+| Genesis tx hash hex | 3c2d8f85fab4d17aac558cc648a1a58acff0de6deb890c29985690052c5993c2 |
+| Genesis tx hash bytes |  \xc2\x93\x59\x2c\x05\x90\x56\x98\x29\x0c\x89\xeb\x6d\xde\xf0\xcf\x8a\xa5\xa1\x48\xc6\x8c\x55\xac\x7a\xd1\xb4\xfa\x85\x8f\x2d\x3c |
+| Default port | 9903 |
+
+# Bootstrapping
+
+## What is it?
+
+> In computer technology the term (usually shortened to booting) usually
+> refers to the process of loading the basic software into the memory of
+> a computer after power-on or general reset, especially the operating
+> system which will then take care of loading other software as needed.<sup>[9.1](#footnote-9.1)</sup>
+
+For Peercoin it means loading all of the block chain history from a special
+file containing a snapshot of block data.
+
+This special file, named `bootstrap.dat`, allows the Peercoin client to
+sync from your hard drive instead of the internet. Using a
+`bootstrap.dat` file is faster and reduces stress on the Peercoin network to sync new nodes.
+
+## How do I make a `bootstrap.dat`?
+
+Any synced client has the ability to make a `bootstrap.dat` file. Assuming
+you're running linux you can do the following to manufacture your own.
+First, shutdown your client. Allow it to cleanly exit so we know the block
+data is settled.
+
+Now, navigate to the directory `~/.peercoin/blocks` in your terminal and
+notice the files named `blk00000.dat`, `blk00001.dat`, `blk00002.dat`, etc.
+These are the raw block data files that can be combined to form the
+`bootstrap.dat`!
+
+The command:
+> cat blk*.dat > bootstrap.dat
+
+will produce the `bootstrap.dat`.
+The file is often then compressed (zip'ed, tar/gzip'ed) and shared.
+
+The same process can be executed on Microsoft Windows (7+):
+
+> CD C:\Users\<my_user>\AppData\Roaming\Peercoin
+
+> COPY /b blk0001.dat+blk0002.dat bootstrap.dat
+
+Or on OS X:
+
+> cd "~/Library/Application Support/Peercoin/"
+
+> cat blk*.dat > bootstrap.dat
 
 
-# How to buy Peercoin
+On linux and OS X you can create hash of the bootstrap:
 
-There are many ways to buy Peercoin, although it may depend on your previous exchange access or location.
-You should have a Peercoin wallet set up previously to making a purchase so that you have a place to store your Peercoin.  
+> sha256 bootstrap.dat
 
-## Fiat gateways
+## How do I use a `bootstrap.dat`?
 
-In order to purchase Peercoin directly with a bank wire or debit card, there are several options for direct purchase, although these primarily support European wire transfers and purchases.  If you want to directly purchase with a card or bank transfer, you can use the following sites:
+Assuming you're on linux and you haven't started the Peercoin client before.
 
-### The Rock Trading
-https://www.therocktrading.com/
-TheRockTrading offers SEPA direct deposits and offers Peercoin directly on the platform, while offering no trading fees on PPC.  
+Make the directory `~/.peercoin` if it doesn't exist and then move the
+`bootstrap.dat` into the `~/.peercoin` directory.
 
-### AnycoinDirect
-https://anycoindirect.eu/en/buy-peercoin
-Supports EUR
+Start the Peercoin client. You should see the status `Importing blocks from disk...` if the client has found the `bootstrap.dat` and is using it to
+sync the block chain.
 
-### LiteBit
-https://www.litebit.eu/en/buy/peercoin
-Supports EUR
+## Where can I download a `bootstrap.dat`?
 
-### Livecoin.net
-https://www.livecoin.net/
-Supports both USD/RUR/EUR deposits
+We've put some recent copies on our [file server](https://files.peercoin.net) :)
 
-If you are in the US, the above websites may not be available.  You must use an exchange that accepts you must buy a cryptocurrency like Bitcoin and transfer it to an exchange that lists Peercoin, which will be discussed at a later time.  
+* [Mainnet bootstrap.dat.zip](https://files.peercoin.net/download/peercoin_mainnet_2018_08_06_bootstrap.dat.zip) SHA256 `66c494e0c2a4c78ba19f14a3781ca77f1b8b16f3833fb85c10959ee991764a4c` | [torrent](https://files.peercoin.net/download/peercoin_mainnet_2018_08_06_bootstrap.dat.zip.torrent) | [magnet](magnet:?xt=urn:btih:9fc1f0d09a6598ae96ba5d8b9ac5caca0ae92402&dn=peercoin%5Fmainnet%5F2018%5F08%5F06%5Fbootstrap.dat.zip&tr=udp%3A%2F%2Fpublic.popcorn-tracker.org%3A6969%2Fannounce&tr=udp%3A%2F%2Ftracker.ilibr.org%3A80%2Fannounce&tr=http%3A%2F%2Fatrack.pow7.com%2Fannounce&tr=http%3A%2F%2Fbt.henbt.com%3A2710%2Fannounce&tr=http%3A%2F%2Fmgtracker.org%3A2710%2Fannounce&tr=http%3A%2F%2Fmgtracker.org%3A6969%2Fannounce&tr=http%3A%2F%2Fopen.touki.ru%2Fannounce.php&tr=http%3A%2F%2Fp4p.arenabg.ch%3A1337%2Fannounce&tr=http%3A%2F%2Fpow7.com%3A80%2Fannounce&tr=http%3A%2F%2Fretracker.krs-ix.ru%3A80%2Fannounce)
+* [Mainnet bootstrap.dat.tar.gz](https://files.peercoin.net/download/peercoin_mainnet_2018_08_06_bootstrap.dat.tar.gz) SHA256 `bac807186735347e2c7ccbfecb3d91045de32246258a7ba3e3d0a9c2a10b8ff0` | [torrent](https://files.peercoin.net/download/peercoin_mainnet_2018_08_06_bootstrap.dat.tar.gz.torrent) | [magnet](magnet:?xt=urn:btih:77f1c5352e9eca71e9f4f1e31487e7d13900a335&dn=peercoin%5Fmainnet%5F2018%5F08%5F06%5Fbootstrap.dat.tar.gz&tr=udp%3A%2F%2Fpublic.popcorn-tracker.org%3A6969%2Fannounce&tr=udp%3A%2F%2Ftracker.ilibr.org%3A80%2Fannounce&tr=http%3A%2F%2Fatrack.pow7.com%2Fannounce&tr=http%3A%2F%2Fbt.henbt.com%3A2710%2Fannounce&tr=http%3A%2F%2Fmgtracker.org%3A2710%2Fannounce&tr=http%3A%2F%2Fmgtracker.org%3A6969%2Fannounce&tr=http%3A%2F%2Fopen.touki.ru%2Fannounce.php&tr=http%3A%2F%2Fp4p.arenabg.ch%3A1337%2Fannounce&tr=http%3A%2F%2Fpow7.com%3A80%2Fannounce&tr=http%3A%2F%2Fretracker.krs-ix.ru%3A80%2Fannounce)
+* [Testnet bootstrap.dat.zip](https://files.peercoin.net/download/peercoin_testnet_2018_08_06_bootstrap.dat.zip) SHA256 `1312aaaf0d8466b6f7006bac60a5cad4daf36e1241f791924e45bc5959ff2452` | [torrent](https://files.peercoin.net/download/peercoin_testnet_2018_08_06_bootstrap.dat.zip.torrent) | [magnet](magnet:?xt=urn:btih:c70afb5100953362b45df75133e01bf1f9466e04&dn=peercoin%5Ftestnet%5F2018%5F08%5F06%5Fbootstrap.dat.zip&tr=udp%3A%2F%2Fpublic.popcorn-tracker.org%3A6969%2Fannounce&tr=udp%3A%2F%2Ftracker.ilibr.org%3A80%2Fannounce&tr=http%3A%2F%2Fatrack.pow7.com%2Fannounce&tr=http%3A%2F%2Fbt.henbt.com%3A2710%2Fannounce&tr=http%3A%2F%2Fmgtracker.org%3A2710%2Fannounce&tr=http%3A%2F%2Fmgtracker.org%3A6969%2Fannounce&tr=http%3A%2F%2Fopen.touki.ru%2Fannounce.php&tr=http%3A%2F%2Fp4p.arenabg.ch%3A1337%2Fannounce&tr=http%3A%2F%2Fpow7.com%3A80%2Fannounce&tr=http%3A%2F%2Fretracker.krs-ix.ru%3A80%2Fannounce)
+* [Testnet bootstrap.dat.tar.gz](https://files.peercoin.net/download/peercoin_testnet_2018_08_06_bootstrap.dat.tar.gz) SHA256 `15f0e40a7e99083b2ed27c78d37d0f201fd6c744537cf643925d0aae84395896` | [torrent](https://files.peercoin.net/download/peercoin_testnet_2018_08_06_bootstrap.dat.tar.gz.torrent) | [magnet](magnet:?xt=urn:btih:eb2a70e90285ca847be47b2f96e36e5cdec4580e&dn=peercoin%5Ftestnet%5F2018%5F08%5F06%5Fbootstrap.dat.tar.gz&tr=udp%3A%2F%2Fpublic.popcorn-tracker.org%3A6969%2Fannounce&tr=udp%3A%2F%2Ftracker.ilibr.org%3A80%2Fannounce&tr=http%3A%2F%2Fatrack.pow7.com%2Fannounce&tr=http%3A%2F%2Fbt.henbt.com%3A2710%2Fannounce&tr=http%3A%2F%2Fmgtracker.org%3A2710%2Fannounce&tr=http%3A%2F%2Fmgtracker.org%3A6969%2Fannounce&tr=http%3A%2F%2Fopen.touki.ru%2Fannounce.php&tr=http%3A%2F%2Fp4p.arenabg.ch%3A1337%2Fannounce&tr=http%3A%2F%2Fpow7.com%3A80%2Fannounce&tr=http%3A%2F%2Fretracker.krs-ix.ru%3A80%2Fannounce)
 
-### Coinbase
+## Footnotes
 
-https://coinbase.com
-CoinBase is one of the most popular broker sites and is arguably the most commonly used for US based citizens.
+<a id="footnote-9.1">9.1</a>: https://en.wikipedia.org/wiki/Bootstrapping
 
-### Gemini
-
-https://gemini.com
-Gemini also offers fiat purchasing options for Bitcoin with bank wire options.  
-
-### OkCoin
-
-https://www.okcoin.com/lang/en-US/
-Offers fiat deposits by wire to buy Bitcoin and other common coins.
-
-It is strongly recommended to purchase Bitcoin as it has the most traded pairs for the exchanges that list Peercoin which will be discussed in the section below.  Once you have made a purchase, send those coins over to your chosen exchange and make your purchase of Peercoin.
-
-There are other websites that can be used to buy Bitcoin with a debit or credit card, and there are a plethora of guides available on these sites.  We suggest you find a reputable site with low fees and a large number of positive user reviews over time.
-
-## Exchanges
-
-If you already own cryptocurrency, the section about fiat gateways can be skipped since you most likely already have one.  Below is a list of exchanges which support Peercoin and where it can be traded actively.  Send your coins there and you will be able to purchase Peercoin.
-
-### PPC/BTC Pairs
-
-#### Bittrex
-
-https://bittrex.com/Market/Index?MarketName=BTC-PPC
-
-#### Cryptopia
-
-https://www.cryptopia.co.nz/Exchange?market=PPC_BTC
-
-#### HitBTC
-
-https://hitbtc.com/PPC-to-BTC
-
-#### Livecoin
-
-https://www.livecoin.net/
-
-#### Poloniex
-
-https://poloniex.com/exchange#btc_ppc
-
-#### The Rock Trading
-
-https://www.therocktrading.com/en/offers/PPCBTC
-
-#### Tux Exchange
-
-https://bx.in.th/BTC/PPC/
-
-____________
-
-Each exchange comes with a variety of fees both in trading and withdrawals and user experience may vary.  As always, use strong passwords, 2FA, and cold storage as needed.
-
-Once you have made your purchase, you can withdraw your coins to the wallet you have chosen.
 
 ---
 
 
-# Peercoin Paper Wallet Guide
+# Graphics
 
-You can find the source code for this wallet here: https://github.com/peercoin/peercoin-address-generator/
+A variety of Peercoin graphics are available here: https://github.com/peercoin/media/tree/master/Peercoin%202018%20Logo%20Files
 
-If you are interested in generating a paper wallet for holding your Peercoin, this guide will walk you through the process.  First, navigate to this address: https://paperwallet.peercoin.net/
+# Brand Identity
 
-![Paper Wallet Home Screen](../img/paperwallet_mainscreen.JPG)
+Please use these color codes on your Peercoin related websites whenever possible. This will help us keep the Peercoin ecosystem and its branding and visuals consistent.
 
-To being, click the large green Start button.  This will begin the wallet generation process.  In order to ensure randomness, you will be asked to move your mouse cursor around for a period until a wallet address is generated.  This movement of the mouse adds entropy to the generation of an truly random address
+Green:
+#3cb054
+RBG: 24, 69, 33
+CMYK: 66, 0, 52, 31
 
-![Swipe finger for randomness](../img/paperwallet_random.JPG)
+White: #ffffff
 
-![Keep Swiping](../img/paperwallet_keepswiping.JPG)
+The Peercoin text logo uses the following font:
+Font: FF Mark
+Type: Mark-Medium
+Website: http://www.ffmark.com/
 
-Once you have moved the mouse enough, the wallet will be generated and you will be presented with the public and private key for the new wallet.
-
-![Finished!](../img/paperwallet_finished.JPG)
-
-To export the wallet, click the green share icon on the left side of the QR code.  You will then be presented with the options displayed below.
-
-![Saving Options](../img/paperwallet_savingoptions.JPG)
-
-*Save .txt locally
-   *This option will download the wallet as a text file.*
-*Copy address/priv. key to clipboard
-   *This option will copy the address/priv. key to a clipboard where it can be pasted.  Make sure your system is clean and secure before exposing this information to potential threats like keystroke loggers.*
-*Send via email
-   *This option will allow you to send the wallet information via email.*
-*Save JSON data will
-   *This option will download the wallet information in JSON format.*
-*Paper Wallet (print)
-   *This option will open a print dialogue from which the wallet can be printed or saved as a PDF.  Paper wallets provide physical security and backups for Peercoins that are to be left in cold storage.*
-
-This concludes the tutorial on the paper wallet generator.  This platform provides extra security for those who wish to keep their Peercoin in a safe and physical location.    
-
-_________________________________________
-
-
-# Ledger Peercoin Tutorial
-
-## Ledger Live
-
-If you wish to store Peercoin on the Ledger Nano or Ledger Blue, this tutorial will guide you through using the Ledger Live program
-
-Open the Ledger Live program and enter your password to unlock the wallet.  In order to store Peercoin, we first need to add the Peercoin wallet application to the Ledger device.  If this is the first time you are using a Ledger device, you will have to install the Bitcoin app first.  Follow the same steps to add the Bitcoin app, then do the same process for the Peercoin application.  Select Manager from the sidebar and make sure your device is connected, unlocked, and allows access when prompted by the Ledger Manager.
-
-![Ledger Live main screen](../img/ledgerman_main.JPG)
-
-Once this is done, you will be presented with a variety of apps that can be added.  Type in "Peercoin" to find the Peercoin app.  Click the "Install" button and you will be asked to confirm this on your Ledger device.  After a moment, the app will be done installing.  Click "Okay" to proceed.
-
-![Manager](../img/ledgerman_manager.JPG)
-
-![Installing](../img/ledgerman_installing.JPG)
-
-Once this is finished, the Peercoin app is now installed on your Ledger device.  Now we need to add an actual wallet account which we can do by clicking "Portfolio" to return to our starting screen.  Once you are on the main screen, click the "+" by the Accounts tab to add a new asset.  
-
-![Ledger Live main screen](../img/ledgerlive_main.JPG)
-
-This will open the menu where you can search for the asset account you would like to add.  Input "Peercoin" and click continue.  You will have to unlock your Ledger again and navigate to the Peercoin app.  To open it, press both buttons on the Ledger Nano device simultaneously.  Once this is done, Ledger Live will sync and you will have the option to name the newly created account.  
-
-![Which Asset do you want to add?](../img/ledgerlive_select.JPG)
-
-![Adding Peercoin](../img/ledgerlive_select2.JPG)
-
-Click continue until everything is finalized and completed.  You now have the Peercoin app, and the account added to your Ledger product and wallet.  
+The Peercoin website and wallets use the Roboto font for its content.
 
 ---
-
-
-# Press Kit
-
-If you are interested in using Peercoin graphics, you can find the related files here: https://github.com/peercoin/media
-
-____________
 
 
 # Frequently Asked Questions
@@ -1540,7 +1529,7 @@ Peercoin has a fixed transaction fee filters out spam transactions which have da
 
 ## How can the Peercoin network survive without miners providing PoW security, especially during times of low interest?
 
-Proof of work serves to distribute coins through as an inflationary mechanism. The Peercoin network is secured by coin age and proof of stake.  With pure proof of work chains, holders have little ability to secure the chain with the high cost of mining equipment being a barrier to entry. Any Peercoin holder can protect their investment by allowing a transaction to mature and leaving the wallet open for minting keeps the network secure and has done so since Peercoin's inception.  
+Proof of work serves to distribute coins through as an inflationary mechanism. The Peercoin network is secured by coin age and proof of stake.  With pure proof of work chains, holders have little ability to secure the chain with the high cost of mining equipment being a barrier to entry. Any Peercoin holder can protect their investment by allowing a transaction to mature and leaving the wallet open for minting keeps the network secure and has done so since Peercoin's inception.
 
 ## I just moved Peercoins to my wallet and it says I have a zero percent chance of minting in the next 30 days.  Why is that?
 
