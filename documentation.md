@@ -1013,7 +1013,7 @@ We've put some recent copies on our [file server](https://files.peercoin.net) :)
 
 # Proof-of-Stake
 
->Peercoin uses both the Proof-of-Work and Proof-of-Stake algorithms. The PoW algorithm is used to spread the distribution of new coins. Up to 99% of all peercoins is created with POW. Proof-of-Stake is used to secure the network: The chain with longest POS coin age wins in case of a blockchain split-up.
+>Peercoin uses both the Proof-of-Work and Proof-of-Stake algorithms. The PoW algorithm is used to spread the distribution of new coins. Up to 99% of all Peercoins is created with PoW. Proof-of-Stake is used to secure the network: The chain with longest PoS coin age wins in case of a blockchain split-up.
 
 `Minting`, as it is called in Peercoin to make a proof-of-stake block, is based on metrics of an unspent transaction.
 If we take a look at the number one spot of the rich list, transaction c7293fc60c80bdcc374775d1f0734e0766465b905bae1a312fe487793be3b8f7 has among others the following characteristics:
@@ -1074,14 +1074,15 @@ Peercoin works in a similar way where minting nodes that process transactions ca
 
 # Mining
 
-Since Peercoin is a fork of Bitcoin, is uses the same SHA-256 encryption and protocol for mining.  This means anything that any hardware that can mine BTC can mine Peercoin as well.  For the majority of people, joining a mining pool will bring the highest profit versus solo mining.
+>Peercoin uses both the Proof-of-Work and Proof-of-Stake algorithms. The PoW algorithm is used to spread the distribution of new coins. Up to 99% of all peercoins is created with PoW. Proof-of-Stake is used to secure the network: The chain with longest PoS coin age wins in case of a blockchain split-up.
 
-To mine Peercoin, you need a mining software.  Below is a list that is not official endorsed but have been found to have a decent reputation.
+Peercoin uses the hashcash double iterated SHA-256 algorithm for [Proof-of-Work mining](https://en.bitcoin.it/wiki/Proof_of_work). This means anything that any hardware that can mine Bitcoin can mine Peercoin as well.
 
--BFGMiner
--CGMiner
--EasyMiner
--GUIMiner
+To mine Peercoin, you need a mining software. Below is a list that is not official endorsed but have been found to have a decent reputation.
+
+* [BFGMiner](http://bfgminer.org/)
+* [CGMiner](https://github.com/ckolivas/cgminer)
+* [EasyMiner](https://easyminer.net/)
 
 There are others, but this list can be used as a starting place.  Each will request pool or solo information and should come with the related support.
 
@@ -1091,7 +1092,7 @@ If you want to calculate the profitability of mining Peercoin, you can use this 
 
 ## Mining Confirmations
 
- Once a block has been mined, 520 blocks must be passed for the mining to be confirmed.  This is roughly 3.61 days of time.
+ Once a block has been mined, 520 blocks must be passed for the mining to be confirmed. This is roughly 3.61 days of time.
 
 ---
 
