@@ -156,97 +156,44 @@ Table 1. Comparison of Crypto currency attributes
 ---
 
 
-# Proof-of-Stake
-
->Peercoin uses both the Proof-of-Work and Proof-of-Stake algorithms. The PoW algorithm is used to spread the distribution of new coins. Up to 99% of all peercoins is created with POW. Proof-of-Stake is used to secure the network: The chain with longest POS coin age wins in case of a blockchain split-up.
-
-`Minting`, as it is called in Peercoin to make a proof-of-stake block, is based on metrics of an unspent transaction.
-If we take a look at the number one spot of the rich list, transaction c7293fc60c80bdcc374775d1f0734e0766465b905bae1a312fe487793be3b8f7 has among others the following characteristics:
-
-* The transaction appeared in block 376161 at timestamp 1531750952 (Unix time).
-* The transaction in the block has an offset of 383 bytes. It is the third transaction in the block. The size of the first two transactions in the block are respectively 78 and 224 bytes.
-* The transaction timestamp is 1531750624.
-* The second recipient (index 1) received 1786301.06651300 Peercoins which, at the moment, is still unspent.
-
-These metrics, along with two more data points serves as a basis to calculate a hash for POS minting:
-
-* a future timestamp X (in Unix time notation) in which the stake could win;
-* a block modifier that was set by the network 1830080 seconds (~21 days) earlier than X.
-
-Every 6 hours the network calculates a new block modifier to be used for POS minting.
-
-The win in proof-of-stake minting, the calculated hash is compared to the current difficulty minus the coinage. The chances of finding a stake therefor improves when either the coin age increases or when the difficulty of the network decreases.
-
-## Peercoin minting behaviour
-
-* The Minting process can only start after 30 days of coinage.
-* Minting coin age is maxed out after 90 days. Which means that after 90 days the only variable left in PoS is the current difficulty.
-* Minting is predictable and not random. For a given transaction, you can calculate the maximum network PoS difficulty over time for your transaction to be able to mint a PoS block.
-* Whenever this PoS difficulty is higher than the current network PoS difficulty your Peercoin client can mint a PoS block.
-* PoS blocks can be rejected (orphans) if several people mint a PoS block within a given window (2 hours also called timedrift). Only one (the chain with longest coin age) will be accepted.
-* Minting splits the transaction in two if coin age < 90 days.
-* PoS block reward is 1% annually. This 1% is a factor of your coin age, and is not maxed out.
-* A transaction that just staked has its coins locked for 520 confirmations (3-4 days).
-* Merging transactions, spending coins, etc. burns coinage (resets it to 0).
-* The PoS reward is directly added to your transaction which staked (if this transaction is split in two because coinage < 90 days, the reward is equally distributed to both resulting transactions).
-
-## Peercoin v0.5 Proof-of-Stake protocol
-
-![Peercoin PoS diagram](../img/pos-diagram.svg)
-
-## Qualities of Proof-of-Stake Consensus
-
-### Efficient
-The use of Proof-of-stake mining in Peercoin is efficient because network security is not dependent on the use of massive amounts of electrical energy (proof-of-energy-burn). Instead minters invest their coins and time to emulate the PoW process. This is done by simply opening up their wallet app, sending coins to their address and letting them sit there while they are occasionally selected by the protocol to mint the next block. This process is both energy and cost efficient.
-
-### Aligning interests
-Because coin owners also produce new blocks in Proof-of-Stake, this means security providers and users of the network are ultimately the same group of people. No longer is there a separate group of security providers who only care about making profit and are not financially tied to the network itself. All security providers must own a stake in the network through ownership of Peercoin. As everyone has similar financial interests in the long-term future of the network this leads to much less conflict between factions with different ideas about how the blockchain should develop and evolve.
-
-### User governance
-Because users in Peercoin have the ability to produce blocks they also have the power to influence and determine the future direction of the network. User governance goes hand in hand with the PoS consensus mechanism. Peercoin is the very first blockchain capable of allowing its protocol rules to be governed directly by its users.
-
-### Global network
-As a direct consequence of the resource efficient consensus mechanism the number of people capable of participating in the race to create new blocks is significantly expanded. In addition to this security providers are also no longer drawn to geographical locations with cheap electricity. Due to the cost efficiency of operating a proof-of-stake node minting nodes can be set up anywhere in the world. This allows Peercoin to maximize its level of decentralization and achieve global security from minting users all around the world.
-
-### Network security is price independent
-Unlike proof-of-work where miners are completely dependent on the market price of a blockchain's native token to ensure profitability, Peercoin contains no such price dependency. Proof-of-stake minters are compensated as motivation to provide consistent security, however since this process is so inexpensive to perform minters actually have the ability to voluntarily operate a minting node without compensation if they want. Even without compensation from the network, the process of minting helps to secure the blockchain and along with it a stakeholder's overall investment. The ability to decide which version of the protocol to run also gives a minter the opportunity to make their voice heard concerning future upgrades to the network. These are two important reasons a stakeholder may have to want to run a node for free, however, compensation is automatically provided which makes it even better to participate. Running a proof-of-work mining node without compensation is just not possible due to the requirement of being profitable enough in order to afford the associated costs of participating. However, since 2012 it has been proven that Peercoin is capable of sustaining its network security even during the lowest periods of demand where market price was close to zero. If the network is capable of surviving extremely stressful conditions like these then it is likely to survive any challenges the market may present it with in the future.
-
-### Higher Resistance to Censorship
-As explained above, the efficiency of proof-of-stake results in a blockchain network that can easily be secured by people all over the world who hold some amount of Peercoin. This globally decentralized security makes the Peercoin network incredibly difficult to censor and shut down. This is similar to downloading files through a bittorrent network. In bittorrent network, many people around the world operate nodes where they hold a full copy of the file that others are trying to download. Pieces of the file are downloaded from different nodes until the full file has finished downloading. If a government were to deem this file sharing illegal and attempt to shut down the torrent network, they would be forced to target every single node on the network no matter where they happen to exist in the world. Even then, there is nothing stopping more torrent nodes from being created that share the same file. As long as one node exists that shares the file, it can be downloaded and spread to others.
-
-Peercoin works in a similar way where minting nodes that process transactions can be operated from anywhere in the world as long as the minter has access to a computer, minimal electricity, some amount of Peercoin and an internet connection. Geographical decentralization of minting nodes makes it incredibly difficult to shut down the Peercoin network, but when the number of nodes around the world expands to thousands or even tens of thousands then it essentially becomes impossible to censor. In systems like these, individual nodes are usually called peers. Together they act as a peer-to-peer network. This is where Peercoin obtained its name. It was originally introduced by Sunny King as ppcoin, which stood for peer-to-peer coin. Shortly after it was renamed to Peercoin.
-
-
 # Important Links
 
 ## Official Sites
 
-  - Peercoin.net (example content, not menu item)
-  - GitHub (example)
-  - Foundation (example)
+- [Peercoin.net](https://peercoin.net/)
+- [GitHub](https://github.com/peercoin/)
+- Foundation (example)
+
 ## Forums
 
-  - Peercointalk (example)
-  - Reddit (example)
-  - Bitcointalk Thread (example)
+- Peercointalk (example)
+- Reddit (example)
+- Bitcointalk Thread (example)
+
 ## Chats
 
-  - Discord (example)
-  - Telegram (example)
-  - peercoin.chat (example)
+- Discord (example)
+- Telegram (example)
+- peercoin.chat (example)
+
 ## Social Media
 
-  - All Social Accounts (example)
+- All Social Accounts (example)
+
 ## News
 
-  - Team Updates (example)
+- Team Updates (example)
+
 ## Blog
 
-  - Medium
-  - Article List
+- Medium
+- Article List
 
 ## Tools
-  - Block Explorers
+
+- Block Explorers
+
+---
 
 
 # The Peercoin Foundation
@@ -273,65 +220,6 @@ The Foundation is controlled by a Board of Directors. The membership is not know
 
 ---
 
-
-# JSON-RPC API reference
-
-Peercoin daemon offers JSON-RPC interface which can be used to control the daemon or integrate it with software stack.
-You can send commands to the daemon by using `peercoin-cli` tool.
-
-There are two official wrappers for this interface, a PHP one and a Python2.7+ one.
-
-> Peercoin_rpc is a simple and minimal library made for communication with peercoind via JSON-RPC protocol. It has a single dependency - a Python requests library and it supports both mainnet and testnet peercoin network with authentication or SSL encryption. There is a single class to be imported from the library - Client.
-
-https://github.com/peercoin/peercoin_rpc
-
-> peercoin-php-rpc is a simple and minimal library made for communication with peercoind via JSON-RPC protocol for PHP 7.1+. Easiest way to use is to use composer. Otherwise include RpcClient class in your project an you are good to go.
-
-https://github.com/peercoin/peercoin-php-rpc
-
-## List of JSON-RPC calls
-
-| Command            | Parameters  | Description    | Requires unlocked wallet? (yes/no)  |
-|--------------------|-------------|---------------------------------|--------------------|
-| `getinfo`          |             |Returns an object containing various state info.|no|
-| `getblock`         |  `hash`     |Returns information about the block with the given hash.|no|
-| `getblockcount`    |             |Returns the number of blocks in the longest block chain.|no|
-| `getblockhash`     |`block_num`  |Returns hash of block in best-block-chain at `block_num`; 0 is the genesis block|no|
-| `gettransaction`   | `txid`        |Returns an object about the given transaction containing:<br>  "amount" : total amount of the transaction<br>"confirmations" : number of confirmations of the transaction<br>"txid" : the transaction ID<br>"time" : time associated with the transaction|no|
-| `walletpassphrase` | `passphrase`   `timeout` |Stores the wallet decryption key in memory for `timeout` seconds.|no|
-| `getbalance`       |[account] [minconf=1]|If [account] is not specified, returns the server's total available balance.<br>If [account] is specified, returns the balance in the account.|no|
-| `getreceivedbyaddress`| `address` [minconf=1] |Returns the amount received by `address` in transactions with at least [minconf] confirmations. It correctly handles the case where someone has sent to the address in multiple transactions. Keep in mind that addresses are only ever used for receiving transactions.<br>Works only for addresses in the local wallet, external addresses will always show 0.|no|
-| `getdifficulty`    |  |Returns proof-of-stake and proof-of-work difficulty|no|
-| `getpeerinfo`      |  |Returns data about each connected node.|no|
-| `getaddressesbyaccount`| `account` |Returns the list of addresses for the given account.|no|
-| `getnewaddress`    | [account] |Returns a new address for receiving payments.<br>If [account] is specified payments received with the address will be credited to [account].|no|
-| `getaccount`       | `address` |Returns the account associated with the given `address`.|no|
-| `getaccountaddress`| `account` |Returns the current address for receiving payments to this account.<br>If `account` does not exist, it will be created along with an associated new address that will be returned.|no|
-| `sendtoaddress`    | `address` `amount` [comment] [comment-to] |  `amount` is a real and is rounded to 6 decimal places. Returns the transaction ID `txid` if successful.|yes|
-| `sendfrom`         | `fromaccount` `topeercoinaddress` `amount` [minconf=1] [comment] [comment-to] |`amount` is a real and is rounded to 6 decimal places. Will send the given amount to the given address, ensuring the account has a valid balance using [minconf] confirmations. Returns the transaction ID if successful (not in JSON object).|yes|
-| `sendmany`         | `fromaccount` {address:amount,...} [minconf=1] [comment] |  amounts are double-precision floating point numbers |yes|
-| `getconnectioncount`|    |Returns the number of connections to other nodes.|no|
-| `getrawtransaction`|  `txid` [verbose=0] |Returns raw transaction representation for given transaction id.|no| 
-| `getrawmempool`    |  |Returns all transaction ids in memory pool.|no|
-| `listtransactions` | [account] [count=10] [from=0] | Returns up to [count] most recent transactions skipping the first [from] transactions for account [account]. If [account] not provided it'll return recent transactions from all accounts.|no|
-| `listreceivedbyaddress`| [minconf=1] [includeempty=false] |Returns an array of objects containing:<br>"address" : receiving address<br>"account" : the account of the receiving address<br>"amount" : total amount received by the address<br>"confirmations" : number of confirmations of the most recent transaction included<br>To get a list of accounts on the system, execute `peercoin-cli listreceivedbyaddress 0 true`|no|
-| `listreceivedbyaccount`| [minconf=1] [includeempty=false] |Returns an array of objects containing:<br>"account" : the account of the receiving addresses<br>"amount" : total amount received by addresses with this account<br>"confirmations" : number of confirmations of the most recent transaction included|no|
-| `listaccounts` | [minconf=1] |Returns Object that has account names as keys, account balances as values.|no|
-| `listunspent`  | [minconf=1] [maxconf=999999] |Returns array of unspent transaction inputs in the wallet.|no|
-| `dumpprivkey`  | `address`   |Reveals the private key corresponding to `address`.|yes|
-| `importprivkey`|  `privkey` [label] [rescan=true]|Adds a private key (as returned by dumpprivkey) to your wallet. This may take a while, as a rescan is done, looking for existing transactions.|yes|
-| `createrawtransaction`| [{"txid":txid,"vout":n},...] {address:amount,...} |Creates a raw transaction spending given inputs.|no|
-| `decoderawtransaction`| `hex_string` |Produces a human-readable JSON object for a raw transaction.|no|
-| `signrawtransaction`  | `hex_string` [{"txid":txid,"vout":n,"scriptPubKey":hex},...] [`privatekey1`,...]|Adds signatures to a raw transaction and returns the resulting raw transaction.|yes|
-| `signmessage`         | `address` `message` |Sign a message with the private key of an address.|yes|
-| `verifymessage`       | `address` `signature` `message` |Verify a signed message.|no|
-| `sendrawtransaction`  | `hex_string` |Submits raw transaction (serialized, hex-encoded) to local node and network.|no|
-| `validateaddress`     | `address` |Return information about `address`.|no|
-| `encryptwallet`       | `passphrase` |Encrypts the wallet with `passphrase`|no|
-| `enforcecheckpoint`   | `bool` |`enforce` is true or false to enable or disable enforcement of broadcasted checkpoints by developer.|no|
-| `keypoolrefill`       | `size` |Fills the key pool with new keys [default 100 new keys]|yes|
-| `listlockunspent`     |        |Returns list of temporarily unspendable outputs.|no|
-| `createmultisig`      | `nrequired` `["key,"key"]`|Creates a multi-signature address and returns a json object.|yes|
 
 # How to buy Peercoin
 
@@ -1123,15 +1011,65 @@ We've put some recent copies on our [file server](https://files.peercoin.net) :)
 <a id="footnote-9.1">9.1</a>: https://en.wikipedia.org/wiki/Bootstrapping
 
 
-# Minting
+# Proof-of-Stake
 
-![Peercoin staking](../img/staking.png)
+>Peercoin uses both the Proof-of-Work and Proof-of-Stake algorithms. The PoW algorithm is used to spread the distribution of new coins. Up to 99% of all peercoins is created with POW. Proof-of-Stake is used to secure the network: The chain with longest POS coin age wins in case of a blockchain split-up.
 
-The Minting tab is the fifth option and from here, you can see the coin age of your transaction.  The Address, Age, Balance, CoinDay, and MintProbability, are also displayed.  Until the transaction reaches 30 days of age, it will be displayed in red, with a CoinDay of 0.  In the picture above, you can see a transaction that is red and is not eligible for staking due to it only having a an Age of 49.  In the next 30 days, it has a probability of minting of roughly 54.94%.  In 4 days, that transaction will become eligible for minting and change to green color.  You can use the "Display minting probability within:" drop-down menu to estimate the probability of minting during the next period.  Once the 30 day period has passed, and the transaction has become eligible for minting, go to Settings > Decrypt Wallet for Minting Only, and enter your wallet password.  If you have not already encrypted your wallet, you will be asked to do so.  Once the wallet has been unlocked for minting, leaving it running will allow for minting to occur.  Making a transaction from that wallet will disrupt the coin age and the maturation process will have to be repeated.  Sending more coins will not disrupt the coin age.
+`Minting`, as it is called in Peercoin to make a proof-of-stake block, is based on metrics of an unspent transaction.
+If we take a look at the number one spot of the rich list, transaction c7293fc60c80bdcc374775d1f0734e0766465b905bae1a312fe487793be3b8f7 has among others the following characteristics:
 
-If you are interested in calculating the rough time until minting takes place, you can use this calculator: http://poscalculator.peercointalk.org/
+* The transaction appeared in block 376161 at timestamp 1531750952 (Unix time).
+* The transaction in the block has an offset of 383 bytes. It is the third transaction in the block. The size of the first two transactions in the block are respectively 78 and 224 bytes.
+* The transaction timestamp is 1531750624.
+* The second recipient (index 1) received 1786301.06651300 Peercoins which, at the moment, is still unspent.
 
-Once minting occurs, the initial batch of coins will have their coin age reset, and the coins earned from minting will remain locked for 520 blocks, or roughly 3 days.  After this period, the coins will be available in the wallet.  As a note, you do not need to leave your wallet running 24/7, as the time spent staking does not increase the probability of minting taking place, as the highest coin age will always take precedence.  Holding longer also does not increase the minting reward.
+These metrics, along with two more data points serves as a basis to calculate a hash for POS minting:
+
+* a future timestamp X (in Unix time notation) in which the stake could win;
+* a block modifier that was set by the network 1830080 seconds (~21 days) earlier than X.
+
+Every 6 hours the network calculates a new block modifier to be used for POS minting.
+
+The win in proof-of-stake minting, the calculated hash is compared to the current difficulty minus the coinage. The chances of finding a stake therefor improves when either the coin age increases or when the difficulty of the network decreases.
+
+## Peercoin minting behaviour
+
+* The Minting process can only start after 30 days of coinage.
+* Minting coin age is maxed out after 90 days. Which means that after 90 days the only variable left in PoS is the current difficulty.
+* Minting is predictable and not random. For a given transaction, you can calculate the maximum network PoS difficulty over time for your transaction to be able to mint a PoS block.
+* Whenever this PoS difficulty is higher than the current network PoS difficulty your Peercoin client can mint a PoS block.
+* PoS blocks can be rejected (orphans) if several people mint a PoS block within a given window (2 hours also called timedrift). Only one (the chain with longest coin age) will be accepted.
+* Minting splits the transaction in two if coin age < 90 days.
+* PoS block reward is 1% annually. This 1% is a factor of your coin age, and is not maxed out.
+* A transaction that just staked has its coins locked for 520 confirmations (3-4 days).
+* Merging transactions, spending coins, etc. burns coinage (resets it to 0).
+* The PoS reward is directly added to your transaction which staked (if this transaction is split in two because coinage < 90 days, the reward is equally distributed to both resulting transactions).
+
+## Peercoin v0.5 Proof-of-Stake protocol
+
+![Peercoin PoS diagram](../img/pos-diagram.svg)
+
+## Qualities of Proof-of-Stake Consensus
+
+### Efficient
+The use of Proof-of-stake mining in Peercoin is efficient because network security is not dependent on the use of massive amounts of electrical energy (proof-of-energy-burn). Instead minters invest their coins and time to emulate the PoW process. This is done by simply opening up their wallet app, sending coins to their address and letting them sit there while they are occasionally selected by the protocol to mint the next block. This process is both energy and cost efficient.
+
+### Aligning interests
+Because coin owners also produce new blocks in Proof-of-Stake, this means security providers and users of the network are ultimately the same group of people. No longer is there a separate group of security providers who only care about making profit and are not financially tied to the network itself. All security providers must own a stake in the network through ownership of Peercoin. As everyone has similar financial interests in the long-term future of the network this leads to much less conflict between factions with different ideas about how the blockchain should develop and evolve.
+
+### User governance
+Because users in Peercoin have the ability to produce blocks they also have the power to influence and determine the future direction of the network. User governance goes hand in hand with the PoS consensus mechanism. Peercoin is the very first blockchain capable of allowing its protocol rules to be governed directly by its users.
+
+### Global network
+As a direct consequence of the resource efficient consensus mechanism the number of people capable of participating in the race to create new blocks is significantly expanded. In addition to this security providers are also no longer drawn to geographical locations with cheap electricity. Due to the cost efficiency of operating a proof-of-stake node minting nodes can be set up anywhere in the world. This allows Peercoin to maximize its level of decentralization and achieve global security from minting users all around the world.
+
+### Network security is price independent
+Unlike proof-of-work where miners are completely dependent on the market price of a blockchain's native token to ensure profitability, Peercoin contains no such price dependency. Proof-of-stake minters are compensated as motivation to provide consistent security, however since this process is so inexpensive to perform minters actually have the ability to voluntarily operate a minting node without compensation if they want. Even without compensation from the network, the process of minting helps to secure the blockchain and along with it a stakeholder's overall investment. The ability to decide which version of the protocol to run also gives a minter the opportunity to make their voice heard concerning future upgrades to the network. These are two important reasons a stakeholder may have to want to run a node for free, however, compensation is automatically provided which makes it even better to participate. Running a proof-of-work mining node without compensation is just not possible due to the requirement of being profitable enough in order to afford the associated costs of participating. However, since 2012 it has been proven that Peercoin is capable of sustaining its network security even during the lowest periods of demand where market price was close to zero. If the network is capable of surviving extremely stressful conditions like these then it is likely to survive any challenges the market may present it with in the future.
+
+### Higher Resistance to Censorship
+As explained above, the efficiency of proof-of-stake results in a blockchain network that can easily be secured by people all over the world who hold some amount of Peercoin. This globally decentralized security makes the Peercoin network incredibly difficult to censor and shut down. This is similar to downloading files through a bittorrent network. In bittorrent network, many people around the world operate nodes where they hold a full copy of the file that others are trying to download. Pieces of the file are downloaded from different nodes until the full file has finished downloading. If a government were to deem this file sharing illegal and attempt to shut down the torrent network, they would be forced to target every single node on the network no matter where they happen to exist in the world. Even then, there is nothing stopping more torrent nodes from being created that share the same file. As long as one node exists that shares the file, it can be downloaded and spread to others.
+
+Peercoin works in a similar way where minting nodes that process transactions can be operated from anywhere in the world as long as the minter has access to a computer, minimal electricity, some amount of Peercoin and an internet connection. Geographical decentralization of minting nodes makes it incredibly difficult to shut down the Peercoin network, but when the number of nodes around the world expands to thousands or even tens of thousands then it essentially becomes impossible to censor. In systems like these, individual nodes are usually called peers. Together they act as a peer-to-peer network. This is where Peercoin obtained its name. It was originally introduced by Sunny King as ppcoin, which stood for peer-to-peer coin. Shortly after it was renamed to Peercoin.
 
 
 # Mining
@@ -1154,14 +1092,6 @@ If you want to calculate the profitability of mining Peercoin, you can use this 
 ## Mining Confirmations
 
  Once a block has been mined, 520 blocks must be passed for the mining to be confirmed.  This is roughly 3.61 days of time.
-
-## Brief Mining Tutorial
-
-For this tutorial, GUIMiner will be used to show a quick setup.  Once the files are downloaded, extract them, and run the “guiminer.exe”.  It should pop up and ask for your pool url and related information.
-
-![GUIMiner](../img/mining.jpg)
-
-The ecoining pool was chosen simply since the information was available.  Wish the correct information and hardware, mining should begin.  For technical support related to the program you choose, reach out through their related resources.
 
 ---
 
