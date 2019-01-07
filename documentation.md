@@ -162,36 +162,56 @@ Table 1. Comparison of Crypto currency attributes
 
 - [Peercoin.net](https://peercoin.net/)
 - [GitHub](https://github.com/peercoin/)
-- Foundation (example)
+- [Foundation](https://peercoin.net/foundation.html/)
 
 ## Forums
 
-- Peercointalk (example)
-- Reddit (example)
-- Bitcointalk Thread (example)
+- [Peercointalk](https://talk.peercoin.net/)
+- [Reddit](https://www.reddit.com/r/peercoin/)
+- [Bitcointalk Thread](https://bitcointalk.org/index.php?topic=101820.0)
 
 ## Chats
 
-- Discord (example)
-- Telegram (example)
-- peercoin.chat (example)
+- [Discord](https://discord.gg/XPxfwtG)
+- [Telegram](https://www.reddit.com/r/peercoin)
 
 ## Social Media
 
-- All Social Accounts (example)
+- [Facebook](https://www.facebook.com/Peercoin/)
+- [Twitter](https://twitter.com/PeercoinPPC)
+- [LinkedIn](https://www.linkedin.com/company/the-peercoin-foundation/)
 
 ## News
 
-- Team Updates (example)
+- [Team Updates](https://talk.peercoin.net/c/official-updates)
 
 ## Blog
 
-- Medium
-- Article List
+- [Medium](https://medium.com/peercoin)
 
 ## Tools
 
-- Block Explorers
+### Block Explorers
+
+Mainnet
+
+- [BitInfoCharts](https://bitinfocharts.com/peercoin/explorer/)
+- [Chainz.CryptoID](https://chainz.cryptoid.info/ppc/)
+- [Mintr](https://mintr.peercoinexplorer.net/)
+- [CoinExplorer](https://www.coinexplorer.net/PPC)
+- [PeerExplorer](https://explorer.peercoin.net/)
+
+Testnet
+
+- [PeerExplorer](https://testnet-explorer.peercoin.net/)
+- [Chainz.CryptoID](https://chainz.cryptoid.info/ppc-test/)
+
+### Other
+
+- [Inflation](https://www.peercoinexplorer.net/inflation/)
+- [Mempool](https://www.peercoinexplorer.net/mempool/)
+- [Energy Statistics](https://www.peercoin.site/#energytable)
+- [Testnet Faucet](https://faucet.peercoinexplorer.net/)
 
 ---
 
@@ -221,16 +241,18 @@ The Foundation is controlled by a Board of Directors. The membership is not know
 ---
 
 
-# How to buy Peercoin
+# Purchase
+
+## How to buy Peercoin
 
 There are many ways to buy Peercoin, although it may depend on your previous exchange access or location.
 You should have a Peercoin wallet set up previously to making a purchase so that you have a place to store your Peercoin.
 
-## Fiat gateways
+### Fiat gateways
 
 In order to purchase Peercoin directly with a bank wire or debit card, there are several options for direct purchase, although these primarily support European wire transfers and purchases.  If you want to directly purchase with a card or bank transfer, you can use the following sites:
 
-### The Rock Trading
+#### The Rock Trading
 https://www.therocktrading.com/
 TheRockTrading offers SEPA direct deposits and offers Peercoin directly on the platform, while offering no trading fees on PPC.
 
@@ -238,27 +260,27 @@ TheRockTrading offers SEPA direct deposits and offers Peercoin directly on the p
 https://anycoindirect.eu/en/buy-peercoin
 Supports EUR
 
-### LiteBit
+#### LiteBit
 https://www.litebit.eu/en/buy/peercoin
 Supports EUR
 
-### Livecoin.net
+#### Livecoin.net
 https://www.livecoin.net/
 Supports both USD/RUR/EUR deposits
 
 If you are in the US, the above websites may not be available.  You must use an exchange that accepts you must buy a cryptocurrency like Bitcoin and transfer it to an exchange that lists Peercoin, which will be discussed at a later time.
 
-### Coinbase
+#### Coinbase
 
 https://coinbase.com
 CoinBase is one of the most popular broker sites and is arguably the most commonly used for US based citizens.
 
-### Gemini
+#### Gemini
 
 https://gemini.com
 Gemini also offers fiat purchasing options for Bitcoin with bank wire options.
 
-### OkCoin
+#### OkCoin
 
 https://www.okcoin.com/lang/en-US/
 Offers fiat deposits by wire to buy Bitcoin and other common coins.
@@ -267,37 +289,37 @@ It is strongly recommended to purchase Bitcoin as it has the most traded pairs f
 
 There are other websites that can be used to buy Bitcoin with a debit or credit card, and there are a plethora of guides available on these sites.  We suggest you find a reputable site with low fees and a large number of positive user reviews over time.
 
-# Exchanges
+## Exchanges
 
 If you already own cryptocurrency, the section about fiat gateways can be skipped since you most likely already have one.  Below is a list of exchanges which support Peercoin and where it can be traded actively.  Send your coins there and you will be able to purchase Peercoin.
 
-## PPC/BTC Pairs
+### PPC/BTC Pairs
 
-### Bittrex
+#### Bittrex
 
 https://bittrex.com/Market/Index?MarketName=BTC-PPC
 
-### Cryptopia
+#### Cryptopia
 
 https://www.cryptopia.co.nz/Exchange?market=PPC_BTC
 
-### HitBTC
+#### HitBTC
 
 https://hitbtc.com/PPC-to-BTC
 
-### Livecoin
+#### Livecoin
 
 https://www.livecoin.net/
 
-### Poloniex
+#### Poloniex
 
 https://poloniex.com/exchange#btc_ppc
 
-### The Rock Trading
+#### The Rock Trading
 
 https://www.therocktrading.com/en/offers/PPCBTC
 
-### Tux Exchange
+#### Tux Exchange
 
 https://bx.in.th/BTC/PPC/
 
@@ -1092,7 +1114,7 @@ If you want to calculate the profitability of mining Peercoin, you can use this 
 
 ## Mining Confirmations
 
- Once a block has been mined, 520 blocks must be passed for the mining to be confirmed. This is roughly 3.61 days of time.
+Once a block has been mined, 520 blocks must be passed for the mining to be confirmed. This is roughly 3.61 days of time.
 
 ---
 
