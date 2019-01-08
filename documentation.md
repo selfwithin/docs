@@ -189,6 +189,10 @@ Table 1. Comparison of Crypto currency attributes
 
 - [Medium](https://medium.com/peercoin)
 
+## Peercoin myths
+
+- [Forum](https://talk.peercoin.net/t/pillows-peercoin-myths/2518)
+
 ## Tools
 
 ### Block Explorers
