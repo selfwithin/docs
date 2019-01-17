@@ -162,7 +162,7 @@ Table 1. Comparison of Crypto currency attributes
 
 - [Peercoin.net](https://peercoin.net/)
 - [GitHub](https://github.com/peercoin/)
-- [Foundation](https://peercoin.net/foundation.html/)
+- [Foundation](https://peercoin.net/foundation.html)
 
 ## Forums
 
@@ -327,8 +327,6 @@ https://www.therocktrading.com/en/offers/PPCBTC
 
 https://bx.in.th/BTC/PPC/
 
-____________
-
 Each exchange comes with a variety of fees both in trading and withdrawals and user experience may vary.  As always, use strong passwords, 2FA, and cold storage as needed.
 
 Once you have made your purchase, you can withdraw your coins to the wallet you have chosen.
@@ -336,22 +334,24 @@ Once you have made your purchase, you can withdraw your coins to the wallet you 
 ---
 
 
-# Official client implementation
+# Wallets
+
+## Official client implementation
 
 Once you install official Peercoin client from peercoin.net, you’ll have access to three executables: peercoind, peercoin-qt, and peercoin-cli.
 
-## Peercoin Wallet
+### Peercoin Wallet
 
 `peercoin-qt` provides a combination full Peercoin network client and wallet. Peercoin-qt is highly portable application written in QT5 framework.
 From the Help menu, you can access a console where you can enter the RPC commands so power-user features are still available.
 
-## peercoind
+### peercoind
 
 `peercoind` provides a full peer which you can interact with through JSON-RPC interface on port 9904 (902 for testnet).
 
-For more information on how to use the JSON-RPC interface see the [json-rcp-api-reference article](./006-json-rpc-api-reference.md)
+For more information on how to use the JSON-RPC interface see the [developer documents](./011-developers.md)
 
-## peercoin-cli
+### peercoin-cli
 
 `peercoin-cli` allows you to send JSON-RPC commands to running instance of `peercoind` from the command line.
 For example:
@@ -376,15 +376,15 @@ On Linux, Mac OSX, and other Unix-like systems, this can be accomplished by runn
 
 > chmod 0600 peercoin.conf
 
-# Peercoin Core Wallet
+## Peercoin Core Wallet
 
-## Overview
+### Overview
 
 ![Wallet Overview](../img/wallet.png)
 
 ### Windows Installation
 
-To install on Windows, you can find the download files here: https://peercoin.net/download.  Once download is complete, extract the contents of the folder.  Depending on if your system is x32 or x64 bits, choosing the relevant folder.  Run the peercoin-win_setup.exe and you will be guided through the installation process.  Once finishes, the client can be launched by running "peercoin-qt.exe" from the appropriate folder.
+To install on Windows, you can find the download files here: https://peercoin.net/wallet.html.  Once download is complete, extract the contents of the folder.  Depending on if your system is x32 or x64 bits, choosing the relevant folder.  Run the peercoin-win_setup.exe and you will be guided through the installation process.  Once finishes, the client can be launched by running "peercoin-qt.exe" from the appropriate folder.
 
 ### Debian Installation
 
@@ -395,7 +395,7 @@ In the future repository may host other Peercoin-related packages.
 
 ### Mac Installation
 
-To install for MacOS, you can find the download files here: https://peercoin.net/download.  Once the download is complete, extract the contents of the folder.  Inside the extracted folder, double click the "Peercoin-Qt.dmg" file to open the client.
+To install for MacOS, you can find the download files here: https://peercoin.net/wallet.html.  Once the download is complete, extract the contents of the folder.  Inside the extracted folder, double click the "Peercoin-Qt.dmg" file to open the client.
 
 #### Adding the GPG key
 
@@ -413,7 +413,7 @@ To install for MacOS, you can find the download files here: https://peercoin.net
 
 ### Debian/Ubuntu Package Compilation Guide
 
-If you want a more in-depth guide on the compilation of the client for a variety of systems, [more can be found here](004-compiling-packages-for-debian.md)
+If you want a more in-depth guide on the compilation of the client for a variety of systems, [more can be found here](011-developers.md)
 ____________
 
 ## General Notes
@@ -442,7 +442,7 @@ The send tab is used to send Peercoin.  The "Pay To" section is where a target a
 
 ![Recieve Tab](../img/recieve.png)
 
-The Receive tab lists all wallet addresses attached to the Peercoin client.  Generating a new address is as simple as clicking the "New Address" button at the bottom of the screen.  The "Sign Message" button can also be used to verify ownership of a wallet.  [There is a tutorial on signing messages with the Peercoin client here.](014-SigningMessages.md)  The example addresses have been removed from the image for privacy sake.
+The Receive tab lists all wallet addresses attached to the Peercoin client.  Generating a new address is as simple as clicking the "New Address" button at the bottom of the screen.  The "Sign Message" button can also be used to verify ownership of a wallet.  [There is a tutorial on signing messages with the Peercoin client here.](https://docs.peercoin.net/#/how-to-sign-a-message-using-the-peercoin-client)  The example addresses have been removed from the image for privacy sake.
 
 ### Transactions
 
@@ -488,13 +488,13 @@ If you want to send Peercoin, navigate to the "Send" tab.  We are going to send 
 
 _________________________________________
 
-# Using the multisig
+## Using the multisig
 
 You can access multisig graphic interface in latest builds of Peercoin-qt. Open Peercoin-qt, click on File - Multisig. Now you see Multisig interface.
 
 ![Peercoin-qt multisig](../img/multisig.png)
 
-## How to create a multisig address using QT wallet
+### How to create a multisig address using QT wallet
 
 In this example, we'll go over creating 2/3 multisig address.
 On your screen you see two tables, each containing "Public key", "Address" and "Label".
@@ -511,7 +511,7 @@ On your screen you see two tables, each containing "Public key", "Address" and "
 
 That is it, now you have your 2/3 multisig address.
 
-## Creating a multisig address using the command line interface (debug console)
+### Creating a multisig address using the command line interface (debug console)
 
 The multisig address is generated with the complete public keys of the participants.
 
@@ -567,7 +567,7 @@ createmultisig 2 '["02c16ff447129fae7374d97212cf9fcd88a744da87ff2985869065cd6d17
 
 _________________________________________
 
-## How to spend from the multisig address
+### How to spend from the multisig address
 
 Reference Peercoin client is not capable of indexing the multisig addresses and showing their balance because multisig addresses can be owned by keys which are not part of the wallet (friends, family, backup). Thus the procedure to spend the funds from the multisig is a bit more complicated, more "low level" then usual.
 
@@ -692,9 +692,9 @@ sendrawtransaction "0100000062815a5301749fb9a1434c1072fb67f928f3b5592de88053bccf
 
     fea9875ccac102897ff128c868027a05e3d2f9057569529c8e5e94f8d641bc47
 
-# How To Sign a Message Using the Peercoin Client
+## How To Sign a Message Using the Peercoin Client
 
-First, check that the address you want to use is loaded up into the wallet of your Peercoin client.  You can use the standard client found [here](https://peercoin.net/download).  The list of your addresses can be found using the receive tab.
+First, check that the address you want to use is loaded up into the wallet of your Peercoin client.  You can use the standard client.  The list of your addresses can be found using the receive tab.
 
 ![1](https://talk.peercoin.net/uploads/default/original/2X/3/3a72b5afa078a4d7b24cfaa7e2a5a303014ec6c6.jpeg)
 
@@ -721,9 +721,9 @@ Just to be sure everything worked correctly, you can validate your signature.  G
 Congratulations, you have now cryptographically signed and verified a message!
 
 
-# Hardware Wallets
+## Hardware Wallets
 
-## Stakebox
+### Stakebox
 
 ![stakebox](https://talk.peercoin.net/uploads/default/original/2X/8/8581bbbb551a82aea92598a5aa93c4144e387317.png)
 
@@ -734,7 +734,7 @@ Stakebox is a plug and play Pi with the Peercoin wallet pre-installed.What is ne
 *StakeBox is a brand by Pi Supply, which is a world leading distributor of Raspberry Pi mini computers.*
 
 
-### Installation
+#### Installation
 
 Beside ordering a pre-installed Stakebox from [PiSupply website](https://www.stakebox.org/products/peercoin-stakebox) you can also make one yourself.
 
@@ -745,13 +745,15 @@ What do you need:
 * an SD card (4GB +)
 * some spare time
 
-Download the image from [files.peercoin.net](files.peercoin.net), use the [Etcher](http://etcher.io/) to load it to the SD card.
+Download the image from [files.peercoin.net](https://files.peercoin.net/), use the [Etcher](http://etcher.io/) to load it to the SD card.
 
 Now follow the guide: https://www.stakebox.org/blogs/learn/getting-started-with-peercoin-stakebox.
 
-## Ledger Peercoin Tutorial
+__________________________
 
-### Ledger Live
+### Ledger Peercoin Tutorial
+
+#### Ledger Live
 
 If you wish to store Peercoin on the Ledger Nano or Ledger Blue, this tutorial will guide you through using the Ledger Live program
 
@@ -812,39 +814,39 @@ To export the wallet, click the green share icon on the left side of the QR code
 
 This concludes the tutorial on the paper wallet generator.  This platform provides extra security for those who wish to keep their Peercoin in a safe and physical location.
 
-#  Unofficial client implementations
+##  Unofficial client implementations
 
-## Coinomi
+### Coinomi
 
 https://www.coinomi.com/
 
-## Coinspot
+### Coinspot
 
 https://www.coinspot.com.au
 
-## CoinVault
+### CoinVault
 
 https://www.coinvault.io/
 
-## Cryptonator
+### Cryptonator
 
 https://www.cryptonator.com/
 
-## HolyTransaction
+### HolyTransaction
 
 https://holytransaction.com/
 
-## Ledger
+### Ledger
 
 https://www.ledger.com/
 
-## Magnum
+### Magnum
 
 Airdrop focused wallet
 
 https://magnumwallet.co
 
-## UberPay
+### UberPay
 
 http://uberpay.io/
 
@@ -1097,6 +1099,8 @@ As explained above, the efficiency of proof-of-stake results in a blockchain net
 
 Peercoin works in a similar way where minting nodes that process transactions can be operated from anywhere in the world as long as the minter has access to a computer, minimal electricity, some amount of Peercoin and an internet connection. Geographical decentralization of minting nodes makes it incredibly difficult to shut down the Peercoin network, but when the number of nodes around the world expands to thousands or even tens of thousands then it essentially becomes impossible to censor. In systems like these, individual nodes are usually called peers. Together they act as a peer-to-peer network. This is where Peercoin obtained its name. It was originally introduced by Sunny King as ppcoin, which stood for peer-to-peer coin. Shortly after it was renamed to Peercoin.
 
+---
+
 
 # Mining
 
@@ -1123,9 +1127,11 @@ Once a block has been mined, 520 blocks must be passed for the mining to be conf
 ---
 
 
-# Compiling
+# Developers
 
-## Compiling packages for Debian and Ubuntu
+## Compiling
+
+### Compiling packages for Debian and Ubuntu
 
 As Peercoin is made to run on range of platforms, from Amazon's server to low powered Raspberry Pi Debian is perfect OS platform for deploying Peercoin nodes as it is renowned for multitude of supported hardware architectures as well as security and stability.
 
@@ -1133,7 +1139,7 @@ For compilation of Debian packages we will be using `pbuilder` which is a automa
 
 The following tutorial is written for the Ubuntu or Debian host, precisely Ubuntu 17.10 which is last stable version of Ubuntu at the time of writing.
 
-## Prepare the tooling
+### Prepare the tooling
 
 `sudo apt install pbuilder qemu-user-static ubuntu-keyring debian-archive-keyring`
 
@@ -1228,7 +1234,7 @@ Debian stable:
 
 > sudo OS=debian DIST=stretch ARCH=amd64 pbuilder --create
 
-## Preparing for build
+### Preparing for build
 
 (compiling for Raspbian stretch in this example)
 
@@ -1246,13 +1252,13 @@ Copy the debian directory from the contrib to this directory:
 
 `cp -r contrib/debian .`
 
-### Some modifications
+#### Some modifications
 
 (this is just an extra step required for the Raspbian, to fix problem with autotools)
 
 `sed '/./configure --with-gui=qt5 --with-incompatible-bdb/s/$/ --with-boost-libdir=/usr/lib/arm-linux-gnueabihf/' debian/rules`
 
-## Building the package
+### Building the package
 
 `OS=raspbian DIST=stretch ARCH=armhf pdebuild`
 
@@ -1262,11 +1268,11 @@ The concept of pbuild and cross-platform compilations is that you pass it this e
 
 For example OS=debian and DIST=wheezy will use Debian Wheezy chroot, you can also pick architecture by using ARCH= environment variable.
 
-## Footnotes
+### Footnotes
 
 <a id="footnote-3.1">3.1</a>: https://jodal.no/2015/03/08/building-arm-debs-with-pbuilder/
 
-# JSON-RPC API reference
+## JSON-RPC API reference
 
 Peercoin daemon offers JSON-RPC interface which can be used to control the daemon or integrate it with software stack.
 You can send commands to the daemon by using `peercoin-cli` tool.
@@ -1281,7 +1287,7 @@ https://github.com/peercoin/peercoin_rpc
 
 https://github.com/peercoin/peercoin-php-rpc
 
-## List of JSON-RPC calls
+### List of JSON-RPC calls
 
 | Command            | Parameters  | Description    | Requires unlocked wallet? (yes/no)  |
 |--------------------|-------------|---------------------------------|--------------------|
@@ -1325,13 +1331,13 @@ https://github.com/peercoin/peercoin-php-rpc
 | `listlockunspent`     |        |Returns list of temporarily unspendable outputs.|no|
 | `createmultisig`      | `nrequired` `["key,"key"]`|Creates a multi-signature address and returns a json object.|yes|
 
-# Peercoin Developer Notes
+## Peercoin Developer Notes
 
 Constants that may be useful when looking to integrate / develop with Peercoin.
 
 Peercoin source code repository: github.com/peercoin/peercoin
 
-## Mainnet
+### Mainnet
 
 | Attribute | Value |
 |-----------|-------|
@@ -1349,7 +1355,7 @@ Peercoin source code repository: github.com/peercoin/peercoin
 | Default RPC port | 9902 |
 | BIP44 coin type| 0x80000006 |
 
-## Testnet
+### Testnet
 
 | Attribute | Value |
 |-----------|-------|
@@ -1367,9 +1373,9 @@ Peercoin source code repository: github.com/peercoin/peercoin
 | Default RPC port | 9904 |
 | BIP44 coin type| 0x80000006 |
 
-# Bootstrapping
+## Bootstrapping
 
-## What is it?
+### What is it?
 
 > In computer technology the term (usually shortened to booting) usually
 > refers to the process of loading the basic software into the memory of
@@ -1383,7 +1389,7 @@ This special file, named `bootstrap.dat`, allows the Peercoin client to
 sync from your hard drive instead of the internet. Using a
 `bootstrap.dat` file is faster and reduces stress on the Peercoin network to sync new nodes.
 
-## How do I make a `bootstrap.dat`?
+### How do I make a `bootstrap.dat`?
 
 Any synced client has the ability to make a `bootstrap.dat` file. Assuming
 you're running linux you can do the following to manufacture your own.
@@ -1418,7 +1424,7 @@ On linux and OS X you can create hash of the bootstrap:
 
 > sha256 bootstrap.dat
 
-## How do I use a `bootstrap.dat`?
+### How do I use a `bootstrap.dat`?
 
 Assuming you're on linux and you haven't started the Peercoin client before.
 
@@ -1428,7 +1434,7 @@ Make the directory `~/.peercoin` if it doesn't exist and then move the
 Start the Peercoin client. You should see the status `Importing blocks from disk...` if the client has found the `bootstrap.dat` and is using it to
 sync the block chain.
 
-## Where can I download a `bootstrap.dat`?
+### Where can I download a `bootstrap.dat`?
 
 We've put some recent copies on our [file server](https://files.peercoin.net) :)
 
@@ -1437,7 +1443,7 @@ We've put some recent copies on our [file server](https://files.peercoin.net) :)
 * [Testnet bootstrap.dat.zip](https://files.peercoin.net/download/peercoin_testnet_2018_08_06_bootstrap.dat.zip) SHA256 `1312aaaf0d8466b6f7006bac60a5cad4daf36e1241f791924e45bc5959ff2452` | [torrent](https://files.peercoin.net/download/peercoin_testnet_2018_08_06_bootstrap.dat.zip.torrent) | [magnet](magnet:?xt=urn:btih:c70afb5100953362b45df75133e01bf1f9466e04&dn=peercoin%5Ftestnet%5F2018%5F08%5F06%5Fbootstrap.dat.zip&tr=udp%3A%2F%2Fpublic.popcorn-tracker.org%3A6969%2Fannounce&tr=udp%3A%2F%2Ftracker.ilibr.org%3A80%2Fannounce&tr=http%3A%2F%2Fatrack.pow7.com%2Fannounce&tr=http%3A%2F%2Fbt.henbt.com%3A2710%2Fannounce&tr=http%3A%2F%2Fmgtracker.org%3A2710%2Fannounce&tr=http%3A%2F%2Fmgtracker.org%3A6969%2Fannounce&tr=http%3A%2F%2Fopen.touki.ru%2Fannounce.php&tr=http%3A%2F%2Fp4p.arenabg.ch%3A1337%2Fannounce&tr=http%3A%2F%2Fpow7.com%3A80%2Fannounce&tr=http%3A%2F%2Fretracker.krs-ix.ru%3A80%2Fannounce)
 * [Testnet bootstrap.dat.tar.gz](https://files.peercoin.net/download/peercoin_testnet_2018_08_06_bootstrap.dat.tar.gz) SHA256 `15f0e40a7e99083b2ed27c78d37d0f201fd6c744537cf643925d0aae84395896` | [torrent](https://files.peercoin.net/download/peercoin_testnet_2018_08_06_bootstrap.dat.tar.gz.torrent) | [magnet](magnet:?xt=urn:btih:eb2a70e90285ca847be47b2f96e36e5cdec4580e&dn=peercoin%5Ftestnet%5F2018%5F08%5F06%5Fbootstrap.dat.tar.gz&tr=udp%3A%2F%2Fpublic.popcorn-tracker.org%3A6969%2Fannounce&tr=udp%3A%2F%2Ftracker.ilibr.org%3A80%2Fannounce&tr=http%3A%2F%2Fatrack.pow7.com%2Fannounce&tr=http%3A%2F%2Fbt.henbt.com%3A2710%2Fannounce&tr=http%3A%2F%2Fmgtracker.org%3A2710%2Fannounce&tr=http%3A%2F%2Fmgtracker.org%3A6969%2Fannounce&tr=http%3A%2F%2Fopen.touki.ru%2Fannounce.php&tr=http%3A%2F%2Fp4p.arenabg.ch%3A1337%2Fannounce&tr=http%3A%2F%2Fpow7.com%3A80%2Fannounce&tr=http%3A%2F%2Fretracker.krs-ix.ru%3A80%2Fannounce)
 
-## Footnotes
+### Footnotes
 
 <a id="footnote-9.1">9.1</a>: https://en.wikipedia.org/wiki/Bootstrapping
 
@@ -1445,11 +1451,13 @@ We've put some recent copies on our [file server](https://files.peercoin.net) :)
 ---
 
 
-# Graphics
+# Marketing
+
+## Graphics
 
 A variety of Peercoin graphics are available here: https://github.com/peercoin/media/tree/master/Peercoin%202018%20Logo%20Files
 
-# Brand Identity
+## Brand Identity
 
 Please use these color codes on your Peercoin related websites whenever possible. This will help us keep the Peercoin ecosystem and its branding and visuals consistent.
 
