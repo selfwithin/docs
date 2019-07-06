@@ -139,7 +139,7 @@ While block generation is a stochastic process, each chain is targeted to genera
 <tr>
 <td>Extra transaction data size limit:</td>
 <td>80 Byte<br />(OP_RETURN)</td>
-<td>80 Byte<br />(OP_RETURN)</td>
+<td>256 Byte<br />(OP_RETURN)</td>
 <td>Dynamic<br />(5 gas / byte)</td>
 </tr>
 <tr>
@@ -1623,7 +1623,7 @@ There was never an investment of funds to launch Peercoin such as a token sale o
 
 ### 2. Common Enterprise
 
-The Peercoin Foundation was legally established in 2018 by the Peercoin community, approximately 6 years after the Peercoin Network was launched.
+The Peercoin Foundation was legally established in 2017 by the Peercoin community, approximately 5 years after the Peercoin Network was launched.
 The Peercoin Network did not require pooling of assets and the Peercoin Foundation did not accept any bitcoin, ethers, virtual currency or fiat currency in
 an initial coin offering, token sale or pre-mine. The purpose of the Peercoin Foundation is to advance the Peercoin project.
 The Foundation does not require anyone to send funds to us nor the Peercoin Network. Specifically, the Network handles Peercoin transactions, balances and issuance through a hybrid SHA-256 proof-of-work scheme and proof-of-stake system designed to address vulnerabilities that could occur in a pure proof-of-work system. No one party conrols the peer to peer Peercoin blockchain network or the Hybrid Algorithm.
