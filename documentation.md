@@ -1,13 +1,8 @@
 <div class="welcome-card">
   <div class="title">Welcome to</div>
   <img src="img/welcome.svg" width="458">
-  <div class="call-to-action">Feel free to navigate through any section of interest, or start by clicking in our most visited sections bellow.</div>
+  <div class="call-to-action">Feel free to navigate through any section of interest.</div>
 
-  <div class="call-to-action-links">
-    <a href="#" class="link">What is Peercoin?</a>
-    <a href="#" class="link">PoS vs PoW</a>
-    <a href="#" class="link">Minting vs Mining</a>
-  </div>
 </div>
 
 ---
@@ -317,17 +312,9 @@ https://hitbtc.com/PPC-to-BTC
 
 https://www.livecoin.net/
 
-#### Poloniex
-
-https://poloniex.com/exchange#btc_ppc
-
 #### The Rock Trading
 
 https://www.therocktrading.com/en/offers/PPCBTC
-
-#### Tux Exchange
-
-https://bx.in.th/BTC/PPC/
 
 Each exchange comes with a variety of fees both in trading and withdrawals and user experience may vary.  As always, use strong passwords, 2FA, and cold storage as needed.
 
