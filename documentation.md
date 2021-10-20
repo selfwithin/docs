@@ -1026,7 +1026,7 @@ If we take a look at the number one spot of the rich list, transaction c7293fc60
 
 * The transaction appeared in block 376161 at timestamp 1531750952 (Unix time).
 * The transaction in the block has an offset of 383 bytes. It is the third transaction in the block. The size of the first two transactions in the block are respectively 78 and 224 bytes.
-* The transaction timestamp is 1531750624.
+* The transaction timestamp is 1531750624. (As of Peercoin 0.11, the block timestamp is to be used instead of the transaction timestamp)
 * The second recipient (index 1) received 1786301.06651300 Peercoins which, at the moment, is still unspent.
 
 These metrics, along with two more data points serves as a basis to calculate a hash for POS minting:
@@ -1214,17 +1214,13 @@ Make the directory where pbuilder will place the packages:
 
 ### Bootstrap the chroots
 
-Raspbian (stretch):
-
-> sudo OS=raspbian DIST=stretch ARCH=armhf pbuilder --create
-
 Raspbian (buster):
 
 > sudo OS=raspbian DIST=buster ARCH=armhf pbuilder --create
 
 Debian stable:
 
-> sudo OS=debian DIST=stretch ARCH=amd64 pbuilder --create
+> sudo OS=debian DIST=buster ARCH=amd64 pbuilder --create
 
 ### Preparing for build
 
@@ -1232,11 +1228,11 @@ Debian stable:
 
 Download the latest .tar.gz from github.com/peercoin.
 
-> wget https://github.com/peercoin/peercoin/archive/v0.6.3ppc.rc1.tar.gz
+> wget https://github.com/peercoin/peercoin/releases/download/v0.11.0ppc/peercoin-0.11.0.tar.gz
 
 Debian build system is very strict about names, so we need to rename this to:
 
-`peercoin_0.6.3.orig.tar.gz`
+`peercoin_0.11.0.orig.tar.gz`
 
 Extract the contests of the file using `tar xf` and `cd` to it.
 
@@ -1564,12 +1560,14 @@ It's incredibly expensive to construct and organize the attack.
 
 > Checkpoints system is probably the most criticized design choice of Peercoin, frequently used to undermine the project.
 
+> Common myth is that Peercoin concesus is not safe without the centralized checkpoints, but that is absolutely not true.
+
 As of version 0.2, centrally-broadcasted checkpointing is no longer a critical part of the protocol.
 It's purpose is to defend the network during the initial growth period, and to help ensure a smooth upgrade path, however it was largely kept because of inertia and low interest for the Peercoin blockchain in period between early 2015 and late 2016. The checkpoints exist solely as a security measure: if something terrible were to happen, we have the checkpoints as a backup.
 
 As of version 0.6 the official client allows for opting-out of the checkpoints entirely, while checkpoint system itself will likely be obsoleted and removed after the process of re-basing Peercoin against modern Bitcoin-core codebase is complete.
 
-Common myth is that Peercoin concesus is not safe without the centralized checkpoints, but that is absolutely not true.
+As of version 0.10 support for checkpoints has been from official Peercoin client.
 
 ## Footnotes
 
@@ -1633,6 +1631,25 @@ where:
 * [RFC-0015](https://github.com/peercoin/rfcs/blob/master/text/0015-time-drift/0015-time-drift.md): Reduce Time Drift
 * allow staking=0 command to disable minting (nominting=0 also works)
 * ability to filter out mint transactions in the QT wallet
+
+## v0.10
+
+> released: 10.05.2021
+
+> type: softfork
+
+Rebased to latest Bitcoin-core codebase.
+
+
+## v0.11
+
+> released: 02.10.2021
+
+> type: hardfork
+
+* [RFC-0014](https://github.com/peercoin/rfcs/blob/master/text/0014-transaction-timestamp/0014-transaction-timestamp.md): Remove Transaction Timestamp
+* [RFC-0022](https://github.com/peercoin/rfcs/blob/master/text/0022-pow-reward-cap/0022-pow-reward-cap.md): Proof-of-Work reward cap
+* make splitting coins during minting optional
 
 
 # Peercoin legal risks memo
