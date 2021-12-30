@@ -9,15 +9,15 @@
 
 # Introduction to Peercoin
 
-Hello, and welcome to the Peercoin Documentation website. We hope to help you understand more about this coin, its philosophy and technologies that runs behind it. Before getting too technical, we invite you to dive a little bit into the history of Peercoin, learning why it was created, and the purposes behind it.
+Hello, and welcome to the Peercoin Documentation website. We hope to help you understand more about Peercoin, its philosophy, and the technology that defines it. Before getting too technical, we invite you to dive a little bit into the history of Peercoin, learning why it was created, and the purposes behind it.
 
-The key innovation of Peercoin is the invention of Proof-of-Stake, a blockchain consensus algorithm that provides efficient, sustainable security and user governance, allowing for a trustless cryptocurrency network with adaptive inflation and a core focus on securely storing all types of value.
+The key innovation of Peercoin is the invention of Proof-of-Stake, a blockchain consensus protocol that provides efficient, sustainable security and user governance, allowing for a decentralized cryptocurrency network with a sane economic model and a core focus on security and sustainability.
 
 ## Peercoin Genesis: 2012
 
-Since the creation of Bitcoin (Nakamoto 2008), Proof-of-Work has been the predominant design of peer-to-peer cryptocurrency. The concept of Proof-of-Work has been the backbone of mining and security model of Nakamoto’s design. In 2012, Sunny King and Scott Nadal proposed an alternative form of consensus that was both more secure, but also energy efficient.  Proof-of-Work, however is subject to centralized mining, large amounts of power consumption, and majority attacks.  Centralized mining comes about due to the increased profits and production from large scale mining operations.  Proof-of-Stake sought to provide sustainability and improved security through energy efficient staking and time-based confirmations (coin age).  Instead of electricity and computing power, time could be used as a verification method that would prevent many of the issues plaguing Proof-of-Work consensus.  Proof-of-Stake guards the blockchain, keeping users safe, while dynamic Proof-of-Work mining provides economic competition and maintains a balance in distribution.  Dynamic mining and staking allow for around 1% inflation a year, making it extremely practical for long term use.
+Since the creation of Bitcoin (Nakamoto 2008), Proof-of-Work has been the dominant design for security and distribution of peer-to-peer cryptocurrencies.  In 2012, Sunny King and Scott Nadal proposed an alternative form of consensus that remedied the energy inefficiencies of Bitcoin as well as improving the long-term decentralization of the system.   Proof-of-Work mining trends toward centralization due to the increased profits and production from large scale mining operations.  Proof-of-Stake, on the other hand, provides sustainable decentralization by allowing for a consensus protocol that can be run from a home computer without specialized hardware or massive energy use.  Instead of electricity and computing power, time and value invested in the system (coin age) is consumed to verify transactions, resolving many of the issues plaguing Proof-of-Work consensus.  To bootstrap the coin distribution, the intrinsic competition of Proof-of-Work is used alongside the security model of Proof-of-Stake to provide a fair and balanced system with no premine or initial coin offering. Proof-of-Stake safeguards the blockchain while a dynamic Proof-of-Work reward continues Peercoin's fair distribution model, resulting in an estimated 1-3% inflation each year for a practical long-term sustainable economic model.
 
-Since its first block in 2012, Peercoin has remained one of the most energy effective, secure, and size effective blockchains in existence. Many projects have been created using Proof-of-Stake or derivatives, and all can be traced back to Peercoin's original model. Off-chain transactions are extremely compatible with Proof-of-Stake, meaning future developments and scaling will be easy to develop and deploy with Peercoin.
+Since its first block in 2012, Peercoin has remained one of the most energy efficient, secure, and size effective blockchains in existence. Many projects have picked up the torch of using Proof-of-Stake or its derivatives, and all can be traced back to Peercoin's original model. The efficient security of Peercoin naturally acts as a backbone layer, simplifying the deployment of future scaling solutions.
 
 ## Peercoin University
 
@@ -28,44 +28,41 @@ Since its first block in 2012, Peercoin has remained one of the most energy effe
 
 # Comparison with other blockchain networks
 
-Peercoin is best compared with its sibling - Bitcoin; however in the following table we'll show how it bodes against something vastly different like Ethereum. Peercoin was invented as response to increasing doubts on Bitcoin's PoW consensus model with regards to its increasing centralization and conflict of interests between miners. Peercoin can be understood as a Proof-of-Stake clone of Bitcoin, though that is an oversimplification as Peercoin differs vastly - especially when it comes to economics and incentives of the system.
-Major differences between the two are the fee market, ie. the absence of it in Peercoin and Peercoin's dedication to continual token distribution via PoW block rewards while the Bitcoin's distribution rate (also PoW block rewards) is reduced geometrically every four years until it becomes zero.
+Historically, Peercoin originated as a fork of Bitcoin with added functionalities and protocol tuning to support Proof-of-Stake.  Peercoin was invented as a response to increasing concerns about the efficiency of the Bitcoin PoW consensus model, as well as its increasing centralization and conflict of interests between miners.  Peercoin keeps much of the core code from Bitcoin, though it fundamentally changes the consensus model as well as introducing a number of new protocol paradigms and economics, including breaking the deflationary model of Bitcoin in favor of a sane and accountable level of inflation.
+
+The fee market is also a subject where Peercoin and Bitcoin differ. By moving to a fixed-fee model, the entire perspective of the blocksize limit and blockchain bandwidth is flipped upside down. While Bitcoin has a fee market by which miners (PoW block creators) are paid to process transactions so that the total supply can remain deflationary, in Peercoin the minters (PoS block creators) are always rewarded for their participation with a proportional amount of inflation.  As such, Peercoin is free to burn the transaction fees such that the virtual-revenue of a transaction is shared by the entire network. By looking at the bandwidth problem as a community rather than individual nodes, we adopt a fixed fee level of 0.01 PPC/KB that allows for long-term prediction of transaction fee costs. The entirety of Peercoin's blockchain is on the order of 1 GB, so blocksize limitations have never been tested. However, there is vast consensus in the community that if the blocksize approached the current limit, the limit would be lifted.
 
 ## Consensus algorithm
 
-Peercoin is secured by Proof-of-Stake consensus. Proof-of-Work uses energy as a scarce resource as means of selecting a block producer, while Proof-of-Stake uses time as a scare resource measured in "coin age". Once a transaction has reached an age of thirty days, these coins become eligible for participation in consensus. Mature UTXOs are used as proof of stake and are presented as evidence throught the "coinstake" transaction of a new block. [Reference client](https://github.com/peercoin/peercoin) will try to find a new block once every second. If block is accepted by the network, a reward will be given to the minter. After ninety (90) days, a transaction reaches its maximum maturity and minting probability is at its highest. This minting can be done by simple, low energy computers, such as a raspberry pi, making the process energy efficient when compared to Proof-of-Work power consumption.
+Peercoin is secured by Proof-of-Stake consensus. Proof-of-Work uses computational power as a scarce resource as a means of selecting the producer of a block, while Proof-of-Stake uses time continuously invested in the system measured in "coin age". Once an output to a transaction has reached an age of 30 days, the coins at this output become mature and are eligible for participation in the consensus process. Mature outputs are used as proof of having a stake in the system and are presented as evidence through the "coinstake" transaction of a new block. Each second of the timestamp is used as the nonce in the block hashing function to try to achieve the target difficulty. In conjunction with the number of coins, the probability of minting is proportional to the number of days since the 30 day mark with a maximum of 90 days, at which point the output has reached maximum maturity. Upon minting, the output will gain a block reward that is linearly related to the coinage, and the stake used to mint will be locked for 520 blocks (about 3 days). Minting can be done on almost any computer with the standard client installed, including compact computers like raspberry pi's, making the process objectively energy efficient when compared with computational hash-based proof algorithms. Simply put, Peercoin evens out the race between high and low power computers by limiting the number of hashes you can perform to 1 per second.
 
-Another benefit of Peercoin's Proof-of-Stake mechanism is its monetary cost of attack. With Proof-of-Work, and individual can attempt to generate and verify faulty blocks without holding the Proof-of-Work coin or even a majority of the coin supply. Peercoin requires the  malicious individual to hold Peercoin with a coin age of thirty days minimum, as well as being required to hold a majority sum of the Peercoin supply, increasing their risk massively. This makes such an attack economically unviable. The requirement of those verifying the blockchain to hold a portion of the supply means investors are protected from malicious outside sources who hold no coins.  Those who hold Peercoin and use the network, share interest in the security of the chain.
+The Proof-of-Stake mechanism requires attackers to be monetarily invested in the system. They must undergo a good bit of opportunity cost as well as risking a large amount of stake in order to manipulate the consensus maliciously. In Proof-of-Work, any coordinated collection of powerful computers is a threat to the system. In Proof-of-Stake, any would-be attacker is conflicting with their own interests by attacking a system they are invested in. Beyond this base-level trust mechanism, giving the holders of the coins direct say over the protocol used to secure their stake generates more direct engagement between the the code and its users. The self-sufficiency of Peercoin is the ability to govern itself through an efficient consensus model that consolidates power in the hands of the users.
 
-## Distribution
+## Distribution and Block Rewards
 
-Peercoin is continually distributed via PoW block rewards. At the time of writing there is 27,264,390 PPC issued with annual inflation of 2.37%.
-The `MAX_MONEY` variable in the Peercoin source code is nothing but a placeholder.
-There is no final number of Peercoins issued, while inflation is steadily diverging toward fixed 1%.
-Peercoin PoW block reward is product of network Proof-of-Work hashrate: the higher the network hashrate, the lower the block reward.
-This mechanism is effectively "pegging" the issuance of Peercoins to the development of SHA256 ASIC miners. Reasoning behind this decision is that it's expected that development of SHA256 miners represents the level of advancement of general cryptocurrency scene, at least that is something that is visible to the blockchain and can be encoded into an algorithm.
+Peercoin is created through the process of creating blocks, both PoW and PoS, and has no true upper limit on supply (the 'MAX_MONEY' variable in the code is only used as a precaution). PoW block rewards are used to create a fair initial distribution of coins in the network. The algorithm for PoW rewards is logarithmically decaying as the difficulty and computational power of the network increases. The trending development of SHA256 ASIC miners as the industry standard allows for efficient distribution that naturally eclipses as cryptocurrency gains widespread adoption.
 
 Proof-of-Work reward formula is: `block_subsidy = 9999 / difficulty ^ (1/4)`
 
 Proof-of-Work coin mint rate is a function of difficulty, for every 16x in difficulty mint rate is halved.
 
-## Fee market
+PoS rewards are given to those securing the network against attackers and are determined by a linear function with two components. The first dynamic portion results in 3% of the coins used to mint annually. The second static portion results in an additional 0.25% inflation of the coin supply distributed evenly amongst the blocks expected in a year, which approximately equals 1.25 ppc but scales with the size of the supply.
 
-The fee market provides a mechanism to decide which transactions have priority over the others, and to create economic incentives for the transaction validators who usually claim the fees as rewards. Transaction fees are claimed by the block miner in both Bitcoin and Ethereum economic systems. This provides the miners the incentive to validate and include transactions in the blocks they mine. If Alice wants her transaction to be included in the next block, she should set transaction fee higher and pay more then other network users, ie. outbid them. It is presumed that miners, as rational subjects, will first include transactions which carry the most Bitcoin value. If Alice pays a transaction fee which is under the average fee at the time she might wait for several blocks (or hundreds of blocks) to see her transaction included and confirmed. So, it is obvious that the fee market serves as the incentive for miners to process and include the transactions in the blocks they mine.
-With Bitcoin's block size limit set to 1MB there exists an artificial upward pressure on the price of transaction fees - incentivizing miners to validate the transactions. This is especially important as Bitcoin's economy is expected to run on transaction fees alone when the block subsidies eventually stop.
+Proof-of-Stake reward formula is:
+Proof-of-Stake coin mint rate is ~3-5% interest per year
 
-Peercoin's fees are fixed at 0.01 PPC per kb and are burned. This is equivalent to paying the transaction fee to each Peercoin holder in proportion to their Peercoin holdings since the fee decreases the total supply of Peercoins. This property eliminates the need for a fee market on Peercoin's network and allows every transaction to get included in the very next block. Peercoin retains the 1MB block size limit as it is based on the Bitcoin code, but it has no intricate need to keep it. The block size limit will definitely be increased as Peercoin's network grows in usage. Peercoin developers have already hinted that Peercoin will feature a dynamic block size in the near future.
-Due to these economic properties of Peercoin a question arises: Why do Peercoin miners bother processing the transactions?
+At current network parameters, the inflation due to PoS is ~0.95%, while the inflation due to PoW is ~1.45%.  The total current annual inflation rate of ~2.4% is within the 1-3% window that is generally considered healthy for a currency or a broadly used unit of account.
 
-From a spectator looking at this from a Bitcoin oriented perspective the answer is that Peercoin block miners want to process transactions so they allow Peercoins to be burned - thus making their own stake in the network more valuable.
-However when the intricacies of PoS are learned it is understood that with Peercoin minters (PoS miners) include transactions because it doesn't cost much to include them, while producing empty blocks reduces the value of the blockchain, and therefore of their stake. The burned fees are not really an argument as the effect on their holdings is negligible.
-Bitcoin miners always start off mining an empty block, otherwise they lose the time it takes to validate the transactions and signatures, as time is money on the Bitcoin network. Only after they have validated the txns to include and have computed the merkle root, they start mining blocks with txns.
-While for PoS, the time advantage is negligible as you can still use the stake hash of a few seconds ago. (hrobeers, 30.08.2017)
+## Burned and Fixed Fees
+Peercoin's fees are fixed at 0.01 PPC per kB and are naturally burned with each transaction. The ease of provably burning coins is in contrast to many Proof-of-Work coins that recycle their transaction fees to miners in order to prepare for deflationary economies. Recycling fees back to block producers results in a 'fee market' that is inefficient and burdensome to the user experience. Peercon's economics allow for decentralized burning of a fixed fee when using the common resource of the Peercoin blockchain. As a result, block size limitations that plague other cryptocurrencies are not relevant to Peercoin. While the block size in Peercoin is set at 1 MB to protect against attacks, the community has been clear that higher blocksizes would be welcomed if the enhanced throughput were needed. As of writing, the Peercoin blockchain is very small (~1GB) and the fees are very low (~$0.005/txn), due in large part to the burned fixed-fee approach.
+
+Peercoin block producers are motivated to include transactions in a block because the reduction in supply from burning fees increases the relative value of their stake. Proof-of-Work has inherent issues with this concept because every bit of computation resource is needed to find a block, so addition of transactions must be motivated by recycled fees. In Proof-of-Stake, the computation required in order to mint is minimal such that including transactions comes at practically no cost to the block producer.
 
 ## Block size limit and block time spacing
 
+We will now compare Peercoin's network parameters directly with Bitcoin and Ethereum, which are vastly different blockchains.
 Bitcoin features the 1MB block size limits which serves to place the upward pressure on the transaction fee price, Peercoin copies this parameter from the Bitcoin but it's economic model does not depend on scarcity of the block space.
-While block generation is a stochastic process, each chain is targeted to generate blocks based on a real time interval. Bitcoin generates a block every 10 minutes, akin to Peercoin PoS block generation, while Ethereum generates a block every 12 seconds.  Peercoin PoW block generation is coupled to PoS block generation as well as PoW hash power and is therefore difficult to approximate, but the total block time of Peercoin can be empirically estimated to be around 8.5 minutes. Considering this and the block size limit of 1MB, Bitcoin has a transaction per second (TPS) of about 7 tps, Peercoin has an estimated 8 tps, and Ethereum has about 25 tps.
+While block generation is a stochastic process, each chain is targeted to generate blocks based on a real time interval. Bitcoin generates a block every 10 minutes, akin to Peercoin PoS block generation, while Ethereum generates a block every 12 seconds.  Peercoin PoW block generation is targeted at 1 hour, such that the total block time of Peercoin can be empirically estimated to be 8.57 minutes. Considering this and the block size limit of 1MB, Bitcoin has a transaction per second (TPS) of about 7 tps, Peercoin has an estimated 8 tps, and Ethereum has about 25 tps. However, it should be understood that Peercoin has never hit this transaction rate consistently, and the block size limit would very likely be raised if this were to happen.
 
 <table>
 <thead>
@@ -111,9 +108,9 @@ While block generation is a stochastic process, each chain is targeted to genera
 </tr>
 <tr>
 <td>Transaction fee:</td>
-<td>Fee market (~390 satoshis/byte)</td>
-<td>Static 0.01 PPC/kb (~0.2 Btc satoshis/byte)</td>
-<td>Fee market (~23 Gwei/byte)</td>
+<td>Fee market (~100 satoshis/byte, ~$20/txn)</td>
+<td>Static (0.01 PPC/kb, ~$0.005/txn)</td>
+<td>Fee market (~100 Gwei/byte, ~$20/txn)</td>
 </tr>
 <tr>
 <td>Estimated transaction bandwidth:</td>
@@ -124,7 +121,7 @@ While block generation is a stochastic process, each chain is targeted to genera
 <tr>
 <td>Block time:</td>
 <td>10 minutes</td>
-<td>8.5 minutes</td>
+<td>8.57 minutes</td>
 <td>12 seconds</td>
 </tr>
 <tr>
@@ -178,17 +175,11 @@ Table 1. Comparison of Crypto currency attributes
 - [Twitter](https://twitter.com/PeercoinPPC)
 - [LinkedIn](https://www.linkedin.com/company/the-peercoin-foundation/)
 
-## News
-
-- [Team Updates](https://talk.peercoin.net/c/official-updates)
-
-## Blog
+## Publications and Collections
 
 - [Medium](https://medium.com/peercoin)
-
-## Peercoin myths
-
-- [Forum](https://talk.peercoin.net/t/pillows-peercoin-myths/2518)
+- [Peercoin University](https://university.peercoin.net/)
+- [Common Myths](https://talk.peercoin.net/t/pillows-peercoin-myths/2518)
 
 ## Tools
 
@@ -209,6 +200,7 @@ Testnet
 
 ### Other
 
+- [Charts](https://www.peercoinexplorer.net/charts/)
 - [Inflation](https://www.peercoinexplorer.net/inflation/)
 - [Mempool](https://www.peercoinexplorer.net/mempool/)
 - [Energy Statistics](https://www.peercoin.site/#energytable)
@@ -223,11 +215,11 @@ The Peercoin Foundation was publicly announced on May 13, 2018.<sup>[5.1](#footn
 
 ## Mission
 
-The Foundation was established with the simple mission of promoting and supporting the continued education, development, and overall progression of the Peercoin project. It seeks to empower future Peercoin team members by providing the tools necessary to perpetuate Peercoin's long standing reputation for bringing world-first innovations to the Blockchain.<sup>[5.2](#footnote-5.2)</sup>
+The Foundation was established with the simple mission of promoting and supporting the continued education, development, and overall progression of the Peercoin project. It seeks to empower future Peercoin team members by providing the tools necessary to perpetuate Peercoin's long standing reputation for bringing world-first innovations to the Blockchain.<sup>[5.2](#footnote-5.2)</sup>  Peercoin is a decentralized open-source project, but the Foundation is a caretaking central body that can act as a contact point for interested parties.
 
 ## Funding
 
-To accomplish its mission The Foundation raises funds from donations to the multi-signature address: `p92W3t7YkKfQEPDb7cG9jQ6iMh7cpKLvwK`<sup>[5.2](#footnote-5.2)</sup>
+To accomplish its mission The Foundation raises funds from donations.  It is a non-profit and works within the budget set by the generosity of the Peercoin community.<sup>[5.2](#footnote-5.2)</sup>
 
 ## Board of Directors
 
@@ -844,19 +836,18 @@ http://uberpay.io/
 
 > PeerAssets offers the framework that enables communities and organizations to issue and transact with blockchain assets.
 
-PeerAssets is a Peercoin in-house developed blockchain token protocol. At the time of writing PeerAssets is tailored to work with the Peercoin blockchain, however there are plans to port the technology to other blockchains like Bitcoin and allow for cross-chain compatibility. PeerAssets is as minimalist as possible, seeking to find the most efficient and affordable method for a blockchain to support tokenization.
+PeerAssets is a blockchain token protocol invented in 2016 by `peerchemist` as a minimalist method to efficiently support tokenization.  PeerAssets is tailored to work with the Peercoin blockchain, however its design is general and can be ported to other blockchains like Bitcoin with cross-chain compatibility.
 PeerAssets transactions are standard Peercoin transactions, relayed by the standard nodes and processed by miners as any other transaction. Unlike many similar protocols ([Omni](http://www.omnilayer.org/), [CounterParty](http://counterparty.io/)), PeerAssets does not use so called "auxilary" tokens (Omni and XCP respectively), it only uses blockchain's native currency which is used to pay transaction fees. PeerAssets protocol does not require hard nor soft fork of the host network, but it requires development of a PeerAssets aware client. PeerAssets is also inspired by the original idea of "Colored Coins" and uses OP_RETURN to write data on the blockchain, but offers some optimizations to reduce amount of data written in the OP_RETURN and reducing blockchain bloat.
 PeerAssets enables easy querying of the blockchain for relevant transactions via the use P2TH, which allows development of very light clients and does not mandate the use of resource intense blockchain-parsing nodes which are common with competing protocols.
 
-PeerAsset protocol based assets can be utilized to represent any type of asset like bonds or equity. PeerAssets can also represent real life objects, and by doing so confirm their existence on the blockchain.
+PeerAsset tokens can be utilized to represent any type of asset like bonds or equity. PeerAssets can also represent real life objects in the form of non-fungible tokens, and allow for authentification via the blockchain.  The possibilities are wide enough to encompass most use cases for tokenization, without sacrificing the efficiency of the design.
 
-PeerAssets was invented in 2016, and the whitepaper was released in April, 2016 by `peerchemist`.
 
 ### Nomenclature
 
-PeerAssets uses a somewhat different phrasing to describe the protocol and it's interactions. In PeerAssets terminology assets are named “decks” and each transaction on the deck is called a “card”. Decks and cards are types of transactions parsed by the PeerAsset client to understand the bigger picture and calculate the cards balances and thus the state of the deck.
+PeerAssets uses a friendly phrasing to succinctly describe the protocol and it's interactions. In PeerAssets terminology assets are named “decks” and each transaction on the deck is called a “card”. Deck creation and card manipulation are types of transactions parsed by the PeerAsset client, which uses the known protocol rules to calculate card balances and the total state of the deck.  A deck with a single card, for example, would act as a non-fungible token.
 
-`Deck - asset`
+`Deck - named asset`
 
 `Card - individual token`
 
@@ -872,7 +863,7 @@ Creates a new token at a given Peercoin address. Asset is described by:
 * how divisible the token is (number of decimals),
 * the deck issue mode.
 
-Deck issue modes can be understood as light smart contracts, speaking in modern crypto jargon as they allow great flexibility when defining rules of token supply.
+Deck issue modes can be understood as light smart contracts as they allow great flexibility when defining common rules of token economics such as ONCE, MULTI, or CUSTOM.
 
 * **Card issue transaction**
 
@@ -906,13 +897,9 @@ PeerAssets API provider, implemented using pypeerassets.
 
 github: https://github.com/PeerAssets/papi
 
-deployed: https://papi.peercoin.net/api/v1/decks
-
 ## Wallets
 
 ### chizukeki
-
-(work in progress)
 
 A light, cross-platform Peercoin wallet with baked-in support for the PeerAssets.
 
@@ -925,7 +912,7 @@ deployed: https://peerassets.github.io/chizukeki/
 The PeerAssets project has adopted [RFC](https://en.wikipedia.org/wiki/Request_for_Comments) schema of sharing new ideas and establishing standards like the Peercoin project.
 RFC's are submitted on the PeerAssets [github repo](https://github.com/PeerAssets/peerassets-rfcs) and peer-reviewed, after which code experimentation and final implementation proceeds.
 
-There is a number of interesting RFC which are currently discussed, such as:
+Some RFCs that show the wide array of possible applications for PeerAssets includes:
 
 [PeerAssets Alias/Proof-of-identity protocol specification](https://github.com/PeerAssets/peerassets-rfcs/blob/master/0003-peerassets-alias-poid-protocol-specification.md)
 
